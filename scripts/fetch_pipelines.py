@@ -4,12 +4,12 @@ Fetch pipeline metadata from Databricks and output to JSON.
 Jobs are discovered automatically by filtering for databricks=job tag.
 
 Optional additional tags on jobs:
-    schedule: Daily at 14:00 UTC
-    category: precipitation, daily, climate
-    output_schema: Comma-separated list of output schemas (e.g., storms.nhc_tracks)
+    type: Comma-separated categories (e.g., storms, rainfall)
+    status: Job status (e.g., development)
+    output_schema: Comma-separated list of output tables (e.g., storms.nhc_tracks)
 
 Usage:
-    python fetch_pipelines.py
+    uv run scripts/fetch_pipelines.py
 
 Environment variables (via .env file or environment):
     DATABRICKS_HOST: Your Databricks workspace URL
@@ -20,6 +20,8 @@ import json
 from datetime import datetime, timezone
 from pathlib import Path
 
+from cron_descriptor import Options, get_description
+from croniter import croniter
 from databricks.sdk import WorkspaceClient
 from databricks.sdk.service.jobs import BaseJob, RunLifeCycleState, RunResultState
 from dotenv import load_dotenv
@@ -27,6 +29,14 @@ from ocha_stratus import get_engine
 from sqlalchemy import text
 
 load_dotenv()
+
+
+def quartz_to_standard_cron(quartz_cron: str) -> str | None:
+    """Convert Quartz cron (6-7 fields with seconds) to standard cron (5 fields)."""
+    parts = quartz_cron.split()
+    if len(parts) >= 6:
+        return " ".join(parts[1:6])  # Skip seconds, take min hour dom month dow
+    return None
 
 
 def get_output_schemas(job: BaseJob) -> list[str]:
@@ -41,11 +51,9 @@ def fetch_table_schema(engine, full_table_name: str) -> dict | None:
     """Fetch column definitions for a table from the database."""
     parts = full_table_name.split(".")
     if len(parts) != 2:
-        print(f"Invalid table name format: {full_table_name}")
         return None
 
     schema_name, table_name = parts
-    print(f"Querying schema for {schema_name}.{table_name}...")
 
     query = text("""
         SELECT
@@ -88,12 +96,8 @@ def fetch_table_schema(engine, full_table_name: str) -> dict | None:
             columns.append(col)
 
         if columns:
-            print(f"  Found {len(columns)} columns")
             return {"table": full_table_name, "columns": columns}
-        else:
-            print("  No columns found - table may not exist")
-            return None
-
+        return None
 
 
 def fetch_all_schemas(output_schemas: list[str], engine) -> list[dict]:
@@ -104,6 +108,7 @@ def fetch_all_schemas(output_schemas: list[str], engine) -> list[dict]:
         if schema:
             schemas.append(schema)
     return schemas
+
 
 def get_jobs(client: WorkspaceClient) -> list[BaseJob]:
     """Discover all jobs with databricks=job tag."""
@@ -118,7 +123,6 @@ def get_job_tasks(job: BaseJob, client: WorkspaceClient) -> list[dict]:
     if not job.settings or not job.settings.tasks:
         return []
 
-    # Git source at job level
     job_git_url = None
     if job.settings.git_source:
         job_git_url = job.settings.git_source.git_url
@@ -136,8 +140,8 @@ def get_job_tasks(job: BaseJob, client: WorkspaceClient) -> list[dict]:
                 nested_job = client.jobs.get(task.run_job_task.job_id)
                 if nested_job.settings and nested_job.settings.git_source:
                     git_url = nested_job.settings.git_source.git_url
-            except Exception as e:
-                print(f"Error fetching nested job {task.run_job_task.job_id}: {e}")
+            except Exception:
+                pass
 
         tasks.append({"name": task.task_key, "git_url": git_url})
 
@@ -159,38 +163,53 @@ def get_job_status(job: BaseJob) -> str | None:
     return job.settings.tags.get("status")
 
 
-def get_job_schedule(job) -> str | None:
+def get_job_schedule(job: BaseJob) -> str | None:
     """Extract schedule from job settings and convert to plain English."""
-    from cron_descriptor import Options, get_description
-
     if not job.settings:
         return None
 
     # Check for cron-based schedule
     if job.settings.schedule and job.settings.schedule.quartz_cron_expression:
-        cron = job.settings.schedule.quartz_cron_expression
-        # Quartz has 6-7 fields (with seconds), cron-descriptor expects 5-6
-        # Remove the seconds field for standard cron format
-        parts = cron.split()
-        if len(parts) >= 6:
-            cron_5 = " ".join(parts[1:6])  # Skip seconds, take min hour dom month dow
+        cron_5 = quartz_to_standard_cron(job.settings.schedule.quartz_cron_expression)
+        if cron_5:
             try:
                 options = Options()
                 options.use_24hour_time_format = True
                 description = get_description(cron_5, options)
                 return f"{description} UTC"
             except Exception:
-                return cron
+                return job.settings.schedule.quartz_cron_expression
 
     # Check for trigger-based schedule (periodic)
     if job.settings.trigger and job.settings.trigger.periodic:
         periodic = job.settings.trigger.periodic
-        interval = periodic.interval
-        unit = periodic.unit
-        if unit:
-            return f"Every {interval} {unit.value.lower()}"
+        if periodic.unit:
+            return f"Every {periodic.interval} {periodic.unit.value.lower()}"
 
     return None
+
+
+def get_next_run(job: BaseJob) -> str | None:
+    """Calculate next scheduled run time from cron expression."""
+    if not job.settings or not job.settings.schedule:
+        return None
+
+    cron = job.settings.schedule.quartz_cron_expression
+    if not cron:
+        return None
+
+    cron_5 = quartz_to_standard_cron(cron)
+    if not cron_5:
+        return None
+
+    try:
+        now = datetime.now(timezone.utc)
+        cron_iter = croniter(cron_5, now)
+        next_dt = cron_iter.get_next(datetime)
+        next_dt = next_dt.replace(tzinfo=timezone.utc)
+        return next_dt.isoformat().replace("+00:00", "Z")
+    except Exception:
+        return None
 
 
 def map_status(run) -> str:
@@ -202,8 +221,7 @@ def map_status(run) -> str:
         return "running"
     elif run.state.result_state == RunResultState.SUCCESS:
         return "success"
-    else:
-        return "failed"
+    return "failed"
 
 
 def epoch_to_iso(epoch_ms: int) -> str:
@@ -211,18 +229,9 @@ def epoch_to_iso(epoch_ms: int) -> str:
     return datetime.fromtimestamp(epoch_ms / 1000, tz=timezone.utc).isoformat().replace("+00:00", "Z")
 
 
-def build_run_url(host: str, run) -> str | None:
-    """Build URL to the run in Databricks UI."""
-    if not run:
-        return None
-    return f"{host}/jobs/{run.job_id}/runs/{run.run_id}"
-
-
 def fetch_pipeline_data(client: WorkspaceClient, db_engine) -> dict:
     """Fetch data for all discovered jobs."""
-    host = client.config.host.rstrip("/")
     jobs = get_jobs(client)
-
     print(f"Found {len(jobs)} jobs with databricks=job tag")
 
     output = {
@@ -231,24 +240,17 @@ def fetch_pipeline_data(client: WorkspaceClient, db_engine) -> dict:
     }
 
     for job in jobs:
-        # Get full job details (list() doesn't include tasks)
         try:
             full_job = client.jobs.get(job.job_id)
         except Exception as e:
-            print(f"Error fetching job details for {job.job_id}: {e}")
+            print(f"Error fetching job {job.job_id}: {e}")
             full_job = job
 
         job_name = full_job.settings.name if full_job.settings else f"Job {job.job_id}"
-        tasks = get_job_tasks(full_job, client)
-        schedule = get_job_schedule(full_job)
-        tags = get_job_tags(full_job)
-        job_status = get_job_status(full_job)
-        output_schemas = get_output_schemas(full_job)
 
         # Fetch schema definitions from database
-        schema_definitions = []
-        if output_schemas and db_engine:
-            schema_definitions = fetch_all_schemas(output_schemas, db_engine)
+        output_schemas = get_output_schemas(full_job)
+        schema_definitions = fetch_all_schemas(output_schemas, db_engine) if output_schemas else []
 
         # Get latest run
         latest_run = None
@@ -256,15 +258,14 @@ def fetch_pipeline_data(client: WorkspaceClient, db_engine) -> dict:
             runs = list(client.jobs.list_runs(job_id=job.job_id, limit=1))
             if runs:
                 latest_run = runs[0]
-        except Exception as e:
-            print(f"Error fetching runs for job {job.job_id}: {e}")
+        except Exception:
+            pass
 
         # Build last run info
         last_run_data = None
         if latest_run:
             start_time = latest_run.start_time
             end_time = latest_run.end_time
-
             duration_min = None
             if start_time and end_time:
                 duration_min = int((end_time - start_time) / 1000 / 60)
@@ -276,38 +277,15 @@ def fetch_pipeline_data(client: WorkspaceClient, db_engine) -> dict:
                 "status": map_status(latest_run),
             }
 
-        # Get next scheduled run time
-        next_run = None
-        if full_job.settings and full_job.settings.schedule:
-            cron = full_job.settings.schedule.quartz_cron_expression
-            if cron:
-                from croniter import croniter
-                # Convert Quartz (6-7 fields) to standard cron (5 fields)
-                parts = cron.split()
-                if len(parts) >= 6:
-                    cron_5 = " ".join(parts[1:6])
-                    try:
-                        now = datetime.now(timezone.utc)
-                        cron_iter = croniter(cron_5, now)
-                        next_dt = cron_iter.get_next(datetime)
-                        # croniter returns naive datetime, add UTC timezone
-                        next_dt = next_dt.replace(tzinfo=timezone.utc)
-                        next_run = next_dt.isoformat().replace("+00:00", "Z")
-                    except Exception as e:
-                        print(f"Error calculating next run for {job_name}: {e}")
-        # Also check for periodic triggers
-        elif full_job.settings and full_job.settings.trigger and full_job.settings.trigger.periodic:
-            # For periodic triggers, we can't easily calculate next run
-            pass
-
         output["pipelines"].append({
             "name": job_name,
-            "tasks": tasks,
-            "schedule": schedule,
+            "description": full_job.settings.description if full_job.settings else None,
+            "tasks": get_job_tasks(full_job, client),
+            "schedule": get_job_schedule(full_job),
             "last_run": last_run_data,
-            "next_run": next_run,
-            "tags": tags,
-            "job_status": job_status,
+            "next_run": get_next_run(full_job),
+            "tags": get_job_tags(full_job),
+            "job_status": get_job_status(full_job),
             "output_schemas": schema_definitions,
         })
 
@@ -318,7 +296,6 @@ def main():
     client = WorkspaceClient()
     print(f"Fetching pipeline data from {client.config.host}...")
 
-    # Connect to database for schema lookups
     print("Connecting to database...")
     db_engine = get_engine(stage="dev")
 
