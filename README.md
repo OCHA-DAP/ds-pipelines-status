@@ -52,3 +52,4 @@ Jobs are discovered automatically by filtering for the `databricks=job` tag. Add
 |-----|-------------|
 | `type` | Comma-separated categories (e.g., `precipitation,daily`) |
 | `status` | Set to `development` to highlight the row as in-progress |
+| `output_schema` | Comma-separated list of output tables (e.g., `storms.nhc_tracks,storms.nhc_forecasts`) |
