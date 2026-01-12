@@ -41,8 +41,8 @@ Then open http://localhost:8000 in your browser.
 
 The GitHub Action in `.github/workflows/update.yml` runs every 4 hours to fetch the latest pipeline status and commit any changes. It requires the following repository secrets:
 
-- `DSCI_DATABRICKS_HOST`
-- `DSCI_DATABRICKS_TOKEN`
+- `DATABRICKS_HOST`
+- `DATABRICKS_TOKEN`
 
 ## Job configuration
 

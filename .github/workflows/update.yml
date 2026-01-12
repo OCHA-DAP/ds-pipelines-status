@@ -22,6 +22,9 @@ jobs:
         env:
           DATABRICKS_HOST: ${{ secrets.DSCI_DATABRICKS_HOST }}
           DATABRICKS_TOKEN: ${{ secrets.DSCI_DATABRICKS_TOKEN }}
+          DSCI_AZ_DB_PROD_PW: ${{ secrets.DSCI_AZ_DB_PROD_PW }}
+          DSCI_AZ_DB_PROD_UID: ${{ secrets.DSCI_AZ_DB_PROD_UID }}
+          DSCI_AZ_DB_PROD_HOST: ${{ secrets.DSCI_AZ_DB_PROD_HOST }}
         run: uv run scripts/fetch_pipelines.py
 
       - name: Commit if changed
