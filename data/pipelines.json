@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-12T18:49:42.607381Z",
+  "generated_at": "2026-01-12T20:10:41.254482Z",
   "pipelines": [
     {
       "name": "Run NHC",
@@ -18,7 +18,9 @@
       },
       "next_run": null,
       "tags": [
-        "storms"
+        "storms",
+        "forecast",
+        "north america"
       ],
       "job_status": "development"
     },
@@ -39,7 +41,8 @@
       },
       "next_run": null,
       "tags": [
-        "storms"
+        "storms",
+        "forecast"
       ],
       "job_status": "development"
     },
@@ -87,9 +90,10 @@
         "duration_min": 7,
         "status": "failed"
       },
-      "next_run": "2026-01-12T20:00:00Z",
+      "next_run": "2026-01-13T20:00:00Z",
       "tags": [
-        "floods"
+        "floods",
+        "africa"
       ],
       "job_status": null
     },
@@ -164,7 +168,8 @@
       },
       "next_run": "2026-02-05T12:30:00Z",
       "tags": [
-        "rainfall"
+        "rainfall",
+        "forecast"
       ],
       "job_status": null
     }
