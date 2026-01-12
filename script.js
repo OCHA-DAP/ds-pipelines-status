@@ -57,6 +57,31 @@ function formatColumnType(col) {
   return type;
 }
 
+function formatNumber(num) {
+  return num.toLocaleString();
+}
+
+function formatDateOnly(isoString) {
+  const date = new Date(isoString);
+  return date.toLocaleString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+    timeZone: 'UTC'
+  });
+}
+
+function formatTimestampRange(ranges) {
+  if (!ranges || Object.keys(ranges).length === 0) return '';
+  const items = Object.entries(ranges).map(([col, stats]) => {
+    const parts = [];
+    if (stats.min) parts.push(`min: ${formatDateOnly(stats.min)}`);
+    if (stats.max) parts.push(`max: ${formatDateOnly(stats.max)}`);
+    return `<span class="ts-range"><strong>${col}</strong>: ${parts.join(', ')}</span>`;
+  });
+  return items.join('');
+}
+
 function renderSchemaTable(schema) {
   const columnsHtml = schema.columns.map(col => `
     <tr>
@@ -67,9 +92,20 @@ function renderSchemaTable(schema) {
     </tr>
   `).join('');
 
+  const rowCount = schema.row_count !== undefined ? formatNumber(schema.row_count) : null;
+  const tsRanges = formatTimestampRange(schema.timestamp_ranges);
+
+  const statsHtml = (rowCount || tsRanges) ? `
+    <div class="schema-stats">
+      ${rowCount ? `<span class="stat-item"><strong>Rows:</strong> ${rowCount}</span>` : ''}
+      ${tsRanges}
+    </div>
+  ` : '';
+
   return `
     <div class="schema-table">
       <h3>${schema.table}</h3>
+      ${statsHtml}
       <table>
         <thead>
           <tr>

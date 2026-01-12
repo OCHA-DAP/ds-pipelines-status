@@ -47,6 +47,52 @@ def get_output_schemas(job: BaseJob) -> list[str]:
     return [s.strip() for s in schema_tag.split(",") if s.strip()]
 
 
+def fetch_table_stats(engine, schema_name: str, table_name: str, timestamp_columns: list[str]) -> dict:
+    """Fetch row count (from pg stats) and min/max for timestamp columns."""
+    full_table = f'"{schema_name}"."{table_name}"'
+    stats: dict = {}
+
+    try:
+        with engine.connect() as conn:
+            # Use pg_stat estimate for row count (much faster than COUNT(*))
+            count_query = text("""
+                SELECT reltuples::bigint
+                FROM pg_class c
+                JOIN pg_namespace n ON n.oid = c.relnamespace
+                WHERE n.nspname = :schema AND c.relname = :table
+            """)
+            result = conn.execute(count_query, {"schema": schema_name, "table": table_name})
+            row_count = result.scalar()
+            if row_count is not None and row_count >= 0:
+                stats["row_count"] = row_count
+
+            # Get min/max for timestamp columns in a single query
+            if timestamp_columns:
+                select_parts = [f'MIN("{col}"), MAX("{col}")' for col in timestamp_columns]
+                minmax_query = text(f"SELECT {', '.join(select_parts)} FROM {full_table}")
+                result = conn.execute(minmax_query)
+                row = result.fetchone()
+
+                ts_stats = {}
+                for i, col in enumerate(timestamp_columns):
+                    min_val = row[i * 2]
+                    max_val = row[i * 2 + 1]
+                    if min_val is not None or max_val is not None:
+                        col_stats = {}
+                        if min_val is not None:
+                            col_stats["min"] = min_val.isoformat().replace("+00:00", "Z") if hasattr(min_val, 'isoformat') else str(min_val)
+                        if max_val is not None:
+                            col_stats["max"] = max_val.isoformat().replace("+00:00", "Z") if hasattr(max_val, 'isoformat') else str(max_val)
+                        if col_stats:
+                            ts_stats[col] = col_stats
+                if ts_stats:
+                    stats["timestamp_ranges"] = ts_stats
+    except Exception:
+        pass
+
+    return stats
+
+
 def fetch_table_schema(engine, full_table_name: str) -> dict | None:
     """Fetch column definitions for a table from the database."""
     parts = full_table_name.split(".")
@@ -75,14 +121,19 @@ def fetch_table_schema(engine, full_table_name: str) -> dict | None:
         ORDER BY c.ordinal_position
     """)
 
+    timestamp_types = {'timestamp without time zone', 'timestamp with time zone', 'date', 'time without time zone', 'time with time zone'}
+
     with engine.connect() as conn:
         result = conn.execute(query, {"schema": schema_name, "table": table_name})
         columns = []
+        timestamp_columns = []
         for row in result:
             r = row._mapping
+            col_name = r["column_name"]
+            data_type = r["data_type"]
             col = {
-                "name": r["column_name"],
-                "type": r["data_type"],
+                "name": col_name,
+                "type": data_type,
                 "nullable": r["is_nullable"] == "YES",
             }
             if r["character_maximum_length"]:
@@ -95,8 +146,15 @@ def fetch_table_schema(engine, full_table_name: str) -> dict | None:
                 col["comment"] = r["column_comment"]
             columns.append(col)
 
+            if data_type in timestamp_types:
+                timestamp_columns.append(col_name)
+
         if columns:
-            return {"table": full_table_name, "columns": columns}
+            schema_data = {"table": full_table_name, "columns": columns}
+            # Fetch table stats
+            stats = fetch_table_stats(engine, schema_name, table_name, timestamp_columns)
+            schema_data.update(stats)
+            return schema_data
         return None
 
 

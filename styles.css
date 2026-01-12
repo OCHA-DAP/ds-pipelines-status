@@ -253,7 +253,21 @@ tr.development td {
   font-size: 14px;
   font-weight: 600;
   color: #007CE0;
+  margin-bottom: 8px;
+}
+
+.schema-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
   margin-bottom: 12px;
+  font-size: 13px;
+  color: #666;
+}
+
+.schema-stats .stat-item,
+.schema-stats .ts-range {
+  display: inline-block;
 }
 
 .schema-table table {

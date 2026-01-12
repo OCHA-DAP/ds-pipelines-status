@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-12T21:24:17.133243Z",
+  "generated_at": "2026-01-12T21:43:11.356964Z",
   "pipelines": [
     {
       "name": "Run NHC",
@@ -83,7 +83,8 @@
               "type": "character varying",
               "nullable": false
             }
-          ]
+          ],
+          "row_count": 1772
         },
         {
           "table": "storms.ecmwf_tracks_geo",
@@ -151,7 +152,18 @@
               "type": "USER-DEFINED",
               "nullable": true
             }
-          ]
+          ],
+          "row_count": 1202593,
+          "timestamp_ranges": {
+            "issued_time": {
+              "min": "2006-10-01T00:00:00",
+              "max": "2025-12-16T12:00:00"
+            },
+            "valid_time": {
+              "min": "2006-10-01T00:00:00",
+              "max": "2025-12-26T12:00:00"
+            }
+          }
         }
       ]
     },
@@ -222,7 +234,8 @@
               "type": "character varying",
               "nullable": true
             }
-          ]
+          ],
+          "row_count": 13546
         },
         {
           "table": "storms.ibtracs_tracks_geo",
@@ -318,7 +331,14 @@
               "type": "USER-DEFINED",
               "nullable": false
             }
-          ]
+          ],
+          "row_count": 285645,
+          "timestamp_ranges": {
+            "valid_time": {
+              "min": "1848-01-11T06:00:00",
+              "max": "2026-01-11T00:00:00"
+            }
+          }
         }
       ]
     },
@@ -425,7 +445,14 @@
               "nullable": true,
               "precision": 24
             }
-          ]
+          ],
+          "row_count": 41995664,
+          "timestamp_ranges": {
+            "valid_date": {
+              "min": "1998-01-12",
+              "max": "2026-01-09"
+            }
+          }
         }
       ]
     },
@@ -522,7 +549,14 @@
               "nullable": true,
               "precision": 24
             }
-          ]
+          ],
+          "row_count": 4097307,
+          "timestamp_ranges": {
+            "valid_date": {
+              "min": "1981-01-01",
+              "max": "2025-12-01"
+            }
+          }
         }
       ]
     },
@@ -619,7 +653,14 @@
               "nullable": true,
               "precision": 24
             }
-          ]
+          ],
+          "row_count": 69625560,
+          "timestamp_ranges": {
+            "valid_date": {
+              "min": "2000-06-01",
+              "max": "2026-01-11"
+            }
+          }
         }
       ]
     },
@@ -728,7 +769,18 @@
               "nullable": true,
               "precision": 24
             }
-          ]
+          ],
+          "row_count": 27203108,
+          "timestamp_ranges": {
+            "valid_date": {
+              "min": "1981-01-01",
+              "max": "2026-07-01"
+            },
+            "issued_date": {
+              "min": "1981-01-01",
+              "max": "2026-01-01"
+            }
+          }
         }
       ]
     }
