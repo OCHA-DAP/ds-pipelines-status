@@ -1,8 +1,9 @@
 {
-  "generated_at": "2026-01-12T19:31:49.336024Z",
+  "generated_at": "2026-01-12T20:06:24.071064Z",
   "pipelines": [
     {
       "name": "Run NHC",
+      "description": "Retrieve tropical cyclones forecasts from the NOAA [National Hurricane Center](https://www.nhc.noaa.gov/)",
       "tasks": [
         {
           "name": "download_nhc",
@@ -19,7 +20,8 @@
       "next_run": null,
       "tags": [
         "storms",
-        "forecast"
+        "forecast",
+        "north america"
       ],
       "job_status": "development",
       "output_schemas": [
@@ -207,6 +209,7 @@
     },
     {
       "name": "Run ECMWF Storms",
+      "description": "Retrieve ECMWF global storm forecasts from the [Geoscience Data Exchange](https://gdex.ucar.edu/datasets/d330003/)",
       "tasks": [
         {
           "name": "download_ecmwf",
@@ -335,6 +338,7 @@
     },
     {
       "name": "Run IBTrACS",
+      "description": "Retrieve best track cyclone data from [IBTrACS](https://www.ncei.noaa.gov/products/international-best-track-archive)",
       "tasks": [
         {
           "name": "download_ibtracs",
@@ -501,6 +505,7 @@
     },
     {
       "name": "Run FloodScan",
+      "description": "Get SFED and MFED flood fraction estimates from [AER](https://published.aer.com/floodscan/aer_floodscan_support.html)",
       "tasks": [
         {
           "name": "download_floodscan",
@@ -522,9 +527,10 @@
         "duration_min": 7,
         "status": "failed"
       },
-      "next_run": "2026-01-12T20:00:00Z",
+      "next_run": "2026-01-13T20:00:00Z",
       "tags": [
-        "floods"
+        "floods",
+        "africa"
       ],
       "job_status": null,
       "output_schemas": [
@@ -606,6 +612,7 @@
     },
     {
       "name": "Run ERA5",
+      "description": "Get ECMWF's ERA5 reanalysis precipitation from the [Copernicus Climate Data Store](https://cds.climate.copernicus.eu/)",
       "tasks": [
         {
           "name": "download_era5",
@@ -702,6 +709,7 @@
     },
     {
       "name": "Run IMERG",
+      "description": "Retrieve NASA's [IMERG precipitation data](https://gpm.nasa.gov/data/imerg)",
       "tasks": [
         {
           "name": "download_imerg",
@@ -798,6 +806,7 @@
     },
     {
       "name": "Run SEAS5",
+      "description": "Retrieve the ECMWF [SEAS5](https://www.ecmwf.int/en/newsletter/154/meteorology/ecmwfs-new-long-range-forecasting-system-seas5) seasonal precipitation forecasts",
       "tasks": [
         {
           "name": "download_seas5",

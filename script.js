@@ -42,6 +42,11 @@ function formatFutureTime(isoString) {
   return `in ${diffDays}d`;
 }
 
+function renderMarkdown(text) {
+  if (!text) return '';
+  return text.replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" target="_blank">$1</a>');
+}
+
 function formatColumnType(col) {
   let type = col.type;
   if (col.max_length) {
@@ -155,6 +160,7 @@ function renderTable(data) {
 
     row.innerHTML = `
       <td class="pipeline-name ${hasSchemas ? 'clickable' : ''}">${pipeline.name}</td>
+      <td class="description">${renderMarkdown(pipeline.description)}</td>
       <td>
         <div class="tasks-list">
           ${tasksHtml}
