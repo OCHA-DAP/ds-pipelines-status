@@ -164,3 +164,110 @@ tr.development td {
   font-size: 14px;
   color: #888888;
 }
+
+/* Clickable job name */
+.pipeline-name.clickable {
+  color: #007CE0;
+  cursor: pointer;
+}
+
+.pipeline-name.clickable:hover {
+  text-decoration: underline;
+}
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.modal.active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 2px;
+  max-width: 1100px;
+  max-height: 80vh;
+  width: 95%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid #DDDDDD;
+}
+
+.modal-header h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #888888;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+
+.modal-close:hover {
+  color: #333;
+}
+
+.modal-body {
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.schema-table {
+  margin-bottom: 24px;
+}
+
+.schema-table:last-child {
+  margin-bottom: 0;
+}
+
+.schema-table h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #007CE0;
+  margin-bottom: 12px;
+}
+
+.schema-table table {
+  width: 100%;
+  border: 1px solid #DDDDDD;
+  border-radius: 2px;
+}
+
+.schema-table th {
+  background: #F5F5F5;
+  border-bottom: 1px solid #DDDDDD;
+  font-size: 12px;
+}
+
+.schema-table td {
+  font-size: 13px;
+}
+
+.schema-table tr:last-child td {
+  border-bottom: none;
+}

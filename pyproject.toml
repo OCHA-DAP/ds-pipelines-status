@@ -7,6 +7,7 @@ dependencies = [
     "cron-descriptor>=2.0.0",
     "croniter>=2.0.0",
     "databricks-sdk>=0.20.0",
+    "ocha-stratus>=0.1.7",
     "python-dotenv>=1.0.0",
 ]
 

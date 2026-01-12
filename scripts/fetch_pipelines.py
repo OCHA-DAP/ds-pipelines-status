@@ -6,6 +6,7 @@ Jobs are discovered automatically by filtering for databricks=job tag.
 Optional additional tags on jobs:
     schedule: Daily at 14:00 UTC
     category: precipitation, daily, climate
+    output_schema: Comma-separated list of output schemas (e.g., storms.nhc_tracks)
 
 Usage:
     python fetch_pipelines.py
@@ -22,8 +23,87 @@ from pathlib import Path
 from databricks.sdk import WorkspaceClient
 from databricks.sdk.service.jobs import BaseJob, RunLifeCycleState, RunResultState
 from dotenv import load_dotenv
+from ocha_stratus import get_engine
+from sqlalchemy import text
 
 load_dotenv()
+
+
+def get_output_schemas(job: BaseJob) -> list[str]:
+    """Extract output_schema tag from a job (comma-separated)."""
+    if not job.settings or not job.settings.tags:
+        return []
+    schema_tag = job.settings.tags.get("output_schema", "")
+    return [s.strip() for s in schema_tag.split(",") if s.strip()]
+
+
+def fetch_table_schema(engine, full_table_name: str) -> dict | None:
+    """Fetch column definitions for a table from the database."""
+    parts = full_table_name.split(".")
+    if len(parts) != 2:
+        print(f"Invalid table name format: {full_table_name}")
+        return None
+
+    schema_name, table_name = parts
+    print(f"Querying schema for {schema_name}.{table_name}...")
+
+    query = text("""
+        SELECT
+            c.column_name,
+            c.data_type,
+            c.is_nullable,
+            c.character_maximum_length,
+            c.numeric_precision,
+            c.numeric_scale,
+            pgd.description AS column_comment
+        FROM information_schema.columns c
+        LEFT JOIN pg_catalog.pg_statio_all_tables st
+            ON st.schemaname = c.table_schema
+            AND st.relname = c.table_name
+        LEFT JOIN pg_catalog.pg_description pgd
+            ON pgd.objoid = st.relid
+            AND pgd.objsubid = c.ordinal_position
+        WHERE c.table_schema = :schema AND c.table_name = :table
+        ORDER BY c.ordinal_position
+    """)
+
+    with engine.connect() as conn:
+        result = conn.execute(query, {"schema": schema_name, "table": table_name})
+        columns = []
+        for row in result:
+            r = row._mapping
+            col = {
+                "name": r["column_name"],
+                "type": r["data_type"],
+                "nullable": r["is_nullable"] == "YES",
+            }
+            if r["character_maximum_length"]:
+                col["max_length"] = r["character_maximum_length"]
+            if r["numeric_precision"]:
+                col["precision"] = r["numeric_precision"]
+                if r["numeric_scale"]:
+                    col["scale"] = r["numeric_scale"]
+            if r.get("column_comment"):
+                col["comment"] = r["column_comment"]
+            columns.append(col)
+
+        if columns:
+            print(f"  Found {len(columns)} columns")
+            return {"table": full_table_name, "columns": columns}
+        else:
+            print("  No columns found - table may not exist")
+            return None
+
+
+
+def fetch_all_schemas(output_schemas: list[str], engine) -> list[dict]:
+    """Fetch schema definitions for all unique tables."""
+    schemas = []
+    for table_name in output_schemas:
+        schema = fetch_table_schema(engine, table_name)
+        if schema:
+            schemas.append(schema)
+    return schemas
 
 def get_jobs(client: WorkspaceClient) -> list[BaseJob]:
     """Discover all jobs with databricks=job tag."""
@@ -138,7 +218,7 @@ def build_run_url(host: str, run) -> str | None:
     return f"{host}/jobs/{run.job_id}/runs/{run.run_id}"
 
 
-def fetch_pipeline_data(client: WorkspaceClient) -> dict:
+def fetch_pipeline_data(client: WorkspaceClient, db_engine) -> dict:
     """Fetch data for all discovered jobs."""
     host = client.config.host.rstrip("/")
     jobs = get_jobs(client)
@@ -163,6 +243,12 @@ def fetch_pipeline_data(client: WorkspaceClient) -> dict:
         schedule = get_job_schedule(full_job)
         tags = get_job_tags(full_job)
         job_status = get_job_status(full_job)
+        output_schemas = get_output_schemas(full_job)
+
+        # Fetch schema definitions from database
+        schema_definitions = []
+        if output_schemas and db_engine:
+            schema_definitions = fetch_all_schemas(output_schemas, db_engine)
 
         # Get latest run
         latest_run = None
@@ -222,6 +308,7 @@ def fetch_pipeline_data(client: WorkspaceClient) -> dict:
             "next_run": next_run,
             "tags": tags,
             "job_status": job_status,
+            "output_schemas": schema_definitions,
         })
 
     return output
@@ -230,7 +317,12 @@ def fetch_pipeline_data(client: WorkspaceClient) -> dict:
 def main():
     client = WorkspaceClient()
     print(f"Fetching pipeline data from {client.config.host}...")
-    output = fetch_pipeline_data(client)
+
+    # Connect to database for schema lookups
+    print("Connecting to database...")
+    db_engine = get_engine(stage="dev")
+
+    output = fetch_pipeline_data(client, db_engine)
 
     output_path = Path(__file__).parent.parent / "data" / "pipelines.json"
     output_path.parent.mkdir(parents=True, exist_ok=True)

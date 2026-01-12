@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-12T17:46:16.362969Z",
+  "generated_at": "2026-01-12T19:31:49.336024Z",
   "pipelines": [
     {
       "name": "Run NHC",
@@ -18,9 +18,192 @@
       },
       "next_run": null,
       "tags": [
-        "storms"
+        "storms",
+        "forecast"
       ],
-      "job_status": "development"
+      "job_status": "development",
+      "output_schemas": [
+        {
+          "table": "storms.nhc_storms",
+          "columns": [
+            {
+              "name": "atcf_id",
+              "type": "character varying",
+              "nullable": false,
+              "comment": "ATCF storm identifier (e.g., AL012023, EP092023, CP012024)"
+            },
+            {
+              "name": "name",
+              "type": "character varying",
+              "nullable": true,
+              "comment": "Storm name (uppercase) or NULL for unnamed systems"
+            },
+            {
+              "name": "number",
+              "type": "character varying",
+              "nullable": false,
+              "comment": "Annual cyclone number within basin (e.g., \"01\", \"14\")"
+            },
+            {
+              "name": "season",
+              "type": "integer",
+              "nullable": false,
+              "precision": 32,
+              "comment": "Storm season year (calendar year for Northern Hemisphere)"
+            },
+            {
+              "name": "genesis_basin",
+              "type": "character varying",
+              "nullable": false,
+              "comment": "Standardized basin code: NA (North Atlantic) or EP (Eastern/Central Pacific)"
+            },
+            {
+              "name": "provider",
+              "type": "character varying",
+              "nullable": true,
+              "comment": "NHC (National Hurricane Center) or CPHC (Central Pacific Hurricane Center)"
+            },
+            {
+              "name": "storm_id",
+              "type": "character varying",
+              "nullable": true,
+              "comment": "Standardized identifier: {name}_{basin}_{season} (lowercase)"
+            }
+          ]
+        },
+        {
+          "table": "storms.nhc_tracks_geo",
+          "columns": [
+            {
+              "name": "atcf_id",
+              "type": "character varying",
+              "nullable": false,
+              "comment": "ATCF storm identifier - foreign key to nhc_storms"
+            },
+            {
+              "name": "provider",
+              "type": "character varying",
+              "nullable": false,
+              "comment": "NHC or CPHC"
+            },
+            {
+              "name": "basin",
+              "type": "character varying",
+              "nullable": false,
+              "comment": "Standardized basin code (NA or EP)"
+            },
+            {
+              "name": "issued_time",
+              "type": "timestamp without time zone",
+              "nullable": false,
+              "comment": "When the forecast/observation was issued (UTC)"
+            },
+            {
+              "name": "valid_time",
+              "type": "timestamp without time zone",
+              "nullable": false,
+              "comment": "Time this position is valid for (UTC)"
+            },
+            {
+              "name": "leadtime",
+              "type": "integer",
+              "nullable": false,
+              "precision": 32,
+              "comment": "Hours ahead of issue time (0 for observations, >0 for forecasts)"
+            },
+            {
+              "name": "wind_speed",
+              "type": "real",
+              "nullable": true,
+              "precision": 24,
+              "comment": "Maximum sustained wind speed (knots)"
+            },
+            {
+              "name": "pressure",
+              "type": "real",
+              "nullable": true,
+              "precision": 24,
+              "comment": "Minimum central pressure (hPa/mb)"
+            },
+            {
+              "name": "max_wind_radius",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32,
+              "comment": "Radius of maximum winds (nautical miles)"
+            },
+            {
+              "name": "last_closed_isobar_radius",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32,
+              "comment": "Radius of outermost closed isobar (nautical miles)"
+            },
+            {
+              "name": "last_closed_isobar_pressure",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32,
+              "comment": "Pressure of outermost closed isobar (hPa/mb)"
+            },
+            {
+              "name": "gust_speed",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32,
+              "comment": "Peak wind gust speed (knots)"
+            },
+            {
+              "name": "nature",
+              "type": "character varying",
+              "nullable": true,
+              "comment": "System type/nature (e.g., TS, HU, TD, EX, SS)"
+            },
+            {
+              "name": "quadrant_radius_34",
+              "type": "text",
+              "nullable": true,
+              "comment": "JSON array: 34-knot wind radii by quadrant [NE, SE, SW, NW] in nautical miles"
+            },
+            {
+              "name": "quadrant_radius_50",
+              "type": "text",
+              "nullable": true,
+              "comment": "JSON array: 50-knot wind radii by quadrant [NE, SE, SW, NW] in nautical miles"
+            },
+            {
+              "name": "quadrant_radius_64",
+              "type": "text",
+              "nullable": true,
+              "comment": "JSON array: 64-knot wind radii by quadrant [NE, SE, SW, NW] in nautical miles"
+            },
+            {
+              "name": "number",
+              "type": "character varying",
+              "nullable": true,
+              "comment": "Annual cyclone number within basin"
+            },
+            {
+              "name": "storm_id",
+              "type": "character varying",
+              "nullable": true,
+              "comment": "Standardized storm identifier"
+            },
+            {
+              "name": "point_id",
+              "type": "character varying",
+              "nullable": false,
+              "comment": "Unique identifier (UUID) for this forecast point"
+            },
+            {
+              "name": "geometry",
+              "type": "USER-DEFINED",
+              "nullable": false,
+              "comment": "Point geometry in WGS84 (EPSG:4326)"
+            }
+          ]
+        }
+      ]
     },
     {
       "name": "Run ECMWF Storms",
@@ -39,9 +222,116 @@
       },
       "next_run": null,
       "tags": [
-        "storms"
+        "storms",
+        "forecast"
       ],
-      "job_status": "development"
+      "job_status": "development",
+      "output_schemas": [
+        {
+          "table": "storms.ecmwf_storms",
+          "columns": [
+            {
+              "name": "number",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "provider",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "season",
+              "type": "bigint",
+              "nullable": false,
+              "precision": 64
+            },
+            {
+              "name": "genesis_basin",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "name",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "storm_id",
+              "type": "character varying",
+              "nullable": false
+            }
+          ]
+        },
+        {
+          "table": "storms.ecmwf_tracks_geo",
+          "columns": [
+            {
+              "name": "issued_time",
+              "type": "timestamp without time zone",
+              "nullable": true
+            },
+            {
+              "name": "provider",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "forecast_id",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "basin",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "number",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "leadtime",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "valid_time",
+              "type": "timestamp without time zone",
+              "nullable": true
+            },
+            {
+              "name": "pressure",
+              "type": "double precision",
+              "nullable": true,
+              "precision": 53
+            },
+            {
+              "name": "wind_speed",
+              "type": "double precision",
+              "nullable": true,
+              "precision": 53
+            },
+            {
+              "name": "storm_id",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "point_id",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "geometry",
+              "type": "USER-DEFINED",
+              "nullable": true
+            }
+          ]
+        }
+      ]
     },
     {
       "name": "Run IBTrACS",
@@ -62,7 +352,152 @@
       "tags": [
         "storms"
       ],
-      "job_status": null
+      "job_status": null,
+      "output_schemas": [
+        {
+          "table": "storms.ibtracs_storms",
+          "columns": [
+            {
+              "name": "sid",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "atcf_id",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "number",
+              "type": "smallint",
+              "nullable": false,
+              "precision": 16
+            },
+            {
+              "name": "season",
+              "type": "bigint",
+              "nullable": false,
+              "precision": 64
+            },
+            {
+              "name": "name",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "genesis_basin",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "provisional",
+              "type": "boolean",
+              "nullable": false
+            },
+            {
+              "name": "storm_id",
+              "type": "character varying",
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "table": "storms.ibtracs_tracks_geo",
+          "columns": [
+            {
+              "name": "wind_speed",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32
+            },
+            {
+              "name": "pressure",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32
+            },
+            {
+              "name": "max_wind_radius",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32
+            },
+            {
+              "name": "last_closed_isobar_radius",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32
+            },
+            {
+              "name": "last_closed_isobar_pressure",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32
+            },
+            {
+              "name": "gust_speed",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32
+            },
+            {
+              "name": "sid",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "provider",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "basin",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "nature",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "valid_time",
+              "type": "timestamp without time zone",
+              "nullable": false
+            },
+            {
+              "name": "quadrant_radius_34",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "quadrant_radius_50",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "quadrant_radius_64",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "point_id",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "storm_id",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "geometry",
+              "type": "USER-DEFINED",
+              "nullable": false
+            }
+          ]
+        }
+      ]
     },
     {
       "name": "Run FloodScan",
@@ -91,7 +526,83 @@
       "tags": [
         "floods"
       ],
-      "job_status": null
+      "job_status": null,
+      "output_schemas": [
+        {
+          "table": "public.floodscan",
+          "columns": [
+            {
+              "name": "iso3",
+              "type": "character",
+              "nullable": true,
+              "max_length": 3
+            },
+            {
+              "name": "pcode",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "valid_date",
+              "type": "date",
+              "nullable": true
+            },
+            {
+              "name": "adm_level",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32
+            },
+            {
+              "name": "band",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "mean",
+              "type": "real",
+              "nullable": true,
+              "precision": 24
+            },
+            {
+              "name": "median",
+              "type": "real",
+              "nullable": true,
+              "precision": 24
+            },
+            {
+              "name": "min",
+              "type": "real",
+              "nullable": true,
+              "precision": 24
+            },
+            {
+              "name": "max",
+              "type": "real",
+              "nullable": true,
+              "precision": 24
+            },
+            {
+              "name": "count",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32
+            },
+            {
+              "name": "sum",
+              "type": "real",
+              "nullable": true,
+              "precision": 24
+            },
+            {
+              "name": "std",
+              "type": "real",
+              "nullable": true,
+              "precision": 24
+            }
+          ]
+        }
+      ]
     },
     {
       "name": "Run ERA5",
@@ -116,7 +627,78 @@
       "tags": [
         "rainfall"
       ],
-      "job_status": null
+      "job_status": null,
+      "output_schemas": [
+        {
+          "table": "public.era5",
+          "columns": [
+            {
+              "name": "min",
+              "type": "double precision",
+              "nullable": true,
+              "precision": 53
+            },
+            {
+              "name": "max",
+              "type": "double precision",
+              "nullable": true,
+              "precision": 53
+            },
+            {
+              "name": "mean",
+              "type": "double precision",
+              "nullable": true,
+              "precision": 53
+            },
+            {
+              "name": "median",
+              "type": "double precision",
+              "nullable": true,
+              "precision": 53
+            },
+            {
+              "name": "count",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32
+            },
+            {
+              "name": "sum",
+              "type": "double precision",
+              "nullable": true,
+              "precision": 53
+            },
+            {
+              "name": "std",
+              "type": "double precision",
+              "nullable": true,
+              "precision": 53
+            },
+            {
+              "name": "valid_date",
+              "type": "date",
+              "nullable": true
+            },
+            {
+              "name": "pcode",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "adm_level",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32
+            },
+            {
+              "name": "iso3",
+              "type": "character",
+              "nullable": true,
+              "max_length": 3
+            }
+          ]
+        }
+      ]
     },
     {
       "name": "Run IMERG",
@@ -141,7 +723,78 @@
       "tags": [
         "rainfall"
       ],
-      "job_status": null
+      "job_status": null,
+      "output_schemas": [
+        {
+          "table": "public.imerg",
+          "columns": [
+            {
+              "name": "min",
+              "type": "double precision",
+              "nullable": true,
+              "precision": 53
+            },
+            {
+              "name": "max",
+              "type": "double precision",
+              "nullable": true,
+              "precision": 53
+            },
+            {
+              "name": "mean",
+              "type": "double precision",
+              "nullable": true,
+              "precision": 53
+            },
+            {
+              "name": "median",
+              "type": "double precision",
+              "nullable": true,
+              "precision": 53
+            },
+            {
+              "name": "count",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32
+            },
+            {
+              "name": "sum",
+              "type": "double precision",
+              "nullable": true,
+              "precision": 53
+            },
+            {
+              "name": "std",
+              "type": "double precision",
+              "nullable": true,
+              "precision": 53
+            },
+            {
+              "name": "valid_date",
+              "type": "date",
+              "nullable": true
+            },
+            {
+              "name": "pcode",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "adm_level",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32
+            },
+            {
+              "name": "iso3",
+              "type": "character",
+              "nullable": true,
+              "max_length": 3
+            }
+          ]
+        }
+      ]
     },
     {
       "name": "Run SEAS5",
@@ -164,9 +817,92 @@
       },
       "next_run": "2026-02-05T12:30:00Z",
       "tags": [
-        "rainfall"
+        "rainfall",
+        "forecast"
       ],
-      "job_status": null
+      "job_status": null,
+      "output_schemas": [
+        {
+          "table": "public.seas5",
+          "columns": [
+            {
+              "name": "iso3",
+              "type": "character",
+              "nullable": true,
+              "max_length": 3
+            },
+            {
+              "name": "pcode",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "valid_date",
+              "type": "date",
+              "nullable": true
+            },
+            {
+              "name": "issued_date",
+              "type": "date",
+              "nullable": true
+            },
+            {
+              "name": "leadtime",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32
+            },
+            {
+              "name": "adm_level",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32
+            },
+            {
+              "name": "mean",
+              "type": "real",
+              "nullable": true,
+              "precision": 24
+            },
+            {
+              "name": "median",
+              "type": "real",
+              "nullable": true,
+              "precision": 24
+            },
+            {
+              "name": "min",
+              "type": "real",
+              "nullable": true,
+              "precision": 24
+            },
+            {
+              "name": "max",
+              "type": "real",
+              "nullable": true,
+              "precision": 24
+            },
+            {
+              "name": "count",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32
+            },
+            {
+              "name": "sum",
+              "type": "real",
+              "nullable": true,
+              "precision": 24
+            },
+            {
+              "name": "std",
+              "type": "real",
+              "nullable": true,
+              "precision": 24
+            }
+          ]
+        }
+      ]
     }
   ]
 }

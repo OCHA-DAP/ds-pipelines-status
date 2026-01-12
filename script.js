@@ -42,6 +42,86 @@ function formatFutureTime(isoString) {
   return `in ${diffDays}d`;
 }
 
+function formatColumnType(col) {
+  let type = col.type;
+  if (col.max_length) {
+    type += `(${col.max_length})`;
+  } else if (col.precision) {
+    type += col.scale ? `(${col.precision},${col.scale})` : `(${col.precision})`;
+  }
+  return type;
+}
+
+function renderSchemaTable(schema) {
+  const columnsHtml = schema.columns.map(col => `
+    <tr>
+      <td>${col.name}</td>
+      <td>${formatColumnType(col)}</td>
+      <td>${col.nullable ? 'Yes' : 'No'}</td>
+      <td>${col.comment || ''}</td>
+    </tr>
+  `).join('');
+
+  return `
+    <div class="schema-table">
+      <h3>${schema.table}</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Column</th>
+            <th>Type</th>
+            <th>Nullable</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${columnsHtml}
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+
+function showSchemaModal(pipeline) {
+  const modal = document.getElementById('schema-modal');
+  const title = document.getElementById('modal-title');
+  const body = document.getElementById('modal-body');
+
+  title.textContent = `${pipeline.name} - Output Schema`;
+
+  if (pipeline.output_schemas && pipeline.output_schemas.length > 0) {
+    body.innerHTML = pipeline.output_schemas.map(renderSchemaTable).join('');
+  } else {
+    body.innerHTML = '<p>No schema information available.</p>';
+  }
+
+  modal.classList.add('active');
+}
+
+function hideSchemaModal() {
+  const modal = document.getElementById('schema-modal');
+  modal.classList.remove('active');
+}
+
+function setupModalListeners() {
+  const modal = document.getElementById('schema-modal');
+  const closeBtn = modal.querySelector('.modal-close');
+
+  closeBtn.addEventListener('click', hideSchemaModal);
+
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      hideSchemaModal();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      hideSchemaModal();
+    }
+  });
+}
+
 function renderTable(data) {
   const tbody = document.getElementById('table-body');
   tbody.innerHTML = '';
@@ -63,6 +143,7 @@ function renderTable(data) {
     const nextRun = pipeline.next_run ? formatFutureTime(pipeline.next_run) : '-';
 
     const tasks = pipeline.tasks || [];
+    const hasSchemas = pipeline.output_schemas && pipeline.output_schemas.length > 0;
 
     // Render tasks with links to their git repos
     const tasksHtml = tasks.map(task => {
@@ -73,7 +154,7 @@ function renderTable(data) {
     }).join('');
 
     row.innerHTML = `
-      <td class="pipeline-name">${pipeline.name}</td>
+      <td class="pipeline-name ${hasSchemas ? 'clickable' : ''}">${pipeline.name}</td>
       <td>
         <div class="tasks-list">
           ${tasksHtml}
@@ -100,6 +181,12 @@ function renderTable(data) {
       </td>
     `;
 
+    // Add click handler for pipelines with schemas
+    if (hasSchemas) {
+      const nameCell = row.querySelector('.pipeline-name');
+      nameCell.addEventListener('click', () => showSchemaModal(pipeline));
+    }
+
     tbody.appendChild(row);
   });
 }
@@ -107,6 +194,7 @@ function renderTable(data) {
 async function init() {
   const data = await loadData();
   renderTable(data);
+  setupModalListeners();
 }
 
 init();
