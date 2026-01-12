@@ -1,0 +1,172 @@
+{
+  "generated_at": "2026-01-12T17:46:16.362969Z",
+  "pipelines": [
+    {
+      "name": "Run NHC",
+      "tasks": [
+        {
+          "name": "download_nhc",
+          "git_url": "https://github.com/OCHA-DAP/ds-storms-pipeline.git"
+        }
+      ],
+      "schedule": null,
+      "last_run": {
+        "start": "2026-01-09T03:28:39.533000Z",
+        "end": "2026-01-09T03:28:59.997000Z",
+        "duration_min": 0,
+        "status": "success"
+      },
+      "next_run": null,
+      "tags": [
+        "storms"
+      ],
+      "job_status": "development"
+    },
+    {
+      "name": "Run ECMWF Storms",
+      "tasks": [
+        {
+          "name": "download_ecmwf",
+          "git_url": "https://github.com/OCHA-DAP/ds-storms-pipeline/"
+        }
+      ],
+      "schedule": null,
+      "last_run": {
+        "start": "2026-01-09T23:20:19.674000Z",
+        "end": "2026-01-09T23:37:06.924000Z",
+        "duration_min": 16,
+        "status": "success"
+      },
+      "next_run": null,
+      "tags": [
+        "storms"
+      ],
+      "job_status": "development"
+    },
+    {
+      "name": "Run IBTrACS",
+      "tasks": [
+        {
+          "name": "download_ibtracs",
+          "git_url": "https://github.com/OCHA-DAP/ds-storms-pipeline.git"
+        }
+      ],
+      "schedule": "At 16:00 UTC",
+      "last_run": {
+        "start": "2026-01-12T16:00:30.654000Z",
+        "end": "2026-01-12T16:09:13.512000Z",
+        "duration_min": 8,
+        "status": "success"
+      },
+      "next_run": "2026-01-13T16:00:00Z",
+      "tags": [
+        "storms"
+      ],
+      "job_status": null
+    },
+    {
+      "name": "Run FloodScan",
+      "tasks": [
+        {
+          "name": "download_floodscan",
+          "git_url": "https://github.com/OCHA-DAP/ds-raster-pipelines.git"
+        },
+        {
+          "name": "calc_raster_stats",
+          "git_url": "https://github.com/OCHA-DAP/ds-raster-stats"
+        },
+        {
+          "name": "trigger_hdx_publish",
+          "git_url": "https://github.com/OCHA-DAP/ds-raster-pipelines.git"
+        }
+      ],
+      "schedule": "At 20:00 UTC",
+      "last_run": {
+        "start": "2026-01-11T23:00:38.925000Z",
+        "end": "2026-01-11T23:08:09.377000Z",
+        "duration_min": 7,
+        "status": "failed"
+      },
+      "next_run": "2026-01-12T20:00:00Z",
+      "tags": [
+        "floods"
+      ],
+      "job_status": null
+    },
+    {
+      "name": "Run ERA5",
+      "tasks": [
+        {
+          "name": "download_era5",
+          "git_url": "https://github.com/OCHA-DAP/ds-raster-pipelines"
+        },
+        {
+          "name": "calc_raster_stats",
+          "git_url": "https://github.com/OCHA-DAP/ds-raster-stats"
+        }
+      ],
+      "schedule": "At 12:00, on day 6 of the month UTC",
+      "last_run": {
+        "start": "2026-01-06T12:00:03.820000Z",
+        "end": "2026-01-06T12:28:30.990000Z",
+        "duration_min": 28,
+        "status": "success"
+      },
+      "next_run": "2026-02-06T12:00:00Z",
+      "tags": [
+        "rainfall"
+      ],
+      "job_status": null
+    },
+    {
+      "name": "Run IMERG",
+      "tasks": [
+        {
+          "name": "download_imerg",
+          "git_url": "https://github.com/OCHA-DAP/ds-raster-pipelines"
+        },
+        {
+          "name": "calc_raster_stats",
+          "git_url": "https://github.com/OCHA-DAP/ds-raster-stats"
+        }
+      ],
+      "schedule": "At 14:40 UTC",
+      "last_run": {
+        "start": "2026-01-12T14:40:57.703000Z",
+        "end": "2026-01-12T15:09:02.222000Z",
+        "duration_min": 28,
+        "status": "success"
+      },
+      "next_run": "2026-01-13T14:40:00Z",
+      "tags": [
+        "rainfall"
+      ],
+      "job_status": null
+    },
+    {
+      "name": "Run SEAS5",
+      "tasks": [
+        {
+          "name": "download_seas5",
+          "git_url": "https://github.com/OCHA-DAP/ds-raster-pipelines"
+        },
+        {
+          "name": "calc_raster_stats",
+          "git_url": "https://github.com/OCHA-DAP/ds-raster-stats"
+        }
+      ],
+      "schedule": "At 12:30, on day 5 of the month UTC",
+      "last_run": {
+        "start": "2026-01-05T12:30:22.457000Z",
+        "end": "2026-01-05T12:55:32.512000Z",
+        "duration_min": 25,
+        "status": "success"
+      },
+      "next_run": "2026-02-05T12:30:00Z",
+      "tags": [
+        "rainfall"
+      ],
+      "job_status": null
+    }
+  ]
+}

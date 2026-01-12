@@ -1,0 +1,166 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Source Sans Pro', sans-serif;
+  background: white;
+  padding: 24px;
+  color: #333;
+  font-size: 16px;
+  line-height: 1.3;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.header h1 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #333;
+}
+
+.last-updated {
+  font-size: 14px;
+  color: #888888;
+}
+
+.legend {
+  margin-bottom: 12px;
+  font-size: 13px;
+}
+
+.legend-item {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 3px;
+}
+
+.legend-item.development {
+  background-color: rgba(0, 124, 224, 0.08);
+  color: #007CE0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+}
+
+th, td {
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid #DDDDDD;
+}
+
+th {
+  font-weight: 600;
+  font-size: 14px;
+  color: #888888;
+  border-bottom: 2px solid #007CE0;
+}
+
+td {
+  font-size: 14px;
+  color: #333;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+tr.development {
+  background-color: rgba(0, 124, 224, 0.08);
+}
+
+tr.development td {
+  color: #007CE0;
+}
+
+.pipeline-name {
+  font-weight: 600;
+}
+
+.tasks-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.task-item {
+  display: block;
+  font-size: 14px;
+  color: #888888;
+}
+
+.task-link {
+  display: block;
+  font-size: 14px;
+  color: #007CE0;
+  text-decoration: none;
+}
+
+.task-link:hover {
+  text-decoration: underline;
+}
+
+.schedule {
+  color: #888888;
+}
+
+.timing {
+  color: #333;
+}
+
+.status {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.status-dot {
+  display: none;
+}
+
+.status.success {
+  color: #1EBFB3;
+}
+
+.status.failed {
+  color: #F2645A;
+}
+
+.status.running {
+  color: #007CE0;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tag {
+  display: inline-block;
+  font-size: 12px;
+  color: #888888;
+}
+
+.tag::before {
+  content: '#';
+}
+
+.duration {
+  font-size: 14px;
+  color: #888888;
+}
