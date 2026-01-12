@@ -297,7 +297,7 @@ def main():
     print(f"Fetching pipeline data from {client.config.host}...")
 
     print("Connecting to database...")
-    db_engine = get_engine(stage="dev")
+    db_engine = get_engine(stage="prod")
 
     output = fetch_pipeline_data(client, db_engine)
 
