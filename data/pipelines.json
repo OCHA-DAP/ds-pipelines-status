@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-13T18:23:33.541332Z",
+  "generated_at": "2026-01-13T20:31:52.663095Z",
   "pipelines": [
     {
       "name": "Run NHC",
@@ -37,9 +37,9 @@
       ],
       "schedule": "At 00:00 UTC",
       "last_run": {
-        "start": "2026-01-13T00:00:47.063000Z",
-        "end": "2026-01-13T00:09:24.602000Z",
-        "duration_min": 8,
+        "start": "2026-01-13T20:17:18.868000Z",
+        "end": "2026-01-13T20:25:11.849000Z",
+        "duration_min": 7,
         "status": "success"
       },
       "next_run": "2026-01-14T00:00:00Z",
@@ -157,11 +157,11 @@
           "timestamp_ranges": {
             "issued_time": {
               "min": "2006-10-01T00:00:00",
-              "max": "2025-12-16T12:00:00"
+              "max": "2026-01-12T12:00:00"
             },
             "valid_time": {
               "min": "2006-10-01T00:00:00",
-              "max": "2025-12-26T12:00:00"
+              "max": "2026-01-22T12:00:00"
             }
           }
         }
@@ -366,7 +366,7 @@
         "duration_min": 18,
         "status": "success"
       },
-      "next_run": "2026-01-13T20:00:00Z",
+      "next_run": "2026-01-14T20:00:00Z",
       "tags": [
         "floods",
         "africa"
