@@ -127,6 +127,10 @@ tr.development td {
   color: #333 !important;
 }
 
+.schedule {
+  color: #333 !important;
+}
+
 .status {
   font-size: 14px;
   font-weight: 600;
