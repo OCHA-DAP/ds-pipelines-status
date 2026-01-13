@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-12T21:43:11.356964Z",
+  "generated_at": "2026-01-13T18:23:33.541332Z",
   "pipelines": [
     {
       "name": "Run NHC",
@@ -10,14 +10,14 @@
           "git_url": "https://github.com/OCHA-DAP/ds-storms-pipeline.git"
         }
       ],
-      "schedule": null,
+      "schedule": "Every 3 hours UTC",
       "last_run": {
-        "start": "2026-01-09T03:28:39.533000Z",
-        "end": "2026-01-09T03:28:59.997000Z",
-        "duration_min": 0,
+        "start": "2026-01-13T18:00:24.201000Z",
+        "end": "2026-01-13T18:08:57.830000Z",
+        "duration_min": 8,
         "status": "success"
       },
-      "next_run": null,
+      "next_run": "2026-01-13T21:00:00Z",
       "tags": [
         "storms",
         "forecast",
@@ -35,14 +35,14 @@
           "git_url": "https://github.com/OCHA-DAP/ds-storms-pipeline/"
         }
       ],
-      "schedule": null,
+      "schedule": "At 00:00 UTC",
       "last_run": {
-        "start": "2026-01-09T23:20:19.674000Z",
-        "end": "2026-01-09T23:37:06.924000Z",
-        "duration_min": 16,
+        "start": "2026-01-13T00:00:47.063000Z",
+        "end": "2026-01-13T00:09:24.602000Z",
+        "duration_min": 8,
         "status": "success"
       },
-      "next_run": null,
+      "next_run": "2026-01-14T00:00:00Z",
       "tags": [
         "storms",
         "forecast"
@@ -84,7 +84,7 @@
               "nullable": false
             }
           ],
-          "row_count": 1772
+          "row_count": 2024
         },
         {
           "table": "storms.ecmwf_tracks_geo",
@@ -178,12 +178,12 @@
       ],
       "schedule": "At 16:00 UTC",
       "last_run": {
-        "start": "2026-01-12T16:00:30.654000Z",
-        "end": "2026-01-12T16:09:13.512000Z",
-        "duration_min": 8,
+        "start": "2026-01-13T16:00:30.100000Z",
+        "end": "2026-01-13T16:09:33.475000Z",
+        "duration_min": 9,
         "status": "success"
       },
-      "next_run": "2026-01-13T16:00:00Z",
+      "next_run": "2026-01-14T16:00:00Z",
       "tags": [
         "storms"
       ],
@@ -361,10 +361,10 @@
       ],
       "schedule": "At 20:00 UTC",
       "last_run": {
-        "start": "2026-01-11T23:00:38.925000Z",
-        "end": "2026-01-11T23:08:09.377000Z",
-        "duration_min": 7,
-        "status": "failed"
+        "start": "2026-01-12T23:00:38.027000Z",
+        "end": "2026-01-12T23:18:50.979000Z",
+        "duration_min": 18,
+        "status": "success"
       },
       "next_run": "2026-01-13T20:00:00Z",
       "tags": [
@@ -450,7 +450,7 @@
           "timestamp_ranges": {
             "valid_date": {
               "min": "1998-01-12",
-              "max": "2026-01-09"
+              "max": "2026-01-11"
             }
           }
         }
@@ -575,12 +575,12 @@
       ],
       "schedule": "At 14:40 UTC",
       "last_run": {
-        "start": "2026-01-12T14:40:57.703000Z",
-        "end": "2026-01-12T15:09:02.222000Z",
-        "duration_min": 28,
+        "start": "2026-01-13T14:40:58.356000Z",
+        "end": "2026-01-13T15:06:23.086000Z",
+        "duration_min": 25,
         "status": "success"
       },
-      "next_run": "2026-01-13T14:40:00Z",
+      "next_run": "2026-01-14T14:40:00Z",
       "tags": [
         "rainfall"
       ],
@@ -658,7 +658,7 @@
           "timestamp_ranges": {
             "valid_date": {
               "min": "2000-06-01",
-              "max": "2026-01-11"
+              "max": "2026-01-12"
             }
           }
         }
