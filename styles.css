@@ -116,7 +116,7 @@ tr.development td {
 }
 
 .schedule {
-  color: #888888;
+  color: #888888 !important;
 }
 
 .timing {
@@ -124,10 +124,6 @@ tr.development td {
 }
 
 .description {
-  color: #333 !important;
-}
-
-.schedule {
   color: #333 !important;
 }
 
