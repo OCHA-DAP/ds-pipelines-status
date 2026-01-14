@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-14T15:22:52.052744Z",
+  "generated_at": "2026-01-14T18:23:39.197833Z",
   "pipelines": [
     {
       "name": "Run NHC",
@@ -12,12 +12,12 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": {
-        "start": "2026-01-14T15:00:22.328000Z",
-        "end": "2026-01-14T15:09:34.421000Z",
-        "duration_min": 9,
+        "start": "2026-01-14T18:00:21.186000Z",
+        "end": "2026-01-14T18:12:45.533000Z",
+        "duration_min": 12,
         "status": "success"
       },
-      "next_run": "2026-01-14T18:00:00Z",
+      "next_run": "2026-01-14T21:00:00Z",
       "tags": [
         "storms",
         "forecast",
@@ -178,12 +178,12 @@
       ],
       "schedule": "At 16:00 UTC",
       "last_run": {
-        "start": "2026-01-13T16:00:30.100000Z",
-        "end": "2026-01-13T16:09:33.475000Z",
-        "duration_min": 9,
+        "start": "2026-01-14T16:00:29.282000Z",
+        "end": "2026-01-14T16:10:53.734000Z",
+        "duration_min": 10,
         "status": "success"
       },
-      "next_run": "2026-01-14T16:00:00Z",
+      "next_run": "2026-01-15T16:00:00Z",
       "tags": [
         "storms"
       ],
@@ -336,7 +336,7 @@
           "timestamp_ranges": {
             "valid_time": {
               "min": "1848-01-11T06:00:00",
-              "max": "2026-01-11T00:00:00"
+              "max": "2026-01-13T00:00:00"
             }
           }
         }
@@ -576,9 +576,9 @@
       "schedule": "At 14:40 UTC",
       "last_run": {
         "start": "2026-01-14T14:40:57.405000Z",
-        "end": null,
-        "duration_min": null,
-        "status": "running"
+        "end": "2026-01-14T17:18:42.008000Z",
+        "duration_min": 157,
+        "status": "success"
       },
       "next_run": "2026-01-15T14:40:00Z",
       "tags": [
@@ -654,11 +654,11 @@
               "precision": 24
             }
           ],
-          "row_count": 69625560,
+          "row_count": 76862448,
           "timestamp_ranges": {
             "valid_date": {
               "min": "1998-01-01",
-              "max": "2026-01-12"
+              "max": "2026-01-13"
             }
           }
         }
