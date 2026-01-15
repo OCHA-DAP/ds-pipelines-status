@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-15T15:22:47.536656Z",
+  "generated_at": "2026-01-15T18:24:08.421216Z",
   "pipelines": [
     {
       "name": "Run NHC",
@@ -12,12 +12,12 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": {
-        "start": "2026-01-15T15:00:22.287000Z",
-        "end": "2026-01-15T15:09:52.745000Z",
-        "duration_min": 9,
+        "start": "2026-01-15T18:00:21.691000Z",
+        "end": "2026-01-15T18:08:40.466000Z",
+        "duration_min": 8,
         "status": "success"
       },
-      "next_run": "2026-01-15T18:00:00Z",
+      "next_run": "2026-01-15T21:00:00Z",
       "tags": [
         "storms",
         "forecast",
@@ -35,19 +35,19 @@
           "git_url": "https://github.com/OCHA-DAP/ds-storms-pipeline/"
         }
       ],
-      "schedule": "At 00:00 UTC",
+      "schedule": "At 12:00 UTC",
       "last_run": {
         "start": "2026-01-15T00:00:48.455000Z",
-        "end": "2026-01-15T00:08:21.456000Z",
-        "duration_min": 7,
-        "status": "failed"
+        "end": "2026-01-15T15:39:15.136000Z",
+        "duration_min": 938,
+        "status": "success"
       },
-      "next_run": "2026-01-16T00:00:00Z",
+      "next_run": "2026-01-16T12:00:00Z",
       "tags": [
         "storms",
         "forecast"
       ],
-      "job_status": "development",
+      "job_status": null,
       "output_schemas": [
         {
           "table": "storms.ecmwf_storms",
@@ -157,11 +157,11 @@
           "timestamp_ranges": {
             "issued_time": {
               "min": "2006-10-01T00:00:00",
-              "max": "2026-01-13T12:00:00"
+              "max": "2026-01-14T12:00:00"
             },
             "valid_time": {
               "min": "2006-10-01T00:00:00",
-              "max": "2026-01-23T12:00:00"
+              "max": "2026-01-24T12:00:00"
             }
           }
         }
@@ -178,12 +178,12 @@
       ],
       "schedule": "At 16:00 UTC",
       "last_run": {
-        "start": "2026-01-14T16:00:29.282000Z",
-        "end": "2026-01-14T16:10:53.734000Z",
-        "duration_min": 10,
+        "start": "2026-01-15T16:00:30.200000Z",
+        "end": "2026-01-15T16:10:22.024000Z",
+        "duration_min": 9,
         "status": "success"
       },
-      "next_run": "2026-01-15T16:00:00Z",
+      "next_run": "2026-01-16T16:00:00Z",
       "tags": [
         "storms"
       ],
