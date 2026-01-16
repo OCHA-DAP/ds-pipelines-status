@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-16T12:24:04.613258Z",
+  "generated_at": "2026-01-16T15:22:35.701138Z",
   "pipelines": [
     {
       "name": "Run NHC",
@@ -12,12 +12,12 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": {
-        "start": "2026-01-16T12:00:22.304000Z",
-        "end": "2026-01-16T12:08:39.085000Z",
-        "duration_min": 8,
+        "start": "2026-01-16T15:00:21.688000Z",
+        "end": "2026-01-16T15:09:32.804000Z",
+        "duration_min": 9,
         "status": "success"
       },
-      "next_run": "2026-01-16T15:00:00Z",
+      "next_run": "2026-01-16T18:00:00Z",
       "tags": [
         "storms",
         "forecast",
@@ -575,12 +575,12 @@
       ],
       "schedule": "At 14:40 UTC",
       "last_run": {
-        "start": "2026-01-15T14:40:57.409000Z",
-        "end": "2026-01-15T15:06:06.435000Z",
-        "duration_min": 25,
+        "start": "2026-01-16T14:40:58.582000Z",
+        "end": "2026-01-16T15:05:41.952000Z",
+        "duration_min": 24,
         "status": "success"
       },
-      "next_run": "2026-01-16T14:40:00Z",
+      "next_run": "2026-01-17T14:40:00Z",
       "tags": [
         "rainfall"
       ],
@@ -658,7 +658,7 @@
           "timestamp_ranges": {
             "valid_date": {
               "min": "1998-01-01",
-              "max": "2026-01-14"
+              "max": "2026-01-15"
             }
           }
         }
