@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-17T15:21:44.474453Z",
+  "generated_at": "2026-01-17T18:23:01.802842Z",
   "pipelines": [
     {
       "name": "Run NHC",
@@ -12,12 +12,12 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": {
-        "start": "2026-01-17T15:00:24.508000Z",
-        "end": "2026-01-17T15:09:20.824000Z",
+        "start": "2026-01-17T18:00:20.691000Z",
+        "end": "2026-01-17T18:08:41.248000Z",
         "duration_min": 8,
         "status": "success"
       },
-      "next_run": "2026-01-17T18:00:00Z",
+      "next_run": "2026-01-17T21:00:00Z",
       "tags": [
         "storms",
         "forecast",
@@ -178,12 +178,12 @@
       ],
       "schedule": "At 16:00 UTC",
       "last_run": {
-        "start": "2026-01-16T16:00:33.502000Z",
-        "end": "2026-01-16T16:09:03.125000Z",
-        "duration_min": 8,
+        "start": "2026-01-17T16:00:30.415000Z",
+        "end": "2026-01-17T16:11:00.086000Z",
+        "duration_min": 10,
         "status": "success"
       },
-      "next_run": "2026-01-17T16:00:00Z",
+      "next_run": "2026-01-18T16:00:00Z",
       "tags": [
         "storms"
       ],
@@ -235,7 +235,7 @@
               "nullable": true
             }
           ],
-          "row_count": 13546
+          "row_count": 13547
         },
         {
           "table": "storms.ibtracs_tracks_geo",
