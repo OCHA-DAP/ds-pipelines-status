@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-23T15:22:54.262820Z",
+  "generated_at": "2026-01-23T18:23:33.146652Z",
   "pipelines": [
     {
       "name": "Run NHC",
@@ -12,12 +12,12 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": {
-        "start": "2026-01-23T15:00:23.343000Z",
-        "end": "2026-01-23T15:09:29.048000Z",
+        "start": "2026-01-23T18:00:21.941000Z",
+        "end": "2026-01-23T18:09:29.650000Z",
         "duration_min": 9,
         "status": "success"
       },
-      "next_run": "2026-01-23T18:00:00Z",
+      "next_run": "2026-01-23T21:00:00Z",
       "tags": [
         "storms",
         "forecast",
@@ -38,9 +38,9 @@
       "schedule": "At 12:00 UTC",
       "last_run": {
         "start": "2026-01-23T12:00:48.376000Z",
-        "end": null,
-        "duration_min": null,
-        "status": "running"
+        "end": "2026-01-23T18:01:13.391000Z",
+        "duration_min": 360,
+        "status": "success"
       },
       "next_run": "2026-01-24T12:00:00Z",
       "tags": [
@@ -157,11 +157,11 @@
           "timestamp_ranges": {
             "issued_time": {
               "min": "2006-10-01T00:00:00",
-              "max": "2026-01-21T12:00:00"
+              "max": "2026-01-22T12:00:00"
             },
             "valid_time": {
               "min": "2006-10-01T00:00:00",
-              "max": "2026-01-31T12:00:00"
+              "max": "2026-02-01T12:00:00"
             }
           }
         }
@@ -178,12 +178,12 @@
       ],
       "schedule": "At 16:00 UTC",
       "last_run": {
-        "start": "2026-01-22T16:00:33.268000Z",
-        "end": "2026-01-22T16:08:54.834000Z",
-        "duration_min": 8,
+        "start": "2026-01-23T16:00:32.882000Z",
+        "end": "2026-01-23T16:10:31.762000Z",
+        "duration_min": 9,
         "status": "success"
       },
-      "next_run": "2026-01-23T16:00:00Z",
+      "next_run": "2026-01-24T16:00:00Z",
       "tags": [
         "storms"
       ],
@@ -336,7 +336,7 @@
           "timestamp_ranges": {
             "valid_time": {
               "min": "1848-01-11T06:00:00",
-              "max": "2026-01-20T00:00:00"
+              "max": "2026-01-22T00:00:00"
             }
           }
         }
