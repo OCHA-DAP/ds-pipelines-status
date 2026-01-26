@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-26T18:23:52.629053Z",
+  "generated_at": "2026-01-26T21:22:24.956604Z",
   "pipelines": [
     {
       "name": "Run NHC",
@@ -12,19 +12,200 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": {
-        "start": "2026-01-26T18:00:26.033000Z",
-        "end": "2026-01-26T18:08:36.769000Z",
-        "duration_min": 8,
-        "status": "success"
+        "start": "2026-01-26T21:00:23.212000Z",
+        "end": null,
+        "duration_min": null,
+        "status": "running"
       },
-      "next_run": "2026-01-26T21:00:00Z",
+      "next_run": "2026-01-27T00:00:00Z",
       "tags": [
         "storms",
         "forecast",
         "north america"
       ],
       "job_status": "development",
-      "output_schemas": []
+      "output_schemas": [
+        {
+          "table": "storms.nhc_storms",
+          "columns": [
+            {
+              "name": "atcf_id",
+              "type": "character varying",
+              "nullable": false,
+              "comment": "ATCF storm identifier (e.g., AL012023, EP092023, CP012024)"
+            },
+            {
+              "name": "name",
+              "type": "character varying",
+              "nullable": true,
+              "comment": "Storm name (uppercase) or NULL for unnamed systems"
+            },
+            {
+              "name": "number",
+              "type": "character varying",
+              "nullable": false,
+              "comment": "Annual cyclone number within basin (e.g., \"01\", \"14\")"
+            },
+            {
+              "name": "season",
+              "type": "integer",
+              "nullable": false,
+              "precision": 32,
+              "comment": "Storm season year (calendar year for Northern Hemisphere)"
+            },
+            {
+              "name": "genesis_basin",
+              "type": "character varying",
+              "nullable": false,
+              "comment": "Standardized basin code: NA (North Atlantic) or EP (Eastern/Central Pacific)"
+            },
+            {
+              "name": "provider",
+              "type": "character varying",
+              "nullable": true,
+              "comment": "NHC (National Hurricane Center) or CPHC (Central Pacific Hurricane Center)"
+            },
+            {
+              "name": "storm_id",
+              "type": "character varying",
+              "nullable": true,
+              "comment": "Standardized identifier: {name}_{basin}_{season} (lowercase)"
+            }
+          ]
+        },
+        {
+          "table": "storms.nhc_tracks_geo",
+          "columns": [
+            {
+              "name": "atcf_id",
+              "type": "character varying",
+              "nullable": false,
+              "comment": "ATCF storm identifier - foreign key to nhc_storms"
+            },
+            {
+              "name": "provider",
+              "type": "character varying",
+              "nullable": false,
+              "comment": "NHC or CPHC"
+            },
+            {
+              "name": "basin",
+              "type": "character varying",
+              "nullable": false,
+              "comment": "Standardized basin code (NA or EP)"
+            },
+            {
+              "name": "issued_time",
+              "type": "timestamp without time zone",
+              "nullable": false,
+              "comment": "When the forecast/observation was issued (UTC)"
+            },
+            {
+              "name": "valid_time",
+              "type": "timestamp without time zone",
+              "nullable": false,
+              "comment": "Time this position is valid for (UTC)"
+            },
+            {
+              "name": "leadtime",
+              "type": "integer",
+              "nullable": false,
+              "precision": 32,
+              "comment": "Hours ahead of issue time (0 for observations, >0 for forecasts)"
+            },
+            {
+              "name": "wind_speed",
+              "type": "real",
+              "nullable": true,
+              "precision": 24,
+              "comment": "Maximum sustained wind speed (knots)"
+            },
+            {
+              "name": "pressure",
+              "type": "real",
+              "nullable": true,
+              "precision": 24,
+              "comment": "Minimum central pressure (hPa/mb)"
+            },
+            {
+              "name": "max_wind_radius",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32,
+              "comment": "Radius of maximum winds (nautical miles)"
+            },
+            {
+              "name": "last_closed_isobar_radius",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32,
+              "comment": "Radius of outermost closed isobar (nautical miles)"
+            },
+            {
+              "name": "last_closed_isobar_pressure",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32,
+              "comment": "Pressure of outermost closed isobar (hPa/mb)"
+            },
+            {
+              "name": "gust_speed",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32,
+              "comment": "Peak wind gust speed (knots)"
+            },
+            {
+              "name": "nature",
+              "type": "character varying",
+              "nullable": true,
+              "comment": "System type/nature (e.g., TS, HU, TD, EX, SS)"
+            },
+            {
+              "name": "quadrant_radius_34",
+              "type": "text",
+              "nullable": true,
+              "comment": "JSON array: 34-knot wind radii by quadrant [NE, SE, SW, NW] in nautical miles"
+            },
+            {
+              "name": "quadrant_radius_50",
+              "type": "text",
+              "nullable": true,
+              "comment": "JSON array: 50-knot wind radii by quadrant [NE, SE, SW, NW] in nautical miles"
+            },
+            {
+              "name": "quadrant_radius_64",
+              "type": "text",
+              "nullable": true,
+              "comment": "JSON array: 64-knot wind radii by quadrant [NE, SE, SW, NW] in nautical miles"
+            },
+            {
+              "name": "number",
+              "type": "character varying",
+              "nullable": true,
+              "comment": "Annual cyclone number within basin"
+            },
+            {
+              "name": "storm_id",
+              "type": "character varying",
+              "nullable": true,
+              "comment": "Standardized storm identifier"
+            },
+            {
+              "name": "point_id",
+              "type": "character varying",
+              "nullable": false,
+              "comment": "Unique identifier (UUID) for this forecast point"
+            },
+            {
+              "name": "geometry",
+              "type": "USER-DEFINED",
+              "nullable": false,
+              "comment": "Point geometry in WGS84 (EPSG:4326)"
+            }
+          ]
+        }
+      ]
     },
     {
       "name": "Run ECMWF Storms",
@@ -366,7 +547,7 @@
         "duration_min": 17,
         "status": "success"
       },
-      "next_run": "2026-01-26T20:00:00Z",
+      "next_run": "2026-01-27T20:00:00Z",
       "tags": [
         "floods",
         "africa"
