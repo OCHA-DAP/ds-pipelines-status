@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-27T15:23:46.722302Z",
+  "generated_at": "2026-01-27T18:24:19.378495Z",
   "pipelines": [
     {
       "name": "Run NHC",
@@ -12,12 +12,12 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": {
-        "start": "2026-01-27T15:00:23.538000Z",
-        "end": "2026-01-27T15:01:50.648000Z",
-        "duration_min": 1,
-        "status": "failed"
+        "start": "2026-01-27T18:00:20.515000Z",
+        "end": "2026-01-27T18:12:17.507000Z",
+        "duration_min": 11,
+        "status": "success"
       },
-      "next_run": "2026-01-27T18:00:00Z",
+      "next_run": "2026-01-27T21:00:00Z",
       "tags": [
         "storms",
         "forecast",
@@ -219,9 +219,9 @@
       "schedule": "At 12:00 UTC",
       "last_run": {
         "start": "2026-01-27T12:00:50.257000Z",
-        "end": null,
-        "duration_min": null,
-        "status": "running"
+        "end": "2026-01-27T18:01:17.821000Z",
+        "duration_min": 360,
+        "status": "failed"
       },
       "next_run": "2026-01-28T12:00:00Z",
       "tags": [
@@ -359,12 +359,12 @@
       ],
       "schedule": "At 16:00 UTC",
       "last_run": {
-        "start": "2026-01-26T16:00:31.662000Z",
-        "end": "2026-01-26T16:09:21.167000Z",
-        "duration_min": 8,
+        "start": "2026-01-27T16:00:30.240000Z",
+        "end": "2026-01-27T16:12:29.285000Z",
+        "duration_min": 11,
         "status": "success"
       },
-      "next_run": "2026-01-27T16:00:00Z",
+      "next_run": "2026-01-28T16:00:00Z",
       "tags": [
         "storms"
       ],
@@ -416,7 +416,7 @@
               "nullable": true
             }
           ],
-          "row_count": 13565
+          "row_count": 13568
         },
         {
           "table": "storms.ibtracs_tracks_geo",
