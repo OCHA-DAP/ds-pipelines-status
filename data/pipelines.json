@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-27T21:21:29.088454Z",
+  "generated_at": "2026-01-28T00:42:39.845834Z",
   "pipelines": [
     {
       "name": "Run NHC",
@@ -12,12 +12,12 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": {
-        "start": "2026-01-27T21:20:18.253000Z",
-        "end": "2026-01-27T21:20:57.649000Z",
-        "duration_min": 0,
+        "start": "2026-01-27T21:58:04.420000Z",
+        "end": "2026-01-27T22:05:49.637000Z",
+        "duration_min": 7,
         "status": "failed"
       },
-      "next_run": "2026-01-28T00:00:00Z",
+      "next_run": "2026-01-28T03:00:00Z",
       "tags": [
         "storms",
         "forecast",
@@ -116,7 +116,7 @@
             {
               "name": "wind_speed",
               "type": "real",
-              "nullable": true,
+              "nullable": false,
               "precision": 24,
               "comment": "Maximum sustained wind speed (knots)"
             },
@@ -216,14 +216,14 @@
           "git_url": "https://github.com/OCHA-DAP/ds-storms-pipeline/"
         }
       ],
-      "schedule": "At 12:00 UTC",
+      "schedule": "At 22:00 UTC",
       "last_run": {
         "start": "2026-01-27T12:00:50.257000Z",
         "end": "2026-01-27T18:01:17.821000Z",
         "duration_min": 360,
         "status": "failed"
       },
-      "next_run": "2026-01-28T12:00:00Z",
+      "next_run": "2026-01-28T22:00:00Z",
       "tags": [
         "storms",
         "forecast"
@@ -542,8 +542,8 @@
       ],
       "schedule": "At 20:00 UTC",
       "last_run": {
-        "start": "2026-01-26T23:00:38.908000Z",
-        "end": "2026-01-26T23:19:33.837000Z",
+        "start": "2026-01-27T23:00:39.036000Z",
+        "end": "2026-01-27T23:18:58.311000Z",
         "duration_min": 18,
         "status": "success"
       },
@@ -631,7 +631,7 @@
           "timestamp_ranges": {
             "valid_date": {
               "min": "1998-01-12",
-              "max": "2026-01-25"
+              "max": "2026-01-26"
             }
           }
         }
