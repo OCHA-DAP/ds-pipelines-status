@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-29T18:26:02.305943Z",
+  "generated_at": "2026-01-29T21:06:01.661060Z",
   "pipelines": [
     {
       "name": "Run NHC",
@@ -12,12 +12,12 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": {
-        "start": "2026-01-29T18:00:21.678000Z",
-        "end": "2026-01-29T18:10:40.737000Z",
-        "duration_min": 10,
-        "status": "success"
+        "start": "2026-01-29T21:00:22.260000Z",
+        "end": null,
+        "duration_min": null,
+        "status": "running"
       },
-      "next_run": "2026-01-29T21:00:00Z",
+      "next_run": "2026-01-30T00:00:00Z",
       "tags": [
         "storms",
         "forecast",
@@ -72,7 +72,8 @@
               "comment": "Standardized identifier: {name}_{basin}_{season} (lowercase)"
             }
           ],
-          "row_count": 1263
+          "row_count": 1263,
+          "size_mb": 0.3
         },
         {
           "table": "storms.nhc_tracks_geo",
@@ -206,6 +207,7 @@
             }
           ],
           "row_count": 203730,
+          "size_mb": 93.55,
           "timestamp_ranges": {
             "issued_time": {
               "min": "1990-05-13T00:00:00",
@@ -277,7 +279,8 @@
               "nullable": false
             }
           ],
-          "row_count": 2024
+          "row_count": 2024,
+          "size_mb": 0.27
         },
         {
           "table": "storms.ecmwf_tracks_geo",
@@ -347,6 +350,7 @@
             }
           ],
           "row_count": 1202593,
+          "size_mb": 449.3,
           "timestamp_ranges": {
             "issued_time": {
               "min": "2006-10-01T00:00:00",
@@ -428,7 +432,8 @@
               "nullable": true
             }
           ],
-          "row_count": 13568
+          "row_count": 13568,
+          "size_mb": 2.91
         },
         {
           "table": "storms.ibtracs_tracks_geo",
@@ -526,6 +531,7 @@
             }
           ],
           "row_count": 295549,
+          "size_mb": 111.64,
           "timestamp_ranges": {
             "valid_time": {
               "min": "1848-01-11T06:00:00",
@@ -559,7 +565,7 @@
         "duration_min": 18,
         "status": "success"
       },
-      "next_run": "2026-01-29T20:00:00Z",
+      "next_run": "2026-01-30T20:00:00Z",
       "tags": [
         "floods",
         "africa"
@@ -640,6 +646,7 @@
             }
           ],
           "row_count": 41995664,
+          "size_gb": 7.86,
           "timestamp_ranges": {
             "valid_date": {
               "min": "1998-01-12",
@@ -744,6 +751,7 @@
             }
           ],
           "row_count": 4097307,
+          "size_mb": 565.16,
           "timestamp_ranges": {
             "valid_date": {
               "min": "1981-01-01",
@@ -848,6 +856,7 @@
             }
           ],
           "row_count": 76862448,
+          "size_gb": 10.77,
           "timestamp_ranges": {
             "valid_date": {
               "min": "1998-01-01",
@@ -964,6 +973,7 @@
             }
           ],
           "row_count": 27203108,
+          "size_gb": 4.78,
           "timestamp_ranges": {
             "valid_date": {
               "min": "1981-01-01",
