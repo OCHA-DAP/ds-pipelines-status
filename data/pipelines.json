@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-28T21:23:33.399561Z",
+  "generated_at": "2026-01-29T00:48:29.888640Z",
   "pipelines": [
     {
       "name": "Run NHC",
@@ -12,12 +12,12 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": {
-        "start": "2026-01-28T19:03:24.670000Z",
-        "end": "2026-01-28T19:40:22.429000Z",
-        "duration_min": 36,
+        "start": "2026-01-28T22:10:38.816000Z",
+        "end": "2026-01-28T22:55:08.695000Z",
+        "duration_min": 44,
         "status": "success"
       },
-      "next_run": "2026-01-29T00:00:00Z",
+      "next_run": "2026-01-29T03:00:00Z",
       "tags": [
         "storms",
         "forecast",
@@ -71,7 +71,8 @@
               "nullable": true,
               "comment": "Standardized identifier: {name}_{basin}_{season} (lowercase)"
             }
-          ]
+          ],
+          "row_count": 1263
         },
         {
           "table": "storms.nhc_tracks_geo",
@@ -203,7 +204,18 @@
               "nullable": false,
               "comment": "Point geometry in WGS84 (EPSG:4326)"
             }
-          ]
+          ],
+          "row_count": 203730,
+          "timestamp_ranges": {
+            "issued_time": {
+              "min": "1990-05-13T00:00:00",
+              "max": "2025-10-31T12:00:00"
+            },
+            "valid_time": {
+              "min": "1990-05-13T12:00:00",
+              "max": "2025-11-05T00:00:00"
+            }
+          }
         }
       ]
     },
@@ -218,12 +230,12 @@
       ],
       "schedule": "At 22:00 UTC",
       "last_run": {
-        "start": "2026-01-27T12:00:50.257000Z",
-        "end": "2026-01-27T18:01:17.821000Z",
-        "duration_min": 360,
-        "status": "failed"
+        "start": "2026-01-28T22:00:48.875000Z",
+        "end": "2026-01-28T22:07:56.271000Z",
+        "duration_min": 7,
+        "status": "success"
       },
-      "next_run": "2026-01-28T22:00:00Z",
+      "next_run": "2026-01-29T22:00:00Z",
       "tags": [
         "storms",
         "forecast"
@@ -338,11 +350,11 @@
           "timestamp_ranges": {
             "issued_time": {
               "min": "2006-10-01T00:00:00",
-              "max": "2026-01-25T00:00:00"
+              "max": "2026-01-27T12:00:00"
             },
             "valid_time": {
               "min": "2006-10-01T00:00:00",
-              "max": "2026-02-04T00:00:00"
+              "max": "2026-02-06T12:00:00"
             }
           }
         }
@@ -542,8 +554,8 @@
       ],
       "schedule": "At 20:00 UTC",
       "last_run": {
-        "start": "2026-01-27T23:00:39.036000Z",
-        "end": "2026-01-27T23:18:58.311000Z",
+        "start": "2026-01-28T23:00:40.802000Z",
+        "end": "2026-01-28T23:19:30.200000Z",
         "duration_min": 18,
         "status": "success"
       },
@@ -631,7 +643,7 @@
           "timestamp_ranges": {
             "valid_date": {
               "min": "1998-01-12",
-              "max": "2026-01-26"
+              "max": "2026-01-27"
             }
           }
         }
