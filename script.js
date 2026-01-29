@@ -94,10 +94,13 @@ function renderSchemaTable(schema) {
 
   const rowCount = schema.row_count !== undefined ? formatNumber(schema.row_count) : null;
   const tsRanges = formatTimestampRange(schema.timestamp_ranges);
+  const tableSize = schema.size_gb !== undefined ? `${schema.size_gb} GB` :
+                    schema.size_mb !== undefined ? `${schema.size_mb} MB` : null;
 
-  const statsHtml = (rowCount || tsRanges) ? `
+  const statsHtml = (rowCount || tsRanges || tableSize) ? `
     <div class="schema-stats">
       ${rowCount ? `<span class="stat-item"><strong>Rows:</strong> ${rowCount}</span>` : ''}
+      ${tableSize ? `<span class="stat-item"><strong>Size:</strong> ${tableSize}</span>` : ''}
       ${tsRanges}
     </div>
   ` : '';

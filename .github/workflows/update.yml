@@ -2,7 +2,7 @@ name: Update Pipeline Status
 
 on:
   schedule:
-    - cron: '15 */3 * * *'  # Every 3 hours
+    - cron: '15 */6 * * *'  # Every 6 hours
   workflow_dispatch:
 
 permissions:

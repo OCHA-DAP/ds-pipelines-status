@@ -48,45 +48,66 @@ def get_output_schemas(job: BaseJob) -> list[str]:
 
 
 def fetch_table_stats(engine, schema_name: str, table_name: str, timestamp_columns: list[str]) -> dict:
-    """Fetch row count (from pg stats) and min/max for timestamp columns."""
+    """Fetch row count (from pg stats), table size, and min/max for timestamp columns."""
     full_table = f'"{schema_name}"."{table_name}"'
     stats: dict = {}
 
     try:
         with engine.connect() as conn:
-            # Use pg_stat estimate for row count (much faster than COUNT(*))
-            count_query = text("""
-                SELECT reltuples::bigint
+            # Combined query for row count and table size (both from pg_class)
+            metadata_query = text("""
+                SELECT reltuples::bigint, pg_total_relation_size(c.oid)
                 FROM pg_class c
                 JOIN pg_namespace n ON n.oid = c.relnamespace
                 WHERE n.nspname = :schema AND c.relname = :table
             """)
-            result = conn.execute(count_query, {"schema": schema_name, "table": table_name})
-            row_count = result.scalar()
-            if row_count is not None and row_count >= 0:
-                stats["row_count"] = row_count
+            result = conn.execute(metadata_query, {"schema": schema_name, "table": table_name})
+            row = result.fetchone()
 
-            # Get min/max for timestamp columns in a single query
+            if row:
+                row_count = row[0]
+                size_bytes = row[1]
+
+                if row_count is not None and row_count >= 0:
+                    stats["row_count"] = row_count
+
+                if size_bytes is not None:
+                    # Convert to MB or GB depending on size
+                    size_mb = size_bytes / (1024 * 1024)
+                    if size_mb >= 1024:
+                        stats["size_gb"] = round(size_mb / 1024, 2)
+                    else:
+                        stats["size_mb"] = round(size_mb, 2)
+
+            # Get min/max for timestamp columns
             if timestamp_columns:
-                select_parts = [f'MIN("{col}"), MAX("{col}")' for col in timestamp_columns]
+                select_parts = []
+                for col in timestamp_columns:
+                    select_parts.extend([f'MIN("{col}")', f'MAX("{col}")'])
+
                 minmax_query = text(f"SELECT {', '.join(select_parts)} FROM {full_table}")
                 result = conn.execute(minmax_query)
                 row = result.fetchone()
 
-                ts_stats = {}
-                for i, col in enumerate(timestamp_columns):
-                    min_val = row[i * 2]
-                    max_val = row[i * 2 + 1]
-                    if min_val is not None or max_val is not None:
-                        col_stats = {}
-                        if min_val is not None:
-                            col_stats["min"] = min_val.isoformat().replace("+00:00", "Z") if hasattr(min_val, 'isoformat') else str(min_val)
-                        if max_val is not None:
-                            col_stats["max"] = max_val.isoformat().replace("+00:00", "Z") if hasattr(max_val, 'isoformat') else str(max_val)
-                        if col_stats:
-                            ts_stats[col] = col_stats
-                if ts_stats:
-                    stats["timestamp_ranges"] = ts_stats
+                if row:
+                    ts_stats = {}
+                    idx = 0
+                    for col in timestamp_columns:
+                        min_val = row[idx]
+                        max_val = row[idx + 1]
+                        idx += 2
+
+                        if min_val is not None or max_val is not None:
+                            col_stats = {}
+                            if min_val is not None:
+                                col_stats["min"] = min_val.isoformat().replace("+00:00", "Z") if hasattr(min_val, 'isoformat') else str(min_val)
+                            if max_val is not None:
+                                col_stats["max"] = max_val.isoformat().replace("+00:00", "Z") if hasattr(max_val, 'isoformat') else str(max_val)
+                            if col_stats:
+                                ts_stats[col] = col_stats
+
+                    if ts_stats:
+                        stats["timestamp_ranges"] = ts_stats
     except Exception:
         pass
 
