@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-29T21:06:01.661060Z",
+  "generated_at": "2026-01-30T00:49:32.776084Z",
   "pipelines": [
     {
       "name": "Run NHC",
@@ -12,12 +12,12 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": {
-        "start": "2026-01-29T21:00:22.260000Z",
-        "end": null,
-        "duration_min": null,
-        "status": "running"
+        "start": "2026-01-30T00:00:23.496000Z",
+        "end": "2026-01-30T00:08:18.669000Z",
+        "duration_min": 7,
+        "status": "success"
       },
-      "next_run": "2026-01-30T00:00:00Z",
+      "next_run": "2026-01-30T03:00:00Z",
       "tags": [
         "storms",
         "forecast",
@@ -232,12 +232,12 @@
       ],
       "schedule": "At 22:00 UTC",
       "last_run": {
-        "start": "2026-01-28T22:00:48.875000Z",
-        "end": "2026-01-28T22:07:56.271000Z",
-        "duration_min": 7,
+        "start": "2026-01-29T22:00:49.228000Z",
+        "end": "2026-01-29T22:07:41.058000Z",
+        "duration_min": 6,
         "status": "success"
       },
-      "next_run": "2026-01-29T22:00:00Z",
+      "next_run": "2026-01-30T22:00:00Z",
       "tags": [
         "storms",
         "forecast"
@@ -350,15 +350,15 @@
             }
           ],
           "row_count": 1202593,
-          "size_mb": 449.3,
+          "size_mb": 449.38,
           "timestamp_ranges": {
             "issued_time": {
               "min": "2006-10-01T00:00:00",
-              "max": "2026-01-27T12:00:00"
+              "max": "2026-01-28T12:00:00"
             },
             "valid_time": {
               "min": "2006-10-01T00:00:00",
-              "max": "2026-02-06T12:00:00"
+              "max": "2026-02-07T12:00:00"
             }
           }
         }
@@ -560,9 +560,9 @@
       ],
       "schedule": "At 20:00 UTC",
       "last_run": {
-        "start": "2026-01-28T23:00:40.802000Z",
-        "end": "2026-01-28T23:19:30.200000Z",
-        "duration_min": 18,
+        "start": "2026-01-29T23:00:40.684000Z",
+        "end": "2026-01-29T23:25:37.416000Z",
+        "duration_min": 24,
         "status": "success"
       },
       "next_run": "2026-01-30T20:00:00Z",
@@ -650,7 +650,7 @@
           "timestamp_ranges": {
             "valid_date": {
               "min": "1998-01-12",
-              "max": "2026-01-27"
+              "max": "2026-01-28"
             }
           }
         }
