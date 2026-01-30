@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-30T00:49:32.776084Z",
+  "generated_at": "2026-01-30T01:50:51.146591Z",
   "pipelines": [
     {
       "name": "Run NHC",
@@ -219,7 +219,8 @@
             }
           }
         }
-      ]
+      ],
+      "blob_storage": null
     },
     {
       "name": "Run ECMWF Storms",
@@ -362,7 +363,8 @@
             }
           }
         }
-      ]
+      ],
+      "blob_storage": null
     },
     {
       "name": "Run IBTrACS",
@@ -539,7 +541,8 @@
             }
           }
         }
-      ]
+      ],
+      "blob_storage": null
     },
     {
       "name": "Run FloodScan",
@@ -654,7 +657,13 @@
             }
           }
         }
-      ]
+      ],
+      "blob_storage": {
+        "container": "raster",
+        "prefix": "floodscan/daily/v5/processed",
+        "blob_size_gb": 3.8,
+        "blob_count": 10244
+      }
     },
     {
       "name": "Run ERA5",
@@ -759,7 +768,13 @@
             }
           }
         }
-      ]
+      ],
+      "blob_storage": {
+        "container": "raster",
+        "prefix": "era5/monthly/processed/",
+        "blob_size_gb": 2.31,
+        "blob_count": 540
+      }
     },
     {
       "name": "Run IMERG",
@@ -864,7 +879,13 @@
             }
           }
         }
-      ]
+      ],
+      "blob_storage": {
+        "container": "raster",
+        "prefix": "imerg/daily/late/v7/processed/",
+        "blob_size_gb": 152.07,
+        "blob_count": 10255
+      }
     },
     {
       "name": "Run SEAS5",
@@ -985,7 +1006,13 @@
             }
           }
         }
-      ]
+      ],
+      "blob_storage": {
+        "container": "raster",
+        "prefix": "seas5/monthly/processed",
+        "blob_size_gb": 8.01,
+        "blob_count": 3788
+      }
     }
   ]
 }
