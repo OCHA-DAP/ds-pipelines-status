@@ -17,9 +17,11 @@ Environment variables (via .env file or environment):
 """
 
 import json
+import os
 from datetime import datetime, timezone
 from pathlib import Path
 
+from azure.storage.blob import BlobServiceClient
 from cron_descriptor import Options, get_description
 from croniter import croniter
 from databricks.sdk import WorkspaceClient
@@ -45,6 +47,63 @@ def get_output_schemas(job: BaseJob) -> list[str]:
         return []
     schema_tag = job.settings.tags.get("output_schema", "")
     return [s.strip() for s in schema_tag.split(",") if s.strip()]
+
+
+def get_blob_storage_info(job: BaseJob) -> dict | None:
+    """Extract blob_container and blob_prefix tags from a job."""
+    if not job.settings or not job.settings.tags:
+        return None
+
+    container = job.settings.tags.get("blob_container")
+    prefix = job.settings.tags.get("blob_prefix")
+
+    if container:
+        return {
+            "container": container,
+            "prefix": prefix or ""
+        }
+    return None
+
+
+def calculate_blob_storage_size(container_name: str, prefix: str) -> dict | None:
+    """Calculate total size of blobs in a container under a specific prefix using Azure SDK with SAS token."""
+    try:
+        sas_token = os.getenv("DSCI_AZ_BLOB_PROD_SAS")
+        account_url = f"https://imb0chd0prod.blob.core.windows.net"
+
+        # Use SAS token for authentication
+        blob_service_client = BlobServiceClient(account_url=account_url, credential=sas_token)
+        container_client = blob_service_client.get_container_client(container_name)
+
+        total_size_bytes = 0
+        blob_count = 0
+
+        # List blobs with minimal properties for speed
+        blob_list = container_client.list_blobs(
+            name_starts_with=prefix if prefix else None
+        )
+
+        for blob in blob_list:
+            total_size_bytes += blob.size
+            blob_count += 1
+
+        if blob_count > 0:
+            # Convert to GB or MB depending on size
+            size_mb = total_size_bytes / (1024 * 1024)
+            if size_mb >= 1024:
+                return {
+                    "blob_size_gb": round(size_mb / 1024, 2),
+                    "blob_count": blob_count
+                }
+            else:
+                return {
+                    "blob_size_mb": round(size_mb, 2),
+                    "blob_count": blob_count
+                }
+        return None
+    except Exception as e:
+        print(f"Error calculating blob storage size for {container_name}/{prefix}: {e}")
+        return None
 
 
 def fetch_table_stats(engine, schema_name: str, table_name: str, timestamp_columns: list[str]) -> dict:
@@ -331,6 +390,21 @@ def fetch_pipeline_data(client: WorkspaceClient, db_engine) -> dict:
         output_schemas = get_output_schemas(full_job)
         schema_definitions = fetch_all_schemas(output_schemas, db_engine) if output_schemas else []
 
+        # Get blob storage info and size
+        blob_info = get_blob_storage_info(full_job)
+        blob_storage = None
+        if blob_info:
+            blob_size = calculate_blob_storage_size(
+                container_name=blob_info["container"],
+                prefix=blob_info["prefix"]
+            )
+            if blob_size:
+                blob_storage = {
+                    "container": blob_info["container"],
+                    "prefix": blob_info["prefix"],
+                    **blob_size
+                }
+
         # Get latest run
         latest_run = None
         try:
@@ -366,6 +440,7 @@ def fetch_pipeline_data(client: WorkspaceClient, db_engine) -> dict:
             "tags": get_job_tags(full_job),
             "job_status": get_job_status(full_job),
             "output_schemas": schema_definitions,
+            "blob_storage": blob_storage,
         })
 
     return output

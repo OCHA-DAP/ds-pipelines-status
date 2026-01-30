@@ -82,6 +82,26 @@ function formatTimestampRange(ranges) {
   return items.join('');
 }
 
+function renderBlobStorage(blobStorage) {
+  if (!blobStorage) return '';
+
+  const blobSize = blobStorage.blob_size_gb !== undefined ? `${blobStorage.blob_size_gb} GB` :
+                   blobStorage.blob_size_mb !== undefined ? `${blobStorage.blob_size_mb} MB` : null;
+  const blobCount = blobStorage.blob_count !== undefined ? formatNumber(blobStorage.blob_count) : null;
+
+  return `
+    <div class="blob-storage-info">
+      <h3>Azure Blob Storage</h3>
+      <div class="schema-stats">
+        <span class="stat-item"><strong>Container:</strong> ${blobStorage.container}</span>
+        ${blobStorage.prefix ? `<span class="stat-item"><strong>Prefix:</strong> ${blobStorage.prefix}</span>` : ''}
+        ${blobSize ? `<span class="stat-item"><strong>Total Size:</strong> ${blobSize}</span>` : ''}
+        ${blobCount ? `<span class="stat-item"><strong>Blob Count:</strong> ${blobCount}</span>` : ''}
+      </div>
+    </div>
+  `;
+}
+
 function renderSchemaTable(schema) {
   const columnsHtml = schema.columns.map(col => `
     <tr>
@@ -133,12 +153,21 @@ function showSchemaModal(pipeline) {
 
   title.textContent = `${pipeline.name} - Output Schema`;
 
-  if (pipeline.output_schemas && pipeline.output_schemas.length > 0) {
-    body.innerHTML = pipeline.output_schemas.map(renderSchemaTable).join('');
-  } else {
-    body.innerHTML = '<p>No schema information available.</p>';
+  let content = '';
+
+  // Add blob storage info if available
+  if (pipeline.blob_storage) {
+    content += renderBlobStorage(pipeline.blob_storage);
   }
 
+  // Add schema tables
+  if (pipeline.output_schemas && pipeline.output_schemas.length > 0) {
+    content += pipeline.output_schemas.map(renderSchemaTable).join('');
+  } else if (!pipeline.blob_storage) {
+    content = '<p>No schema information available.</p>';
+  }
+
+  body.innerHTML = content;
   modal.classList.add('active');
 }
 

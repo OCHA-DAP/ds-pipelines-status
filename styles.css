@@ -289,3 +289,18 @@ tr.development td {
 .schema-table tr:last-child td {
   border-bottom: none;
 }
+
+.blob-storage-info {
+  margin-bottom: 24px;
+  padding: 16px;
+  background: #F8F9FA;
+  border-radius: 4px;
+  border: 1px solid #DDDDDD;
+}
+
+.blob-storage-info h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #007CE0;
+  margin-bottom: 8px;
+}
