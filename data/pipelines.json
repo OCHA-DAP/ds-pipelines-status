@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-31T06:27:14.084500Z",
+  "generated_at": "2026-01-31T12:27:07.169313Z",
   "pipelines": [
     {
       "name": "Run NHC",
@@ -12,12 +12,12 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": {
-        "start": "2026-01-31T06:00:23.259000Z",
-        "end": "2026-01-31T06:09:28.485000Z",
-        "duration_min": 9,
+        "start": "2026-01-31T12:00:22.971000Z",
+        "end": "2026-01-31T12:08:10.342000Z",
+        "duration_min": 7,
         "status": "success"
       },
-      "next_run": "2026-01-31T09:00:00Z",
+      "next_run": "2026-01-31T15:00:00Z",
       "tags": [
         "storms",
         "forecast",
