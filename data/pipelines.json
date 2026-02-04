@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-03T18:34:35.282743Z",
+  "generated_at": "2026-02-04T00:48:21.032512Z",
   "pipelines": [
     {
       "name": "Run NHC",
@@ -12,12 +12,12 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": {
-        "start": "2026-02-03T18:00:22.905000Z",
-        "end": "2026-02-03T18:08:29.658000Z",
-        "duration_min": 8,
+        "start": "2026-02-04T00:00:22.178000Z",
+        "end": "2026-02-04T00:07:02.979000Z",
+        "duration_min": 6,
         "status": "success"
       },
-      "next_run": "2026-02-03T21:00:00Z",
+      "next_run": "2026-02-04T03:00:00Z",
       "tags": [
         "storms",
         "forecast",
@@ -233,12 +233,12 @@
       ],
       "schedule": "At 22:00 UTC",
       "last_run": {
-        "start": "2026-02-02T22:00:48.172000Z",
-        "end": "2026-02-02T22:08:05.805000Z",
-        "duration_min": 7,
-        "status": "success"
+        "start": "2026-02-03T22:00:48.649000Z",
+        "end": "2026-02-03T22:09:00.848000Z",
+        "duration_min": 8,
+        "status": "failed"
       },
-      "next_run": "2026-02-03T22:00:00Z",
+      "next_run": "2026-02-04T22:00:00Z",
       "tags": [
         "storms",
         "forecast"
@@ -563,12 +563,12 @@
       ],
       "schedule": "At 20:00 UTC",
       "last_run": {
-        "start": "2026-02-02T23:00:39.651000Z",
-        "end": "2026-02-02T23:17:41.961000Z",
+        "start": "2026-02-03T23:00:37.709000Z",
+        "end": "2026-02-03T23:17:57.053000Z",
         "duration_min": 17,
         "status": "failed"
       },
-      "next_run": "2026-02-03T20:00:00Z",
+      "next_run": "2026-02-04T20:00:00Z",
       "tags": [
         "floods",
         "africa"
@@ -653,7 +653,7 @@
           "timestamp_ranges": {
             "valid_date": {
               "min": "1998-01-12",
-              "max": "2026-02-01"
+              "max": "2026-02-02"
             }
           }
         }
@@ -662,7 +662,7 @@
         "container": "raster",
         "prefix": "floodscan/daily/v5/processed",
         "blob_size_gb": 3.8,
-        "blob_count": 10248
+        "blob_count": 10249
       }
     },
     {
