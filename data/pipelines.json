@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-08T18:26:52.723641Z",
+  "generated_at": "2026-02-09T00:53:50.229759Z",
   "pipelines": [
     {
       "name": "Run NHC",
@@ -12,12 +12,12 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": {
-        "start": "2026-02-08T18:00:21.402000Z",
-        "end": "2026-02-08T18:07:32.690000Z",
-        "duration_min": 7,
+        "start": "2026-02-09T00:00:23.965000Z",
+        "end": "2026-02-09T00:08:40.866000Z",
+        "duration_min": 8,
         "status": "success"
       },
-      "next_run": "2026-02-08T21:00:00Z",
+      "next_run": "2026-02-09T03:00:00Z",
       "tags": [
         "storms",
         "forecast",
@@ -233,12 +233,12 @@
       ],
       "schedule": "At 22:00 UTC",
       "last_run": {
-        "start": "2026-02-07T22:00:48.277000Z",
-        "end": "2026-02-07T22:09:06.912000Z",
-        "duration_min": 8,
+        "start": "2026-02-08T22:00:48.414000Z",
+        "end": "2026-02-08T22:07:51.640000Z",
+        "duration_min": 7,
         "status": "success"
       },
-      "next_run": "2026-02-08T22:00:00Z",
+      "next_run": "2026-02-09T22:00:00Z",
       "tags": [
         "storms",
         "forecast"
@@ -351,15 +351,15 @@
             }
           ],
           "row_count": 1202593,
-          "size_mb": 450.55,
+          "size_mb": 450.68,
           "timestamp_ranges": {
             "issued_time": {
               "min": "2006-10-01T00:00:00",
-              "max": "2026-02-06T12:00:00"
+              "max": "2026-02-07T12:00:00"
             },
             "valid_time": {
               "min": "2006-10-01T00:00:00",
-              "max": "2026-02-16T12:00:00"
+              "max": "2026-02-17T12:00:00"
             }
           }
         }
@@ -563,12 +563,12 @@
       ],
       "schedule": "At 20:00 UTC",
       "last_run": {
-        "start": "2026-02-07T23:00:38.974000Z",
-        "end": "2026-02-07T23:18:20.828000Z",
-        "duration_min": 17,
+        "start": "2026-02-08T23:00:38.760000Z",
+        "end": "2026-02-08T23:18:52.297000Z",
+        "duration_min": 18,
         "status": "failed"
       },
-      "next_run": "2026-02-08T20:00:00Z",
+      "next_run": "2026-02-09T20:00:00Z",
       "tags": [
         "floods",
         "africa"
@@ -653,7 +653,7 @@
           "timestamp_ranges": {
             "valid_date": {
               "min": "1998-01-12",
-              "max": "2026-02-06"
+              "max": "2026-02-07"
             }
           }
         }
@@ -662,7 +662,7 @@
         "container": "raster",
         "prefix": "floodscan/daily/v5/processed",
         "blob_size_gb": 3.81,
-        "blob_count": 10253
+        "blob_count": 10254
       }
     },
     {
