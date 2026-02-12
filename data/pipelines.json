@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-12T12:30:53.081189Z",
+  "generated_at": "2026-02-12T18:35:21.602414Z",
   "pipelines": [
     {
       "name": "Run NHC",
@@ -12,12 +12,12 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": {
-        "start": "2026-02-12T12:00:21.781000Z",
-        "end": "2026-02-12T12:10:42.835000Z",
-        "duration_min": 10,
+        "start": "2026-02-12T18:00:20.946000Z",
+        "end": "2026-02-12T18:09:07.663000Z",
+        "duration_min": 8,
         "status": "success"
       },
-      "next_run": "2026-02-12T15:00:00Z",
+      "next_run": "2026-02-12T21:00:00Z",
       "tags": [
         "storms",
         "forecast",
@@ -377,12 +377,12 @@
       ],
       "schedule": "At 16:00 UTC",
       "last_run": {
-        "start": "2026-02-11T16:00:32.772000Z",
-        "end": "2026-02-11T16:08:55.416000Z",
-        "duration_min": 8,
+        "start": "2026-02-12T16:00:29.782000Z",
+        "end": "2026-02-12T16:09:43.777000Z",
+        "duration_min": 9,
         "status": "success"
       },
-      "next_run": "2026-02-12T16:00:00Z",
+      "next_run": "2026-02-13T16:00:00Z",
       "tags": [
         "storms"
       ],
@@ -533,7 +533,7 @@
             }
           ],
           "row_count": 302882,
-          "size_mb": 114.58,
+          "size_mb": 114.66,
           "timestamp_ranges": {
             "valid_time": {
               "min": "1848-01-11T06:00:00",
@@ -563,10 +563,10 @@
       ],
       "schedule": "At 20:00 UTC",
       "last_run": {
-        "start": "2026-02-11T23:00:39.628000Z",
-        "end": "2026-02-11T23:09:15.020000Z",
-        "duration_min": 8,
-        "status": "failed"
+        "start": "2026-02-12T16:23:15.286000Z",
+        "end": "2026-02-12T16:43:02.601000Z",
+        "duration_min": 19,
+        "status": "success"
       },
       "next_run": "2026-02-12T20:00:00Z",
       "tags": [
@@ -653,7 +653,7 @@
           "timestamp_ranges": {
             "valid_date": {
               "min": "1998-01-12",
-              "max": "2026-02-09"
+              "max": "2026-02-10"
             }
           }
         }
@@ -662,7 +662,7 @@
         "container": "raster",
         "prefix": "floodscan/daily/v5/processed",
         "blob_size_gb": 3.81,
-        "blob_count": 10257
+        "blob_count": 10258
       }
     },
     {
@@ -791,12 +791,12 @@
       ],
       "schedule": "At 14:40 UTC",
       "last_run": {
-        "start": "2026-02-11T14:40:58.315000Z",
-        "end": "2026-02-11T15:18:22.514000Z",
-        "duration_min": 37,
+        "start": "2026-02-12T14:40:58.011000Z",
+        "end": "2026-02-12T15:05:18.320000Z",
+        "duration_min": 24,
         "status": "success"
       },
-      "next_run": "2026-02-12T14:40:00Z",
+      "next_run": "2026-02-13T14:40:00Z",
       "tags": [
         "rainfall"
       ],
@@ -875,7 +875,7 @@
           "timestamp_ranges": {
             "valid_date": {
               "min": "1998-01-01",
-              "max": "2026-02-10"
+              "max": "2026-02-11"
             }
           }
         }
@@ -883,8 +883,8 @@
       "blob_storage": {
         "container": "raster",
         "prefix": "imerg/daily/late/v7/processed/",
-        "blob_size_gb": 152.25,
-        "blob_count": 10268
+        "blob_size_gb": 152.26,
+        "blob_count": 10269
       }
     },
     {
