@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-11T18:36:32.092533Z",
+  "generated_at": "2026-02-12T00:52:19.806502Z",
   "pipelines": [
     {
       "name": "Run NHC",
@@ -12,12 +12,12 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": {
-        "start": "2026-02-11T18:00:23.893000Z",
-        "end": "2026-02-11T18:09:32.262000Z",
-        "duration_min": 9,
+        "start": "2026-02-12T00:00:23.942000Z",
+        "end": "2026-02-12T00:07:51.064000Z",
+        "duration_min": 7,
         "status": "success"
       },
-      "next_run": "2026-02-11T21:00:00Z",
+      "next_run": "2026-02-12T03:00:00Z",
       "tags": [
         "storms",
         "forecast",
@@ -233,12 +233,12 @@
       ],
       "schedule": "At 22:00 UTC",
       "last_run": {
-        "start": "2026-02-10T22:00:49.429000Z",
-        "end": "2026-02-10T22:08:46.606000Z",
+        "start": "2026-02-11T22:00:48.899000Z",
+        "end": "2026-02-11T22:08:40.793000Z",
         "duration_min": 7,
         "status": "success"
       },
-      "next_run": "2026-02-11T22:00:00Z",
+      "next_run": "2026-02-12T22:00:00Z",
       "tags": [
         "storms",
         "forecast"
@@ -351,15 +351,15 @@
             }
           ],
           "row_count": 1202593,
-          "size_mb": 450.93,
+          "size_mb": 451.04,
           "timestamp_ranges": {
             "issued_time": {
               "min": "2006-10-01T00:00:00",
-              "max": "2026-02-09T12:00:00"
+              "max": "2026-02-10T12:00:00"
             },
             "valid_time": {
               "min": "2006-10-01T00:00:00",
-              "max": "2026-02-19T12:00:00"
+              "max": "2026-02-20T12:00:00"
             }
           }
         }
@@ -563,12 +563,12 @@
       ],
       "schedule": "At 20:00 UTC",
       "last_run": {
-        "start": "2026-02-10T23:00:38.816000Z",
-        "end": "2026-02-10T23:19:00.847000Z",
-        "duration_min": 18,
-        "status": "success"
+        "start": "2026-02-11T23:00:39.628000Z",
+        "end": "2026-02-11T23:09:15.020000Z",
+        "duration_min": 8,
+        "status": "failed"
       },
-      "next_run": "2026-02-11T20:00:00Z",
+      "next_run": "2026-02-12T20:00:00Z",
       "tags": [
         "floods",
         "africa"
