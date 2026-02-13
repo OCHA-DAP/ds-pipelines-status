@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-12T18:35:21.602414Z",
+  "generated_at": "2026-02-13T00:55:06.777953Z",
   "pipelines": [
     {
       "name": "Run NHC",
@@ -12,12 +12,12 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": {
-        "start": "2026-02-12T18:00:20.946000Z",
-        "end": "2026-02-12T18:09:07.663000Z",
-        "duration_min": 8,
+        "start": "2026-02-13T00:00:21.009000Z",
+        "end": "2026-02-13T00:10:08.317000Z",
+        "duration_min": 9,
         "status": "success"
       },
-      "next_run": "2026-02-12T21:00:00Z",
+      "next_run": "2026-02-13T03:00:00Z",
       "tags": [
         "storms",
         "forecast",
@@ -233,12 +233,12 @@
       ],
       "schedule": "At 22:00 UTC",
       "last_run": {
-        "start": "2026-02-11T22:00:48.899000Z",
-        "end": "2026-02-11T22:08:40.793000Z",
-        "duration_min": 7,
-        "status": "success"
+        "start": "2026-02-12T22:00:47.153000Z",
+        "end": "2026-02-12T22:09:13.917000Z",
+        "duration_min": 8,
+        "status": "failed"
       },
-      "next_run": "2026-02-12T22:00:00Z",
+      "next_run": "2026-02-13T22:00:00Z",
       "tags": [
         "storms",
         "forecast"
@@ -377,9 +377,9 @@
       ],
       "schedule": "At 16:00 UTC",
       "last_run": {
-        "start": "2026-02-12T16:00:29.782000Z",
-        "end": "2026-02-12T16:09:43.777000Z",
-        "duration_min": 9,
+        "start": "2026-02-12T20:47:41.875000Z",
+        "end": "2026-02-12T22:20:52.739000Z",
+        "duration_min": 93,
         "status": "success"
       },
       "next_run": "2026-02-13T16:00:00Z",
@@ -563,12 +563,12 @@
       ],
       "schedule": "At 20:00 UTC",
       "last_run": {
-        "start": "2026-02-12T16:23:15.286000Z",
-        "end": "2026-02-12T16:43:02.601000Z",
-        "duration_min": 19,
+        "start": "2026-02-12T23:00:37.496000Z",
+        "end": "2026-02-12T23:33:21.786000Z",
+        "duration_min": 32,
         "status": "success"
       },
-      "next_run": "2026-02-12T20:00:00Z",
+      "next_run": "2026-02-13T20:00:00Z",
       "tags": [
         "floods",
         "africa"
