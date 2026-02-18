@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-18T12:29:21.835854Z",
+  "generated_at": "2026-02-18T18:31:47.388334Z",
   "pipelines": [
     {
       "name": "Run NHC",
@@ -12,12 +12,12 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": {
-        "start": "2026-02-18T12:00:22.825000Z",
-        "end": "2026-02-18T12:10:14.973000Z",
-        "duration_min": 9,
+        "start": "2026-02-18T18:00:21.926000Z",
+        "end": "2026-02-18T18:08:19.961000Z",
+        "duration_min": 7,
         "status": "success"
       },
-      "next_run": "2026-02-18T15:00:00Z",
+      "next_run": "2026-02-18T21:00:00Z",
       "tags": [
         "storms",
         "forecast",
@@ -377,12 +377,12 @@
       ],
       "schedule": "At 16:00 UTC",
       "last_run": {
-        "start": "2026-02-17T16:00:28.864000Z",
-        "end": "2026-02-17T16:09:49.732000Z",
-        "duration_min": 9,
+        "start": "2026-02-18T16:00:28.968000Z",
+        "end": "2026-02-18T16:09:25.954000Z",
+        "duration_min": 8,
         "status": "success"
       },
-      "next_run": "2026-02-18T16:00:00Z",
+      "next_run": "2026-02-19T16:00:00Z",
       "tags": [
         "storms"
       ],
@@ -532,12 +532,12 @@
               "nullable": false
             }
           ],
-          "row_count": 271785,
-          "size_mb": 116.2,
+          "row_count": 307820,
+          "size_mb": 116.21,
           "timestamp_ranges": {
             "valid_time": {
               "min": "1848-01-11T06:00:00",
-              "max": "2026-02-15T00:00:00"
+              "max": "2026-02-17T00:00:00"
             }
           }
         }
@@ -791,12 +791,12 @@
       ],
       "schedule": "At 14:40 UTC",
       "last_run": {
-        "start": "2026-02-17T14:40:57.200000Z",
-        "end": "2026-02-17T15:07:42.452000Z",
-        "duration_min": 26,
+        "start": "2026-02-18T14:40:58.139000Z",
+        "end": "2026-02-18T15:08:57.023000Z",
+        "duration_min": 27,
         "status": "success"
       },
-      "next_run": "2026-02-18T14:40:00Z",
+      "next_run": "2026-02-19T14:40:00Z",
       "tags": [
         "rainfall"
       ],
@@ -875,7 +875,7 @@
           "timestamp_ranges": {
             "valid_date": {
               "min": "1998-01-01",
-              "max": "2026-02-16"
+              "max": "2026-02-17"
             }
           }
         }
@@ -883,8 +883,8 @@
       "blob_storage": {
         "container": "raster",
         "prefix": "imerg/daily/late/v7/processed/",
-        "blob_size_gb": 152.33,
-        "blob_count": 10274
+        "blob_size_gb": 152.34,
+        "blob_count": 10275
       }
     },
     {
