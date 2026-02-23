@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-23T12:30:06.990401Z",
+  "generated_at": "2026-02-23T18:37:27.605358Z",
   "pipelines": [
     {
       "name": "Run NHC",
@@ -12,12 +12,12 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": {
-        "start": "2026-02-23T12:00:18.619000Z",
-        "end": "2026-02-23T12:08:13.019000Z",
-        "duration_min": 7,
+        "start": "2026-02-23T18:00:18.259000Z",
+        "end": "2026-02-23T18:08:22.463000Z",
+        "duration_min": 8,
         "status": "success"
       },
-      "next_run": "2026-02-23T15:00:00Z",
+      "next_run": "2026-02-23T21:00:00Z",
       "tags": [
         "storms",
         "forecast",
@@ -377,12 +377,12 @@
       ],
       "schedule": "At 16:00 UTC",
       "last_run": {
-        "start": "2026-02-22T16:00:28.490000Z",
-        "end": "2026-02-22T16:09:35.680000Z",
-        "duration_min": 9,
-        "status": "success"
+        "start": "2026-02-23T16:52:24.145000Z",
+        "end": null,
+        "duration_min": null,
+        "status": "running"
       },
-      "next_run": "2026-02-23T16:00:00Z",
+      "next_run": "2026-02-24T16:00:00Z",
       "tags": [
         "storms"
       ],
@@ -394,152 +394,188 @@
             {
               "name": "sid",
               "type": "character varying",
-              "nullable": false
+              "nullable": false,
+              "comment": "IBTrACS serial identifier (unique storm ID)"
             },
             {
               "name": "atcf_id",
               "type": "character varying",
-              "nullable": true
+              "nullable": true,
+              "comment": "ATCF storm identifier (e.g., AL012023, EP092023)"
             },
             {
               "name": "number",
               "type": "smallint",
               "nullable": false,
-              "precision": 16
+              "precision": 16,
+              "comment": "Annual cyclone number within basin"
             },
             {
               "name": "season",
               "type": "bigint",
               "nullable": false,
-              "precision": 64
+              "precision": 64,
+              "comment": "Storm season year"
             },
             {
               "name": "name",
               "type": "character varying",
-              "nullable": true
+              "nullable": true,
+              "comment": "Storm name (uppercase) or NULL for unnamed systems"
             },
             {
               "name": "genesis_basin",
               "type": "character varying",
-              "nullable": false
+              "nullable": false,
+              "comment": "Basin where storm originated"
             },
             {
               "name": "provisional",
               "type": "boolean",
-              "nullable": false
+              "nullable": false,
+              "comment": "Whether storm data is provisional (not yet finalized)"
             },
             {
               "name": "storm_id",
               "type": "character varying",
-              "nullable": true
+              "nullable": true,
+              "comment": "Standardized storm identifier linking to tracks"
             }
           ],
-          "row_count": 13573,
-          "size_mb": 2.91
+          "row_count": 13553,
+          "size_mb": 1.48
         },
         {
           "table": "storms.ibtracs_tracks_geo",
           "columns": [
             {
+              "name": "sid",
+              "type": "character varying",
+              "nullable": false,
+              "comment": "IBTrACS serial identifier - foreign key to ibtracs_storms"
+            },
+            {
+              "name": "point_id",
+              "type": "character varying",
+              "nullable": false,
+              "comment": "Unique identifier for this observation point"
+            },
+            {
+              "name": "storm_id",
+              "type": "character varying",
+              "nullable": true,
+              "comment": "Standardized storm identifier"
+            },
+            {
+              "name": "valid_time",
+              "type": "timestamp without time zone",
+              "nullable": false,
+              "comment": "Observation time (UTC)"
+            },
+            {
+              "name": "provider",
+              "type": "character varying",
+              "nullable": false,
+              "comment": "Agency providing the data (e.g., nhc, jtwc, tokyo, reunion, etc.)"
+            },
+            {
+              "name": "basin",
+              "type": "character varying",
+              "nullable": false,
+              "comment": "Current basin location of the storm"
+            },
+            {
+              "name": "nature",
+              "type": "character varying",
+              "nullable": true,
+              "comment": "Storm classification (tropical, extratropical, subtropical, etc.)"
+            },
+            {
               "name": "wind_speed",
               "type": "integer",
               "nullable": true,
-              "precision": 32
+              "precision": 32,
+              "comment": "Maximum sustained wind speed (knots)"
             },
             {
               "name": "pressure",
               "type": "integer",
               "nullable": true,
-              "precision": 32
+              "precision": 32,
+              "comment": "Minimum central pressure (hPa/mb)"
             },
             {
               "name": "max_wind_radius",
               "type": "integer",
               "nullable": true,
-              "precision": 32
+              "precision": 32,
+              "comment": "Radius of maximum winds (nautical miles)"
             },
             {
               "name": "last_closed_isobar_radius",
               "type": "integer",
               "nullable": true,
-              "precision": 32
+              "precision": 32,
+              "comment": "Radius of outermost closed isobar (nautical miles)"
             },
             {
               "name": "last_closed_isobar_pressure",
               "type": "integer",
               "nullable": true,
-              "precision": 32
+              "precision": 32,
+              "comment": "Pressure of outermost closed isobar (hPa/mb)"
             },
             {
               "name": "gust_speed",
               "type": "integer",
               "nullable": true,
-              "precision": 32
-            },
-            {
-              "name": "sid",
-              "type": "character varying",
-              "nullable": false
-            },
-            {
-              "name": "provider",
-              "type": "character varying",
-              "nullable": false
-            },
-            {
-              "name": "basin",
-              "type": "character varying",
-              "nullable": false
-            },
-            {
-              "name": "nature",
-              "type": "character varying",
-              "nullable": true
-            },
-            {
-              "name": "valid_time",
-              "type": "timestamp without time zone",
-              "nullable": false
+              "precision": 32,
+              "comment": "Peak wind gust speed (knots)"
             },
             {
               "name": "quadrant_radius_34",
               "type": "text",
-              "nullable": false
+              "nullable": true,
+              "comment": "JSON array: 34-knot wind radii by quadrant [NE, NW, SE, SW] in nautical miles"
             },
             {
               "name": "quadrant_radius_50",
               "type": "text",
-              "nullable": false
+              "nullable": true,
+              "comment": "JSON array: 50-knot wind radii by quadrant [NE, NW, SE, SW] in nautical miles"
             },
             {
               "name": "quadrant_radius_64",
               "type": "text",
-              "nullable": true
+              "nullable": true,
+              "comment": "JSON array: 64-knot wind radii by quadrant [NE, NW, SE, SW] in nautical miles"
             },
             {
-              "name": "point_id",
-              "type": "character varying",
-              "nullable": false
+              "name": "usa_quadrant_radius_34",
+              "type": "text",
+              "nullable": true,
+              "comment": "JSON array: 34-knot wind radii by quadrant [NE, NW, SE, SW] in nautical miles (USA agency data)"
             },
             {
-              "name": "storm_id",
-              "type": "character varying",
-              "nullable": true
+              "name": "usa_quadrant_radius_50",
+              "type": "text",
+              "nullable": true,
+              "comment": "JSON array: 50-knot wind radii by quadrant [NE, NW, SE, SW] in nautical miles (USA agency data)"
+            },
+            {
+              "name": "usa_quadrant_radius_64",
+              "type": "text",
+              "nullable": true,
+              "comment": "JSON array: 64-knot wind radii by quadrant [NE, NW, SE, SW] in nautical miles (USA agency data)"
             },
             {
               "name": "geometry",
               "type": "USER-DEFINED",
-              "nullable": false
+              "nullable": false,
+              "comment": "Point geometry in WGS84 (EPSG:4326)"
             }
           ],
-          "row_count": 310264,
-          "size_mb": 116.27,
-          "timestamp_ranges": {
-            "valid_time": {
-              "min": "1848-01-11T06:00:00",
-              "max": "2026-02-18T00:00:00"
-            }
-          }
+          "size_mb": 0.06
         }
       ],
       "blob_storage": null
@@ -791,12 +827,12 @@
       ],
       "schedule": "At 14:40 UTC",
       "last_run": {
-        "start": "2026-02-22T14:40:56.987000Z",
-        "end": "2026-02-22T15:06:15.022000Z",
-        "duration_min": 25,
+        "start": "2026-02-23T14:40:57.695000Z",
+        "end": "2026-02-23T15:08:58.629000Z",
+        "duration_min": 28,
         "status": "success"
       },
-      "next_run": "2026-02-23T14:40:00Z",
+      "next_run": "2026-02-24T14:40:00Z",
       "tags": [
         "rainfall"
       ],
@@ -875,7 +911,7 @@
           "timestamp_ranges": {
             "valid_date": {
               "min": "1998-01-01",
-              "max": "2026-02-21"
+              "max": "2026-02-22"
             }
           }
         }
@@ -883,8 +919,8 @@
       "blob_storage": {
         "container": "raster",
         "prefix": "imerg/daily/late/v7/processed/",
-        "blob_size_gb": 152.4,
-        "blob_count": 10279
+        "blob_size_gb": 152.41,
+        "blob_count": 10280
       }
     },
     {
