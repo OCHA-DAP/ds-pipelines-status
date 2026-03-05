@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-05T12:28:33.117742Z",
+  "generated_at": "2026-03-05T18:52:09.989288Z",
   "pipelines": [
     {
       "name": "Run NHC",
@@ -12,12 +12,12 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": {
-        "start": "2026-03-05T12:00:20.669000Z",
-        "end": "2026-03-05T12:09:10.550000Z",
-        "duration_min": 8,
+        "start": "2026-03-05T18:00:18.472000Z",
+        "end": "2026-03-05T18:10:43.030000Z",
+        "duration_min": 10,
         "status": "success"
       },
-      "next_run": "2026-03-05T15:00:00Z",
+      "next_run": "2026-03-05T21:00:00Z",
       "tags": [
         "storms",
         "forecast",
@@ -377,12 +377,12 @@
       ],
       "schedule": "At 16:00 UTC",
       "last_run": {
-        "start": "2026-03-04T16:00:28.541000Z",
-        "end": "2026-03-04T17:16:36.188000Z",
-        "duration_min": 76,
+        "start": "2026-03-05T16:00:28.732000Z",
+        "end": "2026-03-05T17:30:13.910000Z",
+        "duration_min": 89,
         "status": "success"
       },
-      "next_run": "2026-03-05T16:00:00Z",
+      "next_run": "2026-03-06T16:00:00Z",
       "tags": [
         "storms"
       ],
@@ -442,7 +442,7 @@
               "comment": "Standardized storm identifier linking to tracks"
             }
           ],
-          "row_count": 13554,
+          "row_count": 13584,
           "size_mb": 2.92
         },
         {
@@ -575,12 +575,12 @@
               "comment": "Point geometry in WGS84 (EPSG:4326)"
             }
           ],
-          "row_count": 656236,
-          "size_mb": 338.3,
+          "row_count": 704562,
+          "size_mb": 355.75,
           "timestamp_ranges": {
             "valid_time": {
               "min": "1848-01-11T06:00:00",
-              "max": "2026-03-01T00:00:00"
+              "max": "2026-03-02T00:00:00"
             }
           }
         }
@@ -834,12 +834,12 @@
       ],
       "schedule": "At 14:40 UTC",
       "last_run": {
-        "start": "2026-03-04T14:40:57.741000Z",
-        "end": "2026-03-04T16:12:43.988000Z",
+        "start": "2026-03-05T14:40:57.821000Z",
+        "end": "2026-03-05T16:12:24.419000Z",
         "duration_min": 91,
         "status": "failed"
       },
-      "next_run": "2026-03-05T14:40:00Z",
+      "next_run": "2026-03-06T14:40:00Z",
       "tags": [
         "rainfall"
       ],
@@ -945,9 +945,9 @@
       ],
       "schedule": "At 12:30, on day 5 of the month UTC",
       "last_run": {
-        "start": "2026-02-05T12:30:21.325000Z",
-        "end": "2026-02-05T12:54:45.289000Z",
-        "duration_min": 24,
+        "start": "2026-03-05T12:30:20.043000Z",
+        "end": "2026-03-05T12:57:06.803000Z",
+        "duration_min": 26,
         "status": "success"
       },
       "next_run": "2026-04-05T12:30:00Z",
@@ -1037,15 +1037,15 @@
             }
           ],
           "row_count": 27203108,
-          "size_gb": 4.78,
+          "size_gb": 4.79,
           "timestamp_ranges": {
             "valid_date": {
               "min": "1981-01-01",
-              "max": "2026-08-01"
+              "max": "2026-09-01"
             },
             "issued_date": {
               "min": "1981-01-01",
-              "max": "2026-02-01"
+              "max": "2026-03-01"
             }
           }
         }
@@ -1053,8 +1053,8 @@
       "blob_storage": {
         "container": "raster",
         "prefix": "seas5/monthly/processed",
-        "blob_size_gb": 8.02,
-        "blob_count": 3795
+        "blob_size_gb": 8.04,
+        "blob_count": 3802
       }
     }
   ]
