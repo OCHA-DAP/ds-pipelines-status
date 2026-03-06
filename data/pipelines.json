@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-06T12:27:28.793344Z",
+  "generated_at": "2026-03-06T18:27:44.828698Z",
   "pipelines": [
     {
       "name": "Run NHC",
@@ -12,12 +12,12 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": {
-        "start": "2026-03-06T12:00:19.830000Z",
-        "end": "2026-03-06T12:07:54.149000Z",
-        "duration_min": 7,
+        "start": "2026-03-06T18:00:18.471000Z",
+        "end": "2026-03-06T18:08:42.348000Z",
+        "duration_min": 8,
         "status": "success"
       },
-      "next_run": "2026-03-06T15:00:00Z",
+      "next_run": "2026-03-06T21:00:00Z",
       "tags": [
         "storms",
         "forecast",
@@ -377,12 +377,12 @@
       ],
       "schedule": "At 16:00 UTC",
       "last_run": {
-        "start": "2026-03-05T16:00:28.732000Z",
-        "end": "2026-03-05T17:30:13.910000Z",
-        "duration_min": 89,
+        "start": "2026-03-06T16:00:28.071000Z",
+        "end": "2026-03-06T17:47:46.306000Z",
+        "duration_min": 107,
         "status": "success"
       },
-      "next_run": "2026-03-06T16:00:00Z",
+      "next_run": "2026-03-07T16:00:00Z",
       "tags": [
         "storms"
       ],
@@ -575,8 +575,8 @@
               "comment": "Point geometry in WGS84 (EPSG:4326)"
             }
           ],
-          "row_count": 704562,
-          "size_mb": 355.75,
+          "row_count": 751532,
+          "size_mb": 372.22,
           "timestamp_ranges": {
             "valid_time": {
               "min": "1848-01-11T06:00:00",
@@ -834,12 +834,12 @@
       ],
       "schedule": "At 14:40 UTC",
       "last_run": {
-        "start": "2026-03-05T14:40:57.821000Z",
-        "end": "2026-03-05T16:12:24.419000Z",
-        "duration_min": 91,
+        "start": "2026-03-06T14:40:57.358000Z",
+        "end": "2026-03-06T16:13:26.741000Z",
+        "duration_min": 92,
         "status": "failed"
       },
-      "next_run": "2026-03-06T14:40:00Z",
+      "next_run": "2026-03-07T14:40:00Z",
       "tags": [
         "rainfall"
       ],
