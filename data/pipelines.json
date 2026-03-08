@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-08T12:26:53.511557Z",
+  "generated_at": "2026-03-08T18:26:03.749161Z",
   "pipelines": [
     {
       "name": "Run NHC",
@@ -12,12 +12,12 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": {
-        "start": "2026-03-08T12:00:18.367000Z",
-        "end": "2026-03-08T12:08:14.198000Z",
+        "start": "2026-03-08T18:00:17.938000Z",
+        "end": "2026-03-08T18:08:14.715000Z",
         "duration_min": 7,
         "status": "success"
       },
-      "next_run": "2026-03-08T15:00:00Z",
+      "next_run": "2026-03-08T21:00:00Z",
       "tags": [
         "storms",
         "forecast",
@@ -377,12 +377,12 @@
       ],
       "schedule": "At 16:00 UTC",
       "last_run": {
-        "start": "2026-03-07T16:00:28.634000Z",
-        "end": "2026-03-07T17:07:47.019000Z",
+        "start": "2026-03-08T16:00:28.456000Z",
+        "end": "2026-03-08T17:07:57.515000Z",
         "duration_min": 67,
         "status": "success"
       },
-      "next_run": "2026-03-08T16:00:00Z",
+      "next_run": "2026-03-09T16:00:00Z",
       "tags": [
         "storms"
       ],
@@ -575,8 +575,8 @@
               "comment": "Point geometry in WGS84 (EPSG:4326)"
             }
           ],
-          "row_count": 798708,
-          "size_mb": 389.2,
+          "row_count": 846509,
+          "size_mb": 405.93,
           "timestamp_ranges": {
             "valid_time": {
               "min": "1848-01-11T06:00:00",
@@ -834,12 +834,12 @@
       ],
       "schedule": "At 14:40 UTC",
       "last_run": {
-        "start": "2026-03-07T14:40:57.249000Z",
-        "end": "2026-03-07T16:12:55.824000Z",
+        "start": "2026-03-08T14:40:56.638000Z",
+        "end": "2026-03-08T16:12:48.504000Z",
         "duration_min": 91,
         "status": "failed"
       },
-      "next_run": "2026-03-08T14:40:00Z",
+      "next_run": "2026-03-09T14:40:00Z",
       "tags": [
         "rainfall"
       ],
