@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-17T18:34:36.130621Z",
+  "generated_at": "2026-03-18T00:53:47.400908Z",
   "pipelines": [
     {
       "name": "Run NHC",
@@ -12,12 +12,12 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": {
-        "start": "2026-03-17T18:00:19.411000Z",
-        "end": "2026-03-17T18:09:46.592000Z",
-        "duration_min": 9,
+        "start": "2026-03-18T00:00:19.581000Z",
+        "end": "2026-03-18T00:08:32.614000Z",
+        "duration_min": 8,
         "status": "success"
       },
-      "next_run": "2026-03-17T21:00:00Z",
+      "next_run": "2026-03-18T03:00:00Z",
       "tags": [
         "storms",
         "forecast",
@@ -233,12 +233,12 @@
       ],
       "schedule": "At 22:00 UTC",
       "last_run": {
-        "start": "2026-03-16T22:00:48.187000Z",
-        "end": "2026-03-16T22:08:39.402000Z",
-        "duration_min": 7,
+        "start": "2026-03-17T22:00:47.361000Z",
+        "end": "2026-03-17T22:09:12.415000Z",
+        "duration_min": 8,
         "status": "failed"
       },
-      "next_run": "2026-03-17T22:00:00Z",
+      "next_run": "2026-03-18T22:00:00Z",
       "tags": [
         "storms",
         "forecast"
@@ -606,12 +606,12 @@
       ],
       "schedule": "At 20:00 UTC",
       "last_run": {
-        "start": "2026-03-16T23:00:37.316000Z",
-        "end": "2026-03-16T23:18:18.367000Z",
-        "duration_min": 17,
+        "start": "2026-03-17T23:00:38.306000Z",
+        "end": "2026-03-17T23:17:24.739000Z",
+        "duration_min": 16,
         "status": "success"
       },
-      "next_run": "2026-03-17T20:00:00Z",
+      "next_run": "2026-03-18T20:00:00Z",
       "tags": [
         "floods",
         "africa"
@@ -696,7 +696,7 @@
           "timestamp_ranges": {
             "valid_date": {
               "min": "1998-01-12",
-              "max": "2026-03-15"
+              "max": "2026-03-16"
             }
           }
         }
@@ -705,7 +705,7 @@
         "container": "raster",
         "prefix": "floodscan/daily/v5/processed",
         "blob_size_gb": 3.82,
-        "blob_count": 10291
+        "blob_count": 10292
       }
     },
     {
