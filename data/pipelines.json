@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-21T12:26:56.029022Z",
+  "generated_at": "2026-03-21T18:26:16.975786Z",
   "pipelines": [
     {
       "name": "Run NHC",
@@ -12,12 +12,12 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": {
-        "start": "2026-03-21T12:00:19.469000Z",
-        "end": "2026-03-21T12:08:26.886000Z",
-        "duration_min": 8,
+        "start": "2026-03-21T18:00:18.854000Z",
+        "end": "2026-03-21T18:07:21.691000Z",
+        "duration_min": 7,
         "status": "success"
       },
-      "next_run": "2026-03-21T15:00:00Z",
+      "next_run": "2026-03-21T21:00:00Z",
       "tags": [
         "storms",
         "forecast",
@@ -377,12 +377,12 @@
       ],
       "schedule": "At 16:00 UTC",
       "last_run": {
-        "start": "2026-03-20T16:00:28.799000Z",
-        "end": "2026-03-20T17:33:44.461000Z",
-        "duration_min": 93,
+        "start": "2026-03-21T16:00:29.013000Z",
+        "end": "2026-03-21T17:07:38.403000Z",
+        "duration_min": 67,
         "status": "success"
       },
-      "next_run": "2026-03-21T16:00:00Z",
+      "next_run": "2026-03-22T16:00:00Z",
       "tags": [
         "storms"
       ],
@@ -575,8 +575,8 @@
               "comment": "Point geometry in WGS84 (EPSG:4326)"
             }
           ],
-          "row_count": 1369537,
-          "size_mb": 650.51,
+          "row_count": 1422160,
+          "size_mb": 682.96,
           "timestamp_ranges": {
             "valid_time": {
               "min": "1848-01-11T06:00:00",
@@ -834,12 +834,12 @@
       ],
       "schedule": "At 14:40 UTC",
       "last_run": {
-        "start": "2026-03-20T14:40:57.181000Z",
-        "end": "2026-03-20T15:06:38.763000Z",
+        "start": "2026-03-21T14:40:57.770000Z",
+        "end": "2026-03-21T15:06:46.496000Z",
         "duration_min": 25,
         "status": "success"
       },
-      "next_run": "2026-03-21T14:40:00Z",
+      "next_run": "2026-03-22T14:40:00Z",
       "tags": [
         "rainfall"
       ],
@@ -918,7 +918,7 @@
           "timestamp_ranges": {
             "valid_date": {
               "min": "1998-01-01",
-              "max": "2026-03-19"
+              "max": "2026-03-20"
             }
           }
         }
@@ -926,8 +926,8 @@
       "blob_storage": {
         "container": "raster",
         "prefix": "imerg/daily/late/v7/processed/",
-        "blob_size_gb": 152.77,
-        "blob_count": 10305
+        "blob_size_gb": 152.78,
+        "blob_count": 10306
       }
     },
     {
