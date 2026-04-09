@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-09T12:40:47.019444Z",
+  "generated_at": "2026-04-09T18:36:19.698056Z",
   "pipelines": [
     {
       "name": "Run NHC",
@@ -12,12 +12,12 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": {
-        "start": "2026-04-09T12:00:18.744000Z",
-        "end": "2026-04-09T12:09:13.394000Z",
-        "duration_min": 8,
+        "start": "2026-04-09T18:00:18.759000Z",
+        "end": "2026-04-09T18:07:44.696000Z",
+        "duration_min": 7,
         "status": "success"
       },
-      "next_run": "2026-04-09T15:00:00Z",
+      "next_run": "2026-04-09T21:00:00Z",
       "tags": [
         "storms",
         "forecast",
@@ -377,12 +377,12 @@
       ],
       "schedule": "At 16:00 UTC",
       "last_run": {
-        "start": "2026-04-08T16:00:28.379000Z",
-        "end": "2026-04-08T17:19:29.962000Z",
-        "duration_min": 79,
+        "start": "2026-04-09T16:00:28.393000Z",
+        "end": "2026-04-09T17:10:04.137000Z",
+        "duration_min": 69,
         "status": "success"
       },
-      "next_run": "2026-04-09T16:00:00Z",
+      "next_run": "2026-04-10T16:00:00Z",
       "tags": [
         "storms"
       ],
@@ -575,12 +575,12 @@
               "comment": "Point geometry in WGS84 (EPSG:4326)"
             }
           ],
-          "row_count": 2270821,
-          "size_gb": 1.01,
+          "row_count": 2308273,
+          "size_gb": 1.02,
           "timestamp_ranges": {
             "valid_time": {
               "min": "1848-01-11T06:00:00",
-              "max": "2026-04-07T00:00:00"
+              "max": "2026-04-09T00:00:00"
             }
           }
         }
@@ -834,12 +834,12 @@
       ],
       "schedule": "At 14:40 UTC",
       "last_run": {
-        "start": "2026-04-08T14:40:57.185000Z",
-        "end": "2026-04-08T15:09:15.189000Z",
-        "duration_min": 28,
-        "status": "success"
+        "start": "2026-04-09T14:40:57.588000Z",
+        "end": "2026-04-09T16:12:50.456000Z",
+        "duration_min": 91,
+        "status": "failed"
       },
-      "next_run": "2026-04-09T14:40:00Z",
+      "next_run": "2026-04-10T14:40:00Z",
       "tags": [
         "rainfall"
       ],
