@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-22T18:39:17.171188Z",
+  "generated_at": "2026-04-23T01:05:17.288751Z",
   "pipelines": [
     {
       "name": "Run NHC",
@@ -12,12 +12,12 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": {
-        "start": "2026-04-22T18:00:17.633000Z",
-        "end": "2026-04-22T18:09:19.058000Z",
-        "duration_min": 9,
+        "start": "2026-04-23T00:00:18.021000Z",
+        "end": "2026-04-23T00:09:08.646000Z",
+        "duration_min": 8,
         "status": "success"
       },
-      "next_run": "2026-04-22T21:00:00Z",
+      "next_run": "2026-04-23T03:00:00Z",
       "tags": [
         "storms",
         "forecast",
@@ -233,12 +233,12 @@
       ],
       "schedule": "At 22:00 UTC",
       "last_run": {
-        "start": "2026-04-21T22:00:47.162000Z",
-        "end": "2026-04-21T22:09:36.730000Z",
+        "start": "2026-04-22T22:00:47.653000Z",
+        "end": "2026-04-22T22:09:01.867000Z",
         "duration_min": 8,
-        "status": "success"
+        "status": "failed"
       },
-      "next_run": "2026-04-22T22:00:00Z",
+      "next_run": "2026-04-23T22:00:00Z",
       "tags": [
         "storms",
         "forecast"
@@ -606,12 +606,12 @@
       ],
       "schedule": "At 20:00 UTC",
       "last_run": {
-        "start": "2026-04-21T23:00:37.619000Z",
-        "end": "2026-04-21T23:21:20.503000Z",
-        "duration_min": 20,
+        "start": "2026-04-22T23:00:37.776000Z",
+        "end": "2026-04-22T23:19:20.061000Z",
+        "duration_min": 18,
         "status": "success"
       },
-      "next_run": "2026-04-22T20:00:00Z",
+      "next_run": "2026-04-23T20:00:00Z",
       "tags": [
         "floods",
         "africa"
@@ -696,7 +696,7 @@
           "timestamp_ranges": {
             "valid_date": {
               "min": "1998-01-12",
-              "max": "2026-04-20"
+              "max": "2026-04-21"
             }
           }
         }
@@ -705,7 +705,7 @@
         "container": "raster",
         "prefix": "floodscan/daily/v5/processed",
         "blob_size_gb": 3.84,
-        "blob_count": 10327
+        "blob_count": 10328
       }
     },
     {
