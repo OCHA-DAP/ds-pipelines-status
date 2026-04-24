@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-24T12:39:09.362315Z",
+  "generated_at": "2026-04-24T18:31:10.398728Z",
   "pipelines": [
     {
       "name": "Run NHC",
@@ -12,12 +12,12 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": {
-        "start": "2026-04-24T12:00:18.555000Z",
-        "end": "2026-04-24T12:09:08.313000Z",
-        "duration_min": 8,
+        "start": "2026-04-24T18:00:18.450000Z",
+        "end": "2026-04-24T18:09:47.318000Z",
+        "duration_min": 9,
         "status": "success"
       },
-      "next_run": "2026-04-24T15:00:00Z",
+      "next_run": "2026-04-24T21:00:00Z",
       "tags": [
         "storms",
         "forecast",
@@ -377,12 +377,12 @@
       ],
       "schedule": "At 16:00 UTC",
       "last_run": {
-        "start": "2026-04-23T16:00:27.924000Z",
-        "end": "2026-04-23T17:16:43.669000Z",
-        "duration_min": 76,
+        "start": "2026-04-24T16:00:27.804000Z",
+        "end": "2026-04-24T17:05:36.534000Z",
+        "duration_min": 65,
         "status": "success"
       },
-      "next_run": "2026-04-24T16:00:00Z",
+      "next_run": "2026-04-25T16:00:00Z",
       "tags": [
         "storms"
       ],
@@ -834,12 +834,12 @@
       ],
       "schedule": "At 14:40 UTC",
       "last_run": {
-        "start": "2026-04-23T14:40:56.940000Z",
-        "end": "2026-04-23T15:18:44.989000Z",
-        "duration_min": 37,
+        "start": "2026-04-24T14:40:57.090000Z",
+        "end": "2026-04-24T15:06:19.946000Z",
+        "duration_min": 25,
         "status": "success"
       },
-      "next_run": "2026-04-24T14:40:00Z",
+      "next_run": "2026-04-25T14:40:00Z",
       "tags": [
         "rainfall"
       ],
@@ -918,7 +918,7 @@
           "timestamp_ranges": {
             "valid_date": {
               "min": "1998-01-01",
-              "max": "2026-04-22"
+              "max": "2026-04-23"
             }
           }
         }
@@ -926,8 +926,8 @@
       "blob_storage": {
         "container": "raster",
         "prefix": "imerg/daily/late/v7/processed/",
-        "blob_size_gb": 153.27,
-        "blob_count": 10339
+        "blob_size_gb": 153.29,
+        "blob_count": 10340
       }
     },
     {
