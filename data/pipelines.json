@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-25T18:29:03.334186Z",
+  "generated_at": "2026-04-26T01:07:20.100243Z",
   "pipelines": [
     {
       "name": "Run NHC",
@@ -12,12 +12,12 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": {
-        "start": "2026-04-25T18:00:18.044000Z",
-        "end": "2026-04-25T18:08:31.987000Z",
-        "duration_min": 8,
+        "start": "2026-04-26T00:00:18.666000Z",
+        "end": "2026-04-26T00:08:08.541000Z",
+        "duration_min": 7,
         "status": "success"
       },
-      "next_run": "2026-04-25T21:00:00Z",
+      "next_run": "2026-04-26T03:00:00Z",
       "tags": [
         "storms",
         "forecast",
@@ -233,12 +233,12 @@
       ],
       "schedule": "At 22:00 UTC",
       "last_run": {
-        "start": "2026-04-24T22:00:46.885000Z",
-        "end": "2026-04-24T22:08:10.553000Z",
-        "duration_min": 7,
+        "start": "2026-04-25T22:00:46.558000Z",
+        "end": "2026-04-25T22:09:54.360000Z",
+        "duration_min": 9,
         "status": "failed"
       },
-      "next_run": "2026-04-25T22:00:00Z",
+      "next_run": "2026-04-26T22:00:00Z",
       "tags": [
         "storms",
         "forecast"
@@ -606,12 +606,12 @@
       ],
       "schedule": "At 20:00 UTC",
       "last_run": {
-        "start": "2026-04-24T23:00:37.319000Z",
-        "end": "2026-04-24T23:22:49.859000Z",
-        "duration_min": 22,
+        "start": "2026-04-25T23:00:37.280000Z",
+        "end": "2026-04-25T23:18:28.284000Z",
+        "duration_min": 17,
         "status": "success"
       },
-      "next_run": "2026-04-25T20:00:00Z",
+      "next_run": "2026-04-26T20:00:00Z",
       "tags": [
         "floods",
         "africa"
@@ -692,11 +692,11 @@
             }
           ],
           "row_count": 41995664,
-          "size_gb": 7.87,
+          "size_gb": 7.88,
           "timestamp_ranges": {
             "valid_date": {
               "min": "1998-01-12",
-              "max": "2026-04-23"
+              "max": "2026-04-24"
             }
           }
         }
@@ -705,7 +705,7 @@
         "container": "raster",
         "prefix": "floodscan/daily/v5/processed",
         "blob_size_gb": 3.84,
-        "blob_count": 10330
+        "blob_count": 10331
       }
     },
     {
