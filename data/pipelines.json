@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-28T12:55:38.588716Z",
+  "generated_at": "2026-04-28T18:49:33.821451Z",
   "pipelines": [
     {
       "name": "Run NHC",
@@ -12,12 +12,12 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": {
-        "start": "2026-04-28T12:00:24.693000Z",
-        "end": "2026-04-28T12:08:26.896000Z",
-        "duration_min": 8,
+        "start": "2026-04-28T18:00:18.444000Z",
+        "end": "2026-04-28T18:09:26.134000Z",
+        "duration_min": 9,
         "status": "success"
       },
-      "next_run": "2026-04-28T15:00:00Z",
+      "next_run": "2026-04-28T21:00:00Z",
       "tags": [
         "storms",
         "forecast",
@@ -377,12 +377,12 @@
       ],
       "schedule": "At 16:00 UTC",
       "last_run": {
-        "start": "2026-04-27T16:00:27.694000Z",
-        "end": "2026-04-27T17:07:15.523000Z",
-        "duration_min": 66,
+        "start": "2026-04-28T16:00:28.430000Z",
+        "end": "2026-04-28T17:07:30.671000Z",
+        "duration_min": 67,
         "status": "success"
       },
-      "next_run": "2026-04-28T16:00:00Z",
+      "next_run": "2026-04-29T16:00:00Z",
       "tags": [
         "storms"
       ],
@@ -834,12 +834,12 @@
       ],
       "schedule": "At 14:40 UTC",
       "last_run": {
-        "start": "2026-04-27T14:40:57.518000Z",
-        "end": "2026-04-27T15:08:34.470000Z",
+        "start": "2026-04-28T14:40:57.198000Z",
+        "end": "2026-04-28T15:08:52.727000Z",
         "duration_min": 27,
         "status": "success"
       },
-      "next_run": "2026-04-28T14:40:00Z",
+      "next_run": "2026-04-29T14:40:00Z",
       "tags": [
         "rainfall"
       ],
@@ -914,11 +914,11 @@
             }
           ],
           "row_count": 76862448,
-          "size_gb": 10.85,
+          "size_gb": 10.86,
           "timestamp_ranges": {
             "valid_date": {
               "min": "1998-01-01",
-              "max": "2026-04-26"
+              "max": "2026-04-27"
             }
           }
         }
@@ -926,8 +926,8 @@
       "blob_storage": {
         "container": "raster",
         "prefix": "imerg/daily/late/v7/processed/",
-        "blob_size_gb": 153.33,
-        "blob_count": 10343
+        "blob_size_gb": 153.34,
+        "blob_count": 10344
       }
     },
     {
