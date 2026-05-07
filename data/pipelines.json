@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-07T12:56:35.945675Z",
+  "generated_at": "2026-05-07T18:52:39.205415Z",
   "pipelines": [
     {
       "name": "Run NHC",
@@ -12,12 +12,12 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": {
-        "start": "2026-05-07T12:00:18.328000Z",
-        "end": "2026-05-07T12:10:32.116000Z",
-        "duration_min": 10,
+        "start": "2026-05-07T18:00:18.307000Z",
+        "end": "2026-05-07T18:08:16.488000Z",
+        "duration_min": 7,
         "status": "success"
       },
-      "next_run": "2026-05-07T15:00:00Z",
+      "next_run": "2026-05-07T21:00:00Z",
       "tags": [
         "storms",
         "forecast",
@@ -377,12 +377,12 @@
       ],
       "schedule": "At 16:00 UTC",
       "last_run": {
-        "start": "2026-05-06T16:00:29.023000Z",
-        "end": "2026-05-06T17:30:13.413000Z",
-        "duration_min": 89,
+        "start": "2026-05-07T16:00:28.269000Z",
+        "end": "2026-05-07T17:31:25.056000Z",
+        "duration_min": 90,
         "status": "success"
       },
-      "next_run": "2026-05-07T16:00:00Z",
+      "next_run": "2026-05-08T16:00:00Z",
       "tags": [
         "storms"
       ],
@@ -442,7 +442,7 @@
               "comment": "Standardized storm identifier linking to tracks"
             }
           ],
-          "row_count": 13617,
+          "row_count": 13618,
           "size_mb": 2.94
         },
         {
@@ -575,12 +575,12 @@
               "comment": "Point geometry in WGS84 (EPSG:4326)"
             }
           ],
-          "row_count": 3543344,
-          "size_gb": 1.54,
+          "row_count": 3629279,
+          "size_gb": 1.55,
           "timestamp_ranges": {
             "valid_time": {
               "min": "1848-01-11T06:00:00",
-              "max": "2026-04-20T00:00:00"
+              "max": "2026-05-07T00:00:00"
             }
           }
         }
@@ -834,12 +834,12 @@
       ],
       "schedule": "At 14:40 UTC",
       "last_run": {
-        "start": "2026-05-06T14:40:57.103000Z",
-        "end": "2026-05-06T15:13:34.447000Z",
-        "duration_min": 32,
+        "start": "2026-05-07T14:40:57.376000Z",
+        "end": "2026-05-07T15:08:28.476000Z",
+        "duration_min": 27,
         "status": "success"
       },
-      "next_run": "2026-05-07T14:40:00Z",
+      "next_run": "2026-05-08T14:40:00Z",
       "tags": [
         "rainfall"
       ],
@@ -918,7 +918,7 @@
           "timestamp_ranges": {
             "valid_date": {
               "min": "1998-01-01",
-              "max": "2026-05-05"
+              "max": "2026-05-06"
             }
           }
         }
@@ -926,8 +926,8 @@
       "blob_storage": {
         "container": "raster",
         "prefix": "imerg/daily/late/v7/processed/",
-        "blob_size_gb": 153.46,
-        "blob_count": 10352
+        "blob_size_gb": 153.48,
+        "blob_count": 10353
       }
     },
     {
