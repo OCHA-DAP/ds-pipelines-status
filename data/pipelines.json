@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-17T18:37:42.514114Z",
+  "generated_at": "2026-05-18T01:18:56.255006Z",
   "pipelines": [
     {
       "name": "Run NHC",
@@ -12,12 +12,12 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": {
-        "start": "2026-05-17T18:00:18.202000Z",
-        "end": "2026-05-17T18:10:52.501000Z",
-        "duration_min": 10,
+        "start": "2026-05-18T00:00:17.672000Z",
+        "end": "2026-05-18T00:06:30.906000Z",
+        "duration_min": 6,
         "status": "success"
       },
-      "next_run": "2026-05-17T21:00:00Z",
+      "next_run": "2026-05-18T03:00:00Z",
       "tags": [
         "storms",
         "forecast",
@@ -233,12 +233,12 @@
       ],
       "schedule": "At 22:00 UTC",
       "last_run": {
-        "start": "2026-05-16T22:00:46.813000Z",
-        "end": "2026-05-16T22:07:35.565000Z",
-        "duration_min": 6,
+        "start": "2026-05-17T22:00:47.785000Z",
+        "end": "2026-05-17T22:11:17.346000Z",
+        "duration_min": 10,
         "status": "failed"
       },
-      "next_run": "2026-05-17T22:00:00Z",
+      "next_run": "2026-05-18T22:00:00Z",
       "tags": [
         "storms",
         "forecast"
@@ -606,12 +606,12 @@
       ],
       "schedule": "At 20:00 UTC",
       "last_run": {
-        "start": "2026-05-16T23:00:37.514000Z",
-        "end": "2026-05-16T23:22:05.827000Z",
-        "duration_min": 21,
+        "start": "2026-05-17T23:00:36.756000Z",
+        "end": "2026-05-17T23:17:44.223000Z",
+        "duration_min": 17,
         "status": "success"
       },
-      "next_run": "2026-05-17T20:00:00Z",
+      "next_run": "2026-05-18T20:00:00Z",
       "tags": [
         "floods",
         "africa"
@@ -696,7 +696,7 @@
           "timestamp_ranges": {
             "valid_date": {
               "min": "1998-01-12",
-              "max": "2026-05-15"
+              "max": "2026-05-16"
             }
           }
         }
@@ -705,7 +705,7 @@
         "container": "raster",
         "prefix": "floodscan/daily/v5/processed",
         "blob_size_gb": 3.85,
-        "blob_count": 10352
+        "blob_count": 10353
       }
     },
     {
