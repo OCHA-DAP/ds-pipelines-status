@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-18T18:54:22.881944Z",
+  "generated_at": "2026-05-19T01:18:41.660892Z",
   "pipelines": [
     {
       "name": "Run NHC",
@@ -12,12 +12,12 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": {
-        "start": "2026-05-18T18:00:18.058000Z",
-        "end": "2026-05-18T18:16:05.109000Z",
-        "duration_min": 15,
+        "start": "2026-05-19T00:00:18.107000Z",
+        "end": "2026-05-19T00:11:49.880000Z",
+        "duration_min": 11,
         "status": "success"
       },
-      "next_run": "2026-05-18T21:00:00Z",
+      "next_run": "2026-05-19T03:00:00Z",
       "tags": [
         "storms",
         "forecast",
@@ -233,12 +233,12 @@
       ],
       "schedule": "At 22:00 UTC",
       "last_run": {
-        "start": "2026-05-17T22:00:47.785000Z",
-        "end": "2026-05-17T22:11:17.346000Z",
-        "duration_min": 10,
+        "start": "2026-05-18T22:00:47.654000Z",
+        "end": "2026-05-18T22:08:37.517000Z",
+        "duration_min": 7,
         "status": "failed"
       },
-      "next_run": "2026-05-18T22:00:00Z",
+      "next_run": "2026-05-19T22:00:00Z",
       "tags": [
         "storms",
         "forecast"
@@ -606,12 +606,12 @@
       ],
       "schedule": "At 20:00 UTC",
       "last_run": {
-        "start": "2026-05-17T23:00:36.756000Z",
-        "end": "2026-05-17T23:17:44.223000Z",
-        "duration_min": 17,
+        "start": "2026-05-18T23:00:37.008000Z",
+        "end": "2026-05-18T23:23:32.934000Z",
+        "duration_min": 22,
         "status": "success"
       },
-      "next_run": "2026-05-18T20:00:00Z",
+      "next_run": "2026-05-19T20:00:00Z",
       "tags": [
         "floods",
         "africa"
@@ -696,7 +696,7 @@
           "timestamp_ranges": {
             "valid_date": {
               "min": "1998-01-12",
-              "max": "2026-05-16"
+              "max": "2026-05-17"
             }
           }
         }
@@ -705,7 +705,7 @@
         "container": "raster",
         "prefix": "floodscan/daily/v5/processed",
         "blob_size_gb": 3.85,
-        "blob_count": 10353
+        "blob_count": 10354
       }
     },
     {
