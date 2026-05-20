@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-20T13:16:51.116987Z",
+  "generated_at": "2026-05-20T19:05:02.951452Z",
   "pipelines": [
     {
       "name": "Run NHC",
@@ -12,12 +12,12 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": {
-        "start": "2026-05-20T12:00:18.594000Z",
-        "end": "2026-05-20T12:10:44.994000Z",
-        "duration_min": 10,
+        "start": "2026-05-20T18:00:17.991000Z",
+        "end": "2026-05-20T18:10:08.776000Z",
+        "duration_min": 9,
         "status": "success"
       },
-      "next_run": "2026-05-20T15:00:00Z",
+      "next_run": "2026-05-20T21:00:00Z",
       "tags": [
         "storms",
         "forecast",
@@ -377,12 +377,12 @@
       ],
       "schedule": "At 16:00 UTC",
       "last_run": {
-        "start": "2026-05-19T16:00:28.664000Z",
-        "end": "2026-05-19T18:30:42.770000Z",
-        "duration_min": 150,
+        "start": "2026-05-20T16:00:28.696000Z",
+        "end": "2026-05-20T17:07:02.229000Z",
+        "duration_min": 66,
         "status": "success"
       },
-      "next_run": "2026-05-20T16:00:00Z",
+      "next_run": "2026-05-21T16:00:00Z",
       "tags": [
         "storms"
       ],
@@ -834,12 +834,12 @@
       ],
       "schedule": "At 14:40 UTC",
       "last_run": {
-        "start": "2026-05-19T14:40:57.715000Z",
-        "end": "2026-05-19T15:12:31.267000Z",
-        "duration_min": 31,
+        "start": "2026-05-20T14:40:57.432000Z",
+        "end": "2026-05-20T15:05:18.356000Z",
+        "duration_min": 24,
         "status": "success"
       },
-      "next_run": "2026-05-20T14:40:00Z",
+      "next_run": "2026-05-21T14:40:00Z",
       "tags": [
         "rainfall"
       ],
@@ -918,7 +918,7 @@
           "timestamp_ranges": {
             "valid_date": {
               "min": "1998-01-01",
-              "max": "2026-05-18"
+              "max": "2026-05-19"
             }
           }
         }
@@ -926,8 +926,8 @@
       "blob_storage": {
         "container": "raster",
         "prefix": "imerg/daily/late/v7/processed/",
-        "blob_size_gb": 153.65,
-        "blob_count": 10365
+        "blob_size_gb": 153.67,
+        "blob_count": 10366
       }
     },
     {
