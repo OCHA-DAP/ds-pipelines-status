@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-21T13:26:56.709155Z",
+  "generated_at": "2026-05-21T18:56:06.448544Z",
   "pipelines": [
     {
       "name": "Run NHC",
@@ -12,12 +12,12 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": {
-        "start": "2026-05-21T12:00:19.151000Z",
-        "end": "2026-05-21T12:10:51.763000Z",
-        "duration_min": 10,
+        "start": "2026-05-21T18:00:17.851000Z",
+        "end": "2026-05-21T18:07:52.504000Z",
+        "duration_min": 7,
         "status": "success"
       },
-      "next_run": "2026-05-21T15:00:00Z",
+      "next_run": "2026-05-21T21:00:00Z",
       "tags": [
         "storms",
         "forecast",
@@ -377,12 +377,12 @@
       ],
       "schedule": "At 16:00 UTC",
       "last_run": {
-        "start": "2026-05-20T16:00:28.696000Z",
-        "end": "2026-05-20T17:07:02.229000Z",
-        "duration_min": 66,
+        "start": "2026-05-21T16:00:28.211000Z",
+        "end": "2026-05-21T17:39:02.532000Z",
+        "duration_min": 98,
         "status": "success"
       },
-      "next_run": "2026-05-21T16:00:00Z",
+      "next_run": "2026-05-22T16:00:00Z",
       "tags": [
         "storms"
       ],
@@ -575,7 +575,7 @@
               "comment": "Point geometry in WGS84 (EPSG:4326)"
             }
           ],
-          "row_count": 4200758,
+          "row_count": 4300919,
           "size_gb": 1.83,
           "timestamp_ranges": {
             "valid_time": {
@@ -834,12 +834,12 @@
       ],
       "schedule": "At 14:40 UTC",
       "last_run": {
-        "start": "2026-05-20T14:40:57.432000Z",
-        "end": "2026-05-20T15:05:18.356000Z",
-        "duration_min": 24,
+        "start": "2026-05-21T14:40:57.013000Z",
+        "end": "2026-05-21T15:04:55.152000Z",
+        "duration_min": 23,
         "status": "success"
       },
-      "next_run": "2026-05-21T14:40:00Z",
+      "next_run": "2026-05-22T14:40:00Z",
       "tags": [
         "rainfall"
       ],
@@ -914,11 +914,11 @@
             }
           ],
           "row_count": 76862448,
-          "size_gb": 10.87,
+          "size_gb": 10.88,
           "timestamp_ranges": {
             "valid_date": {
               "min": "1998-01-01",
-              "max": "2026-05-19"
+              "max": "2026-05-20"
             }
           }
         }
@@ -926,8 +926,8 @@
       "blob_storage": {
         "container": "raster",
         "prefix": "imerg/daily/late/v7/processed/",
-        "blob_size_gb": 153.67,
-        "blob_count": 10366
+        "blob_size_gb": 153.68,
+        "blob_count": 10367
       }
     },
     {
