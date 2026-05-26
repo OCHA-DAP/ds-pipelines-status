@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-26T13:22:02.883960Z",
+  "generated_at": "2026-05-26T19:05:26.605075Z",
   "pipelines": [
     {
       "name": "Run NHC",
@@ -12,12 +12,12 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": {
-        "start": "2026-05-26T12:00:24.047000Z",
-        "end": "2026-05-26T12:08:02.960000Z",
-        "duration_min": 7,
+        "start": "2026-05-26T18:00:18.787000Z",
+        "end": "2026-05-26T18:06:54.708000Z",
+        "duration_min": 6,
         "status": "success"
       },
-      "next_run": "2026-05-26T15:00:00Z",
+      "next_run": "2026-05-26T21:00:00Z",
       "tags": [
         "storms",
         "forecast",
@@ -377,12 +377,12 @@
       ],
       "schedule": "At 16:00 UTC",
       "last_run": {
-        "start": "2026-05-25T16:00:28.503000Z",
-        "end": "2026-05-25T17:06:12.259000Z",
-        "duration_min": 65,
+        "start": "2026-05-26T16:00:28.155000Z",
+        "end": "2026-05-26T17:30:52.390000Z",
+        "duration_min": 90,
         "status": "success"
       },
-      "next_run": "2026-05-26T16:00:00Z",
+      "next_run": "2026-05-27T16:00:00Z",
       "tags": [
         "storms"
       ],
@@ -834,12 +834,12 @@
       ],
       "schedule": "At 14:40 UTC",
       "last_run": {
-        "start": "2026-05-25T14:40:57.330000Z",
-        "end": "2026-05-25T15:05:19.833000Z",
+        "start": "2026-05-26T14:40:57.252000Z",
+        "end": "2026-05-26T15:05:55.232000Z",
         "duration_min": 24,
         "status": "success"
       },
-      "next_run": "2026-05-26T14:40:00Z",
+      "next_run": "2026-05-27T14:40:00Z",
       "tags": [
         "rainfall"
       ],
@@ -918,7 +918,7 @@
           "timestamp_ranges": {
             "valid_date": {
               "min": "1998-01-01",
-              "max": "2026-05-24"
+              "max": "2026-05-25"
             }
           }
         }
@@ -926,8 +926,8 @@
       "blob_storage": {
         "container": "raster",
         "prefix": "imerg/daily/late/v7/processed/",
-        "blob_size_gb": 153.74,
-        "blob_count": 10371
+        "blob_size_gb": 153.75,
+        "blob_count": 10372
       }
     },
     {
