@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-31T18:41:14.283106Z",
+  "generated_at": "2026-06-01T01:27:52.371426Z",
   "pipelines": [
     {
       "name": "Run NHC",
@@ -12,12 +12,12 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": {
-        "start": "2026-05-31T18:00:17.897000Z",
-        "end": "2026-05-31T18:08:20.148000Z",
-        "duration_min": 8,
+        "start": "2026-06-01T00:00:18.423000Z",
+        "end": "2026-06-01T00:10:03.441000Z",
+        "duration_min": 9,
         "status": "success"
       },
-      "next_run": "2026-05-31T21:00:00Z",
+      "next_run": "2026-06-01T03:00:00Z",
       "tags": [
         "storms",
         "forecast",
@@ -233,12 +233,12 @@
       ],
       "schedule": "At 22:00 UTC",
       "last_run": {
-        "start": "2026-05-30T22:00:46.813000Z",
-        "end": "2026-05-30T22:08:37.009000Z",
+        "start": "2026-05-31T22:00:48.681000Z",
+        "end": "2026-05-31T22:08:40.386000Z",
         "duration_min": 7,
         "status": "failed"
       },
-      "next_run": "2026-05-31T22:00:00Z",
+      "next_run": "2026-06-01T22:00:00Z",
       "tags": [
         "storms",
         "forecast"
@@ -606,12 +606,12 @@
       ],
       "schedule": "At 20:00 UTC",
       "last_run": {
-        "start": "2026-05-30T23:00:36.841000Z",
-        "end": "2026-05-30T23:17:11.689000Z",
-        "duration_min": 16,
+        "start": "2026-05-31T23:00:37.503000Z",
+        "end": "2026-05-31T23:19:32.418000Z",
+        "duration_min": 18,
         "status": "success"
       },
-      "next_run": "2026-05-31T20:00:00Z",
+      "next_run": "2026-06-01T20:00:00Z",
       "tags": [
         "floods",
         "africa"
@@ -696,7 +696,7 @@
           "timestamp_ranges": {
             "valid_date": {
               "min": "1998-01-12",
-              "max": "2026-05-29"
+              "max": "2026-05-30"
             }
           }
         }
@@ -705,7 +705,7 @@
         "container": "raster",
         "prefix": "floodscan/daily/v5/processed",
         "blob_size_gb": 3.86,
-        "blob_count": 10366
+        "blob_count": 10367
       }
     },
     {
