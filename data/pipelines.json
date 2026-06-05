@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-05T07:47:06.994427Z",
+  "generated_at": "2026-06-05T13:22:35.581911Z",
   "pipelines": [
     {
       "name": "Run NHC",
@@ -12,12 +12,12 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": {
-        "start": "2026-06-05T06:00:18.555000Z",
-        "end": "2026-06-05T06:09:03.921000Z",
-        "duration_min": 8,
+        "start": "2026-06-05T12:00:20.599000Z",
+        "end": "2026-06-05T12:09:41.284000Z",
+        "duration_min": 9,
         "status": "failed"
       },
-      "next_run": "2026-06-05T09:00:00Z",
+      "next_run": "2026-06-05T15:00:00Z",
       "tags": [
         "storms",
         "forecast",
@@ -945,12 +945,12 @@
       ],
       "schedule": "At 12:30, on day 5 of the month UTC",
       "last_run": {
-        "start": "2026-05-05T12:30:20.573000Z",
-        "end": "2026-05-05T12:56:41.843000Z",
+        "start": "2026-06-05T12:30:20.688000Z",
+        "end": "2026-06-05T12:57:02.484000Z",
         "duration_min": 26,
         "status": "success"
       },
-      "next_run": "2026-06-05T12:30:00Z",
+      "next_run": "2026-07-05T12:30:00Z",
       "tags": [
         "rainfall",
         "forecast"
@@ -1037,15 +1037,15 @@
             }
           ],
           "row_count": 27203108,
-          "size_gb": 4.8,
+          "size_gb": 4.81,
           "timestamp_ranges": {
             "valid_date": {
               "min": "1981-01-01",
-              "max": "2026-11-01"
+              "max": "2026-12-01"
             },
             "issued_date": {
               "min": "1981-01-01",
-              "max": "2026-05-01"
+              "max": "2026-06-01"
             }
           }
         }
@@ -1053,8 +1053,8 @@
       "blob_storage": {
         "container": "raster",
         "prefix": "seas5/monthly/processed",
-        "blob_size_gb": 8.07,
-        "blob_count": 3816
+        "blob_size_gb": 8.08,
+        "blob_count": 3823
       }
     }
   ]
