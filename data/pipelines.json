@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-09T19:01:01.402510Z",
+  "generated_at": "2026-06-10T01:21:36.847778Z",
   "pipelines": [
     {
       "name": "Run NHC",
@@ -17,7 +17,7 @@
         "duration_min": 11,
         "status": "failed"
       },
-      "next_run": "2026-06-09T21:00:00Z",
+      "next_run": "2026-06-10T03:00:00Z",
       "tags": [
         "storms",
         "forecast",
@@ -233,12 +233,12 @@
       ],
       "schedule": "At 22:00 UTC",
       "last_run": {
-        "start": "2026-06-08T22:00:48.097000Z",
-        "end": "2026-06-08T22:12:02.938000Z",
-        "duration_min": 11,
+        "start": "2026-06-09T22:00:47.066000Z",
+        "end": "2026-06-09T22:08:34.836000Z",
+        "duration_min": 7,
         "status": "failed"
       },
-      "next_run": "2026-06-09T22:00:00Z",
+      "next_run": "2026-06-10T22:00:00Z",
       "tags": [
         "storms",
         "forecast"
@@ -606,12 +606,12 @@
       ],
       "schedule": "At 20:00 UTC",
       "last_run": {
-        "start": "2026-06-08T23:00:37.613000Z",
-        "end": "2026-06-08T23:25:59.088000Z",
-        "duration_min": 25,
+        "start": "2026-06-09T23:00:37.100000Z",
+        "end": "2026-06-09T23:20:51.030000Z",
+        "duration_min": 20,
         "status": "success"
       },
-      "next_run": "2026-06-09T20:00:00Z",
+      "next_run": "2026-06-10T20:00:00Z",
       "tags": [
         "floods",
         "africa"
@@ -692,11 +692,11 @@
             }
           ],
           "row_count": 41995664,
-          "size_gb": 7.88,
+          "size_gb": 7.89,
           "timestamp_ranges": {
             "valid_date": {
               "min": "1998-01-12",
-              "max": "2026-06-07"
+              "max": "2026-06-08"
             }
           }
         }
@@ -705,7 +705,7 @@
         "container": "raster",
         "prefix": "floodscan/daily/v5/processed",
         "blob_size_gb": 3.86,
-        "blob_count": 10375
+        "blob_count": 10376
       }
     },
     {
