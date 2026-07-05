@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-05T07:24:41.453290Z",
+  "generated_at": "2026-07-05T12:43:40.655282Z",
   "pipelines": [
     {
       "name": "Run NHC",
@@ -17,7 +17,7 @@
         "duration_min": 11,
         "status": "failed"
       },
-      "next_run": "2026-07-05T09:00:00Z",
+      "next_run": "2026-07-05T15:00:00Z",
       "tags": [
         "storms",
         "forecast",
@@ -945,12 +945,12 @@
       ],
       "schedule": "At 12:30, on day 5 of the month UTC",
       "last_run": {
-        "start": "2026-06-05T12:30:20.688000Z",
-        "end": "2026-06-05T12:57:02.484000Z",
-        "duration_min": 26,
-        "status": "success"
+        "start": "2026-07-05T12:30:21.957000Z",
+        "end": null,
+        "duration_min": null,
+        "status": "running"
       },
-      "next_run": "2026-07-05T12:30:00Z",
+      "next_run": "2026-08-05T12:30:00Z",
       "tags": [
         "rainfall",
         "forecast"
@@ -1053,8 +1053,8 @@
       "blob_storage": {
         "container": "raster",
         "prefix": "seas5/monthly/processed",
-        "blob_size_gb": 8.08,
-        "blob_count": 3823
+        "blob_size_gb": 8.1,
+        "blob_count": 3830
       }
     }
   ]
