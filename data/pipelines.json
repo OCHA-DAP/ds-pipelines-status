@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-05T12:43:40.655282Z",
+  "generated_at": "2026-07-05T18:38:33.190360Z",
   "pipelines": [
     {
       "name": "Run NHC",
@@ -17,7 +17,7 @@
         "duration_min": 11,
         "status": "failed"
       },
-      "next_run": "2026-07-05T15:00:00Z",
+      "next_run": "2026-07-05T21:00:00Z",
       "tags": [
         "storms",
         "forecast",
@@ -377,12 +377,12 @@
       ],
       "schedule": "At 16:00 UTC",
       "last_run": {
-        "start": "2026-07-04T16:00:28.679000Z",
-        "end": "2026-07-04T16:08:29.687000Z",
-        "duration_min": 8,
+        "start": "2026-07-05T16:00:29.356000Z",
+        "end": "2026-07-05T16:07:48.174000Z",
+        "duration_min": 7,
         "status": "failed"
       },
-      "next_run": "2026-07-05T16:00:00Z",
+      "next_run": "2026-07-06T16:00:00Z",
       "tags": [
         "storms"
       ],
@@ -834,12 +834,12 @@
       ],
       "schedule": "At 14:40 UTC",
       "last_run": {
-        "start": "2026-07-04T14:40:58.771000Z",
-        "end": "2026-07-04T15:03:14.657000Z",
-        "duration_min": 22,
+        "start": "2026-07-05T14:40:58.981000Z",
+        "end": "2026-07-05T15:07:26.536000Z",
+        "duration_min": 26,
         "status": "success"
       },
-      "next_run": "2026-07-05T14:40:00Z",
+      "next_run": "2026-07-06T14:40:00Z",
       "tags": [
         "rainfall"
       ],
@@ -918,7 +918,7 @@
           "timestamp_ranges": {
             "valid_date": {
               "min": "1998-01-01",
-              "max": "2026-07-03"
+              "max": "2026-07-04"
             }
           }
         }
@@ -926,8 +926,8 @@
       "blob_storage": {
         "container": "raster",
         "prefix": "imerg/daily/late/v7/processed/",
-        "blob_size_gb": 154.35,
-        "blob_count": 10411
+        "blob_size_gb": 154.36,
+        "blob_count": 10412
       }
     },
     {
@@ -946,9 +946,9 @@
       "schedule": "At 12:30, on day 5 of the month UTC",
       "last_run": {
         "start": "2026-07-05T12:30:21.957000Z",
-        "end": null,
-        "duration_min": null,
-        "status": "running"
+        "end": "2026-07-05T12:57:42.812000Z",
+        "duration_min": 27,
+        "status": "success"
       },
       "next_run": "2026-08-05T12:30:00Z",
       "tags": [
@@ -1037,15 +1037,15 @@
             }
           ],
           "row_count": 27203108,
-          "size_gb": 4.81,
+          "size_gb": 4.82,
           "timestamp_ranges": {
             "valid_date": {
               "min": "1981-01-01",
-              "max": "2026-12-01"
+              "max": "2027-01-01"
             },
             "issued_date": {
               "min": "1981-01-01",
-              "max": "2026-06-01"
+              "max": "2026-07-01"
             }
           }
         }
