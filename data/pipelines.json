@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-07T07:26:45.483674Z",
+  "generated_at": "2026-07-07T13:03:33.931081Z",
   "pipelines": [
     {
       "name": "Run NHC",
@@ -17,7 +17,7 @@
         "duration_min": 11,
         "status": "failed"
       },
-      "next_run": "2026-07-07T09:00:00Z",
+      "next_run": "2026-07-07T15:00:00Z",
       "tags": [
         "storms",
         "forecast",
@@ -724,9 +724,9 @@
       "schedule": "At 12:00, on day 6 of the month UTC",
       "last_run": {
         "start": "2026-07-06T12:00:22.720000Z",
-        "end": null,
-        "duration_min": null,
-        "status": "running"
+        "end": "2026-07-07T12:17:35.533000Z",
+        "duration_min": 1457,
+        "status": "success"
       },
       "next_run": "2026-08-06T12:00:00Z",
       "tags": [
@@ -803,11 +803,11 @@
             }
           ],
           "row_count": 4097307,
-          "size_mb": 569.55,
+          "size_mb": 570.42,
           "timestamp_ranges": {
             "valid_date": {
               "min": "1981-01-01",
-              "max": "2026-05-01"
+              "max": "2026-06-01"
             }
           }
         }
@@ -816,7 +816,7 @@
         "container": "raster",
         "prefix": "era5/monthly/processed/",
         "blob_size_gb": 2.33,
-        "blob_count": 545
+        "blob_count": 546
       }
     },
     {
