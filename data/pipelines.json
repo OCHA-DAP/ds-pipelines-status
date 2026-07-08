@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-07T18:55:52.990245Z",
+  "generated_at": "2026-07-08T00:54:37.068488Z",
   "pipelines": [
     {
       "name": "Run NHC",
@@ -17,7 +17,7 @@
         "duration_min": 11,
         "status": "failed"
       },
-      "next_run": "2026-07-07T21:00:00Z",
+      "next_run": "2026-07-08T03:00:00Z",
       "tags": [
         "storms",
         "forecast",
@@ -233,12 +233,12 @@
       ],
       "schedule": "At 22:00 UTC",
       "last_run": {
-        "start": "2026-07-06T22:00:48.485000Z",
-        "end": "2026-07-06T22:08:11.266000Z",
-        "duration_min": 7,
+        "start": "2026-07-07T22:00:48.150000Z",
+        "end": "2026-07-07T22:07:23.217000Z",
+        "duration_min": 6,
         "status": "failed"
       },
-      "next_run": "2026-07-07T22:00:00Z",
+      "next_run": "2026-07-08T22:00:00Z",
       "tags": [
         "storms",
         "forecast"
@@ -606,12 +606,12 @@
       ],
       "schedule": "At 20:00 UTC",
       "last_run": {
-        "start": "2026-07-06T23:00:40.290000Z",
-        "end": "2026-07-06T23:08:40.774000Z",
-        "duration_min": 8,
+        "start": "2026-07-07T23:00:38.552000Z",
+        "end": "2026-07-07T23:09:55.229000Z",
+        "duration_min": 9,
         "status": "failed"
       },
-      "next_run": "2026-07-07T20:00:00Z",
+      "next_run": "2026-07-08T20:00:00Z",
       "tags": [
         "floods",
         "africa"
