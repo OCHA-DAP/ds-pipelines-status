@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-16T12:48:22.208376Z",
+  "generated_at": "2026-07-16T18:39:47.630834Z",
   "pipelines": [
     {
       "name": "Run NHC",
@@ -17,7 +17,7 @@
         "duration_min": 11,
         "status": "failed"
       },
-      "next_run": "2026-07-16T15:00:00Z",
+      "next_run": "2026-07-16T21:00:00Z",
       "tags": [
         "storms",
         "forecast",
@@ -377,12 +377,12 @@
       ],
       "schedule": "At 16:00 UTC",
       "last_run": {
-        "start": "2026-07-15T16:00:33.574000Z",
-        "end": "2026-07-15T16:10:31.575000Z",
-        "duration_min": 9,
+        "start": "2026-07-16T16:00:31.700000Z",
+        "end": "2026-07-16T16:09:21.157000Z",
+        "duration_min": 8,
         "status": "failed"
       },
-      "next_run": "2026-07-16T16:00:00Z",
+      "next_run": "2026-07-17T16:00:00Z",
       "tags": [
         "storms"
       ],
@@ -834,12 +834,12 @@
       ],
       "schedule": "At 14:40 UTC",
       "last_run": {
-        "start": "2026-07-15T14:40:58.466000Z",
-        "end": "2026-07-15T15:02:56.388000Z",
-        "duration_min": 21,
-        "status": "failed"
+        "start": "2026-07-16T14:40:59.049000Z",
+        "end": "2026-07-16T15:09:38.418000Z",
+        "duration_min": 28,
+        "status": "success"
       },
-      "next_run": "2026-07-16T14:40:00Z",
+      "next_run": "2026-07-17T14:40:00Z",
       "tags": [
         "rainfall"
       ],
@@ -914,11 +914,11 @@
             }
           ],
           "row_count": 76862448,
-          "size_gb": 10.92,
+          "size_gb": 10.93,
           "timestamp_ranges": {
             "valid_date": {
               "min": "1998-01-01",
-              "max": "2026-07-14"
+              "max": "2026-07-15"
             }
           }
         }
@@ -926,8 +926,8 @@
       "blob_storage": {
         "container": "raster",
         "prefix": "imerg/daily/late/v7/processed/",
-        "blob_size_gb": 154.51,
-        "blob_count": 10422
+        "blob_size_gb": 154.53,
+        "blob_count": 10423
       }
     },
     {
