@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-06T00:46:42.933773Z",
+  "generated_at": "2026-08-06T07:11:02.974415Z",
   "pipelines": [
     {
       "name": "Run NHC",
@@ -17,7 +17,7 @@
         "duration_min": 11,
         "status": "failed"
       },
-      "next_run": "2026-08-06T03:00:00Z",
+      "next_run": "2026-08-06T09:00:00Z",
       "tags": [
         "storms",
         "forecast",
