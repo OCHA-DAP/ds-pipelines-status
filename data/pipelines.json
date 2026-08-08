@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-08T12:26:16.465751Z",
+  "generated_at": "2026-08-08T18:25:42.490717Z",
   "pipelines": [
     {
       "name": "Run NHC",
@@ -17,7 +17,7 @@
         "duration_min": 11,
         "status": "failed"
       },
-      "next_run": "2026-08-08T15:00:00Z",
+      "next_run": "2026-08-08T21:00:00Z",
       "tags": [
         "storms",
         "forecast",
@@ -377,12 +377,12 @@
       ],
       "schedule": "At 16:00 UTC",
       "last_run": {
-        "start": "2026-08-07T16:00:30.110000Z",
-        "end": "2026-08-07T16:06:55.610000Z",
-        "duration_min": 6,
+        "start": "2026-08-08T16:00:31.104000Z",
+        "end": "2026-08-08T16:08:20.086000Z",
+        "duration_min": 7,
         "status": "failed"
       },
-      "next_run": "2026-08-08T16:00:00Z",
+      "next_run": "2026-08-09T16:00:00Z",
       "tags": [
         "storms"
       ],
@@ -834,12 +834,12 @@
       ],
       "schedule": "At 14:40 UTC",
       "last_run": {
-        "start": "2026-08-07T14:40:59.080000Z",
-        "end": "2026-08-07T15:10:17.574000Z",
-        "duration_min": 29,
-        "status": "success"
+        "start": "2026-08-08T14:40:59.184000Z",
+        "end": "2026-08-08T16:12:42.403000Z",
+        "duration_min": 91,
+        "status": "failed"
       },
-      "next_run": "2026-08-08T14:40:00Z",
+      "next_run": "2026-08-09T14:40:00Z",
       "tags": [
         "rainfall"
       ],
