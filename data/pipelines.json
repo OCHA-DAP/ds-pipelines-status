@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T12:25:38.582525Z",
+  "generated_at": "2026-08-23T18:24:58.746806Z",
   "pipelines": [
     {
       "name": "Run NHC",
@@ -12,7 +12,7 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": null,
-      "next_run": "2026-08-23T15:00:00Z",
+      "next_run": "2026-08-23T21:00:00Z",
       "tags": [
         "storms",
         "forecast",
@@ -372,12 +372,12 @@
       ],
       "schedule": "At 16:00 UTC",
       "last_run": {
-        "start": "2026-08-22T16:00:29.595000Z",
-        "end": "2026-08-22T16:09:20.588000Z",
-        "duration_min": 8,
+        "start": "2026-08-23T16:00:31.404000Z",
+        "end": "2026-08-23T16:07:13.554000Z",
+        "duration_min": 6,
         "status": "failed"
       },
-      "next_run": "2026-08-23T16:00:00Z",
+      "next_run": "2026-08-24T16:00:00Z",
       "tags": [
         "storms"
       ],
@@ -829,12 +829,12 @@
       ],
       "schedule": "At 14:40 UTC",
       "last_run": {
-        "start": "2026-08-22T14:40:57.210000Z",
-        "end": "2026-08-22T15:03:32.605000Z",
-        "duration_min": 22,
+        "start": "2026-08-23T14:40:57.686000Z",
+        "end": "2026-08-23T15:05:50.258000Z",
+        "duration_min": 24,
         "status": "success"
       },
-      "next_run": "2026-08-23T14:40:00Z",
+      "next_run": "2026-08-24T14:40:00Z",
       "tags": [
         "rainfall"
       ],
@@ -913,7 +913,7 @@
           "timestamp_ranges": {
             "valid_date": {
               "min": "1998-01-01",
-              "max": "2026-08-21"
+              "max": "2026-08-22"
             }
           }
         }
@@ -921,8 +921,8 @@
       "blob_storage": {
         "container": "raster",
         "prefix": "imerg/daily/late/v7/processed/",
-        "blob_size_gb": 155.12,
-        "blob_count": 10460
+        "blob_size_gb": 155.14,
+        "blob_count": 10461
       }
     },
     {
