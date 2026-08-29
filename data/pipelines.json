@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-29T12:30:19.827481Z",
+  "generated_at": "2026-08-29T18:25:51.582380Z",
   "pipelines": [
     {
       "name": "Run NHC",
@@ -12,7 +12,7 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": null,
-      "next_run": "2026-08-29T15:00:00Z",
+      "next_run": "2026-08-29T21:00:00Z",
       "tags": [
         "storms",
         "forecast",
@@ -372,12 +372,12 @@
       ],
       "schedule": "At 16:00 UTC",
       "last_run": {
-        "start": "2026-08-28T16:00:34.534000Z",
-        "end": "2026-08-28T16:09:05.476000Z",
-        "duration_min": 8,
+        "start": "2026-08-29T16:00:41.653000Z",
+        "end": "2026-08-29T16:07:26.425000Z",
+        "duration_min": 6,
         "status": "failed"
       },
-      "next_run": "2026-08-29T16:00:00Z",
+      "next_run": "2026-08-30T16:00:00Z",
       "tags": [
         "storms"
       ],
@@ -829,12 +829,12 @@
       ],
       "schedule": "At 14:40 UTC",
       "last_run": {
-        "start": "2026-08-28T14:40:57.430000Z",
-        "end": "2026-08-28T15:06:26.487000Z",
-        "duration_min": 25,
+        "start": "2026-08-29T14:40:58.282000Z",
+        "end": "2026-08-29T15:05:13.511000Z",
+        "duration_min": 24,
         "status": "success"
       },
-      "next_run": "2026-08-29T14:40:00Z",
+      "next_run": "2026-08-30T14:40:00Z",
       "tags": [
         "rainfall"
       ],
@@ -909,11 +909,11 @@
             }
           ],
           "row_count": 76862448,
-          "size_gb": 10.96,
+          "size_gb": 10.97,
           "timestamp_ranges": {
             "valid_date": {
               "min": "1998-01-01",
-              "max": "2026-08-27"
+              "max": "2026-08-28"
             }
           }
         }
@@ -921,8 +921,8 @@
       "blob_storage": {
         "container": "raster",
         "prefix": "imerg/daily/late/v7/processed/",
-        "blob_size_gb": 155.21,
-        "blob_count": 10466
+        "blob_size_gb": 155.23,
+        "blob_count": 10467
       }
     },
     {
