@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-05T12:30:42.398073Z",
+  "generated_at": "2026-09-05T18:25:33.859589Z",
   "pipelines": [
     {
       "name": "Run NHC",
@@ -12,7 +12,7 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": null,
-      "next_run": "2026-09-05T15:00:00Z",
+      "next_run": "2026-09-05T21:00:00Z",
       "tags": [
         "storms",
         "forecast",
@@ -372,12 +372,12 @@
       ],
       "schedule": "At 16:00 UTC",
       "last_run": {
-        "start": "2026-09-04T16:00:41.735000Z",
-        "end": "2026-09-04T16:08:54.495000Z",
-        "duration_min": 8,
+        "start": "2026-09-05T16:00:28.426000Z",
+        "end": "2026-09-05T16:07:06.902000Z",
+        "duration_min": 6,
         "status": "failed"
       },
-      "next_run": "2026-09-05T16:00:00Z",
+      "next_run": "2026-09-06T16:00:00Z",
       "tags": [
         "storms"
       ],
@@ -829,12 +829,12 @@
       ],
       "schedule": "At 14:40 UTC",
       "last_run": {
-        "start": "2026-09-04T14:40:57.247000Z",
-        "end": "2026-09-04T15:09:48.923000Z",
-        "duration_min": 28,
+        "start": "2026-09-05T14:40:57.399000Z",
+        "end": "2026-09-05T15:06:31.204000Z",
+        "duration_min": 25,
         "status": "success"
       },
-      "next_run": "2026-09-05T14:40:00Z",
+      "next_run": "2026-09-06T14:40:00Z",
       "tags": [
         "rainfall"
       ],
@@ -913,7 +913,7 @@
           "timestamp_ranges": {
             "valid_date": {
               "min": "1998-01-01",
-              "max": "2026-09-03"
+              "max": "2026-09-04"
             }
           }
         }
@@ -921,8 +921,8 @@
       "blob_storage": {
         "container": "raster",
         "prefix": "imerg/daily/late/v7/processed/",
-        "blob_size_gb": 155.32,
-        "blob_count": 10473
+        "blob_size_gb": 155.34,
+        "blob_count": 10474
       }
     },
     {
@@ -941,9 +941,9 @@
       "schedule": "At 12:30, on day 5 of the month UTC",
       "last_run": {
         "start": "2026-09-05T12:30:20.752000Z",
-        "end": null,
-        "duration_min": null,
-        "status": "running"
+        "end": "2026-09-05T12:55:21.663000Z",
+        "duration_min": 25,
+        "status": "success"
       },
       "next_run": "2026-10-05T12:30:00Z",
       "tags": [
@@ -1032,15 +1032,15 @@
             }
           ],
           "row_count": 27203108,
-          "size_gb": 4.82,
+          "size_gb": 4.83,
           "timestamp_ranges": {
             "valid_date": {
               "min": "1981-01-01",
-              "max": "2027-02-01"
+              "max": "2027-03-01"
             },
             "issued_date": {
               "min": "1981-01-01",
-              "max": "2026-08-01"
+              "max": "2026-09-01"
             }
           }
         }
@@ -1048,8 +1048,8 @@
       "blob_storage": {
         "container": "raster",
         "prefix": "seas5/monthly/processed",
-        "blob_size_gb": 8.11,
-        "blob_count": 3837
+        "blob_size_gb": 8.13,
+        "blob_count": 3844
       }
     }
   ]
