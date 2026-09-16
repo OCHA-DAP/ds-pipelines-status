@@ -1,6 +1,451 @@
 {
-  "generated_at": "2026-09-16T12:36:29.624237Z",
+  "generated_at": "2026-09-16T18:29:28.331062Z",
   "pipelines": [
+    {
+      "name": "Run IBTrACS",
+      "description": "Retrieve best track cyclone data from [IBTrACS](https://www.ncei.noaa.gov/products/international-best-track-archive)",
+      "tasks": [
+        {
+          "name": "download_ibtracs",
+          "git_url": "https://github.com/OCHA-DAP/ds-storms-pipeline.git"
+        }
+      ],
+      "schedule": "At 16:00 UTC",
+      "last_run": {
+        "start": "2026-09-16T16:59:38.362000Z",
+        "end": "2026-09-16T18:06:50.865000Z",
+        "duration_min": 67,
+        "status": "success"
+      },
+      "next_run": "2026-09-17T16:00:00Z",
+      "tags": [
+        "storms"
+      ],
+      "job_status": null,
+      "output_schemas": [
+        {
+          "table": "storms.ibtracs_storms",
+          "columns": [
+            {
+              "name": "sid",
+              "type": "character varying",
+              "nullable": false,
+              "comment": "IBTrACS serial identifier (unique storm ID)"
+            },
+            {
+              "name": "atcf_id",
+              "type": "character varying",
+              "nullable": true,
+              "comment": "ATCF storm identifier (e.g., AL012023, EP092023)"
+            },
+            {
+              "name": "number",
+              "type": "smallint",
+              "nullable": false,
+              "precision": 16,
+              "comment": "Annual cyclone number within basin"
+            },
+            {
+              "name": "season",
+              "type": "bigint",
+              "nullable": false,
+              "precision": 64,
+              "comment": "Storm season year"
+            },
+            {
+              "name": "name",
+              "type": "character varying",
+              "nullable": true,
+              "comment": "Storm name (uppercase) or NULL for unnamed systems"
+            },
+            {
+              "name": "genesis_basin",
+              "type": "character varying",
+              "nullable": false,
+              "comment": "Basin where storm originated"
+            },
+            {
+              "name": "provisional",
+              "type": "boolean",
+              "nullable": false,
+              "comment": "Whether storm data is provisional (not yet finalized)"
+            },
+            {
+              "name": "storm_id",
+              "type": "character varying",
+              "nullable": true,
+              "comment": "Standardized storm identifier linking to tracks"
+            }
+          ],
+          "row_count": 13706,
+          "size_mb": 2.95
+        },
+        {
+          "table": "storms.ibtracs_tracks_geo",
+          "columns": [
+            {
+              "name": "sid",
+              "type": "character varying",
+              "nullable": false,
+              "comment": "IBTrACS serial identifier - foreign key to ibtracs_storms"
+            },
+            {
+              "name": "point_id",
+              "type": "character varying",
+              "nullable": false,
+              "comment": "Unique identifier for this observation point"
+            },
+            {
+              "name": "storm_id",
+              "type": "character varying",
+              "nullable": true,
+              "comment": "Standardized storm identifier"
+            },
+            {
+              "name": "valid_time",
+              "type": "timestamp without time zone",
+              "nullable": false,
+              "comment": "Observation time (UTC)"
+            },
+            {
+              "name": "provider",
+              "type": "character varying",
+              "nullable": false,
+              "comment": "Agency providing the data (e.g., nhc, jtwc, tokyo, reunion, etc.)"
+            },
+            {
+              "name": "basin",
+              "type": "character varying",
+              "nullable": false,
+              "comment": "Current basin location of the storm"
+            },
+            {
+              "name": "nature",
+              "type": "character varying",
+              "nullable": true,
+              "comment": "Storm classification (tropical, extratropical, subtropical, etc.)"
+            },
+            {
+              "name": "wind_speed",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32,
+              "comment": "Maximum sustained wind speed (knots)"
+            },
+            {
+              "name": "pressure",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32,
+              "comment": "Minimum central pressure (hPa/mb)"
+            },
+            {
+              "name": "max_wind_radius",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32,
+              "comment": "Radius of maximum winds (nautical miles)"
+            },
+            {
+              "name": "last_closed_isobar_radius",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32,
+              "comment": "Radius of outermost closed isobar (nautical miles)"
+            },
+            {
+              "name": "last_closed_isobar_pressure",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32,
+              "comment": "Pressure of outermost closed isobar (hPa/mb)"
+            },
+            {
+              "name": "gust_speed",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32,
+              "comment": "Peak wind gust speed (knots)"
+            },
+            {
+              "name": "quadrant_radius_34",
+              "type": "text",
+              "nullable": true,
+              "comment": "JSON array: 34-knot wind radii by quadrant [NE, NW, SE, SW] in nautical miles"
+            },
+            {
+              "name": "quadrant_radius_50",
+              "type": "text",
+              "nullable": true,
+              "comment": "JSON array: 50-knot wind radii by quadrant [NE, NW, SE, SW] in nautical miles"
+            },
+            {
+              "name": "quadrant_radius_64",
+              "type": "text",
+              "nullable": true,
+              "comment": "JSON array: 64-knot wind radii by quadrant [NE, NW, SE, SW] in nautical miles"
+            },
+            {
+              "name": "usa_quadrant_radius_34",
+              "type": "text",
+              "nullable": true,
+              "comment": "JSON array: 34-knot wind radii by quadrant [NE, NW, SE, SW] in nautical miles (USA agency data)"
+            },
+            {
+              "name": "usa_quadrant_radius_50",
+              "type": "text",
+              "nullable": true,
+              "comment": "JSON array: 50-knot wind radii by quadrant [NE, NW, SE, SW] in nautical miles (USA agency data)"
+            },
+            {
+              "name": "usa_quadrant_radius_64",
+              "type": "text",
+              "nullable": true,
+              "comment": "JSON array: 64-knot wind radii by quadrant [NE, NW, SE, SW] in nautical miles (USA agency data)"
+            },
+            {
+              "name": "geometry",
+              "type": "USER-DEFINED",
+              "nullable": false,
+              "comment": "Point geometry in WGS84 (EPSG:4326)"
+            }
+          ],
+          "row_count": 5009104,
+          "size_gb": 2.19,
+          "timestamp_ranges": {
+            "valid_time": {
+              "min": "1848-01-11T06:00:00",
+              "max": "2026-09-15T00:00:00"
+            }
+          }
+        }
+      ],
+      "blob_storage": null
+    },
+    {
+      "name": "Run ECMWF Storms",
+      "description": "Retrieve ECMWF tropical cyclone forecast tracks",
+      "tasks": [
+        {
+          "name": "download_ecmwf",
+          "git_url": "https://github.com/OCHA-DAP/ds-storms-pipeline.git"
+        }
+      ],
+      "schedule": "At 22:00 UTC",
+      "last_run": {
+        "start": "2026-09-16T16:41:17.358000Z",
+        "end": "2026-09-16T16:52:25.443000Z",
+        "duration_min": 11,
+        "status": "failed"
+      },
+      "next_run": "2026-09-16T22:00:00Z",
+      "tags": [
+        "storms",
+        "forecast"
+      ],
+      "job_status": null,
+      "output_schemas": [
+        {
+          "table": "storms.ecmwf_storms",
+          "columns": [
+            {
+              "name": "number",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "provider",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "season",
+              "type": "bigint",
+              "nullable": false,
+              "precision": 64
+            },
+            {
+              "name": "genesis_basin",
+              "type": "character varying",
+              "nullable": false
+            },
+            {
+              "name": "name",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "storm_id",
+              "type": "character varying",
+              "nullable": false
+            }
+          ],
+          "row_count": 2024,
+          "size_mb": 0.27
+        },
+        {
+          "table": "storms.ecmwf_tracks_geo",
+          "columns": [
+            {
+              "name": "issued_time",
+              "type": "timestamp without time zone",
+              "nullable": true
+            },
+            {
+              "name": "provider",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "forecast_id",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "basin",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "number",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "leadtime",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "valid_time",
+              "type": "timestamp without time zone",
+              "nullable": true
+            },
+            {
+              "name": "pressure",
+              "type": "double precision",
+              "nullable": true,
+              "precision": 53
+            },
+            {
+              "name": "wind_speed",
+              "type": "double precision",
+              "nullable": true,
+              "precision": 53
+            },
+            {
+              "name": "storm_id",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "point_id",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "geometry",
+              "type": "USER-DEFINED",
+              "nullable": true
+            }
+          ],
+          "row_count": 1202593,
+          "size_mb": 457.62,
+          "timestamp_ranges": {
+            "issued_time": {
+              "min": "2006-10-01T00:00:00",
+              "max": "2026-05-12T00:00:00"
+            },
+            "valid_time": {
+              "min": "2006-10-01T00:00:00",
+              "max": "2026-05-22T00:00:00"
+            }
+          }
+        }
+      ],
+      "blob_storage": null
+    },
+    {
+      "name": "NHC Pipeline",
+      "description": null,
+      "tasks": [
+        {
+          "name": "etl",
+          "git_url": "https://github.com/OCHA-DAP/ds-storms-pipeline.git"
+        },
+        {
+          "name": "tracks_exposure",
+          "git_url": "https://github.com/OCHA-DAP/ds-storms-pipeline.git"
+        },
+        {
+          "name": "tracks_processing",
+          "git_url": "https://github.com/OCHA-DAP/ds-storms-pipeline.git"
+        },
+        {
+          "name": "trigger_cuba_forecast",
+          "git_url": "https://github.com/OCHA-DAP/ds-storms-pipeline.git"
+        },
+        {
+          "name": "trigger_hti_monitoring",
+          "git_url": "https://github.com/OCHA-DAP/ds-storms-pipeline.git"
+        },
+        {
+          "name": "wsp_exposure",
+          "git_url": "https://github.com/OCHA-DAP/ds-storms-pipeline.git"
+        },
+        {
+          "name": "wsp_processing",
+          "git_url": "https://github.com/OCHA-DAP/ds-storms-pipeline.git"
+        }
+      ],
+      "schedule": "At 0 and 30 minutes past the hour, every 3 hours UTC",
+      "last_run": {
+        "start": "2026-09-16T18:00:04.413000Z",
+        "end": "2026-09-16T18:13:14.265000Z",
+        "duration_min": 13,
+        "status": "success"
+      },
+      "next_run": "2026-09-16T21:00:00Z",
+      "tags": [
+        "storms"
+      ],
+      "job_status": null,
+      "output_schemas": [],
+      "blob_storage": null
+    },
+    {
+      "name": "GDACS/ADAM Pipeline",
+      "description": null,
+      "tasks": [
+        {
+          "name": "adam",
+          "git_url": "https://github.com/OCHA-DAP/ds-storms-pipeline.git"
+        },
+        {
+          "name": "gdacs",
+          "git_url": "https://github.com/OCHA-DAP/ds-storms-pipeline.git"
+        },
+        {
+          "name": "match",
+          "git_url": "https://github.com/OCHA-DAP/ds-storms-pipeline.git"
+        }
+      ],
+      "schedule": "Every 3 hours UTC",
+      "last_run": {
+        "start": "2026-09-16T18:00:04.229000Z",
+        "end": "2026-09-16T18:11:45.765000Z",
+        "duration_min": 11,
+        "status": "success"
+      },
+      "next_run": "2026-09-16T21:00:00Z",
+      "tags": [
+        "storms"
+      ],
+      "job_status": null,
+      "output_schemas": [],
+      "blob_storage": null
+    },
     {
       "name": "Run NHC",
       "description": "Retrieve tropical cyclones forecasts from the NOAA [National Hurricane Center](https://www.nhc.noaa.gov/)",
@@ -12,7 +457,7 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": null,
-      "next_run": "2026-09-16T15:00:00Z",
+      "next_run": "2026-09-16T21:00:00Z",
       "tags": [
         "storms",
         "forecast",
@@ -372,12 +817,12 @@
       ],
       "schedule": "At 16:00 UTC",
       "last_run": {
-        "start": "2026-09-15T16:00:28.207000Z",
-        "end": "2026-09-15T16:07:08.968000Z",
-        "duration_min": 6,
+        "start": "2026-09-16T16:00:30.481000Z",
+        "end": "2026-09-16T16:28:51.664000Z",
+        "duration_min": 28,
         "status": "failed"
       },
-      "next_run": "2026-09-16T16:00:00Z",
+      "next_run": "2026-09-17T16:00:00Z",
       "tags": [
         "storms"
       ],
@@ -437,8 +882,8 @@
               "comment": "Standardized storm identifier linking to tracks"
             }
           ],
-          "row_count": 13651,
-          "size_mb": 2.94
+          "row_count": 13706,
+          "size_mb": 2.95
         },
         {
           "table": "storms.ibtracs_tracks_geo",
@@ -571,11 +1016,11 @@
             }
           ],
           "row_count": 5009104,
-          "size_gb": 2.18,
+          "size_gb": 2.19,
           "timestamp_ranges": {
             "valid_time": {
               "min": "1848-01-11T06:00:00",
-              "max": "2026-06-04T00:00:00"
+              "max": "2026-09-15T00:00:00"
             }
           }
         }
@@ -829,12 +1274,12 @@
       ],
       "schedule": "At 14:40 UTC",
       "last_run": {
-        "start": "2026-09-15T14:40:58.310000Z",
-        "end": "2026-09-15T15:07:29.430000Z",
-        "duration_min": 26,
+        "start": "2026-09-16T14:40:57.197000Z",
+        "end": "2026-09-16T15:06:00.006000Z",
+        "duration_min": 25,
         "status": "success"
       },
-      "next_run": "2026-09-16T14:40:00Z",
+      "next_run": "2026-09-17T14:40:00Z",
       "tags": [
         "rainfall"
       ],
@@ -913,7 +1358,7 @@
           "timestamp_ranges": {
             "valid_date": {
               "min": "1998-01-01",
-              "max": "2026-09-14"
+              "max": "2026-09-15"
             }
           }
         }
@@ -921,8 +1366,8 @@
       "blob_storage": {
         "container": "raster",
         "prefix": "imerg/daily/late/v7/processed/",
-        "blob_size_gb": 155.5,
-        "blob_count": 10484
+        "blob_size_gb": 155.51,
+        "blob_count": 10485
       }
     },
     {
