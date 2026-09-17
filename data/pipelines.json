@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-17T06:41:11.279386Z",
+  "generated_at": "2026-09-17T12:36:39.841561Z",
   "pipelines": [
     {
       "name": "Run IBTrACS",
@@ -401,12 +401,12 @@
       ],
       "schedule": "At 0 and 30 minutes past the hour, every 3 hours UTC",
       "last_run": {
-        "start": "2026-09-17T06:30:01.916000Z",
-        "end": "2026-09-17T06:38:46.100000Z",
-        "duration_min": 8,
-        "status": "success"
+        "start": "2026-09-17T12:30:02.632000Z",
+        "end": null,
+        "duration_min": null,
+        "status": "running"
       },
-      "next_run": "2026-09-17T09:00:00Z",
+      "next_run": "2026-09-17T15:00:00Z",
       "tags": [
         "storms"
       ],
@@ -433,12 +433,12 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": {
-        "start": "2026-09-17T06:00:02.118000Z",
-        "end": "2026-09-17T06:16:56.473000Z",
-        "duration_min": 16,
+        "start": "2026-09-17T12:00:04.568000Z",
+        "end": "2026-09-17T12:10:48.618000Z",
+        "duration_min": 10,
         "status": "success"
       },
-      "next_run": "2026-09-17T09:00:00Z",
+      "next_run": "2026-09-17T15:00:00Z",
       "tags": [
         "storms"
       ],
@@ -457,7 +457,7 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": null,
-      "next_run": "2026-09-17T09:00:00Z",
+      "next_run": "2026-09-17T15:00:00Z",
       "tags": [
         "storms",
         "forecast",
