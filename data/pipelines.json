@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-17T12:36:39.841561Z",
+  "generated_at": "2026-09-17T18:30:52.722224Z",
   "pipelines": [
     {
       "name": "Run IBTrACS",
@@ -12,12 +12,12 @@
       ],
       "schedule": "At 16:00 UTC",
       "last_run": {
-        "start": "2026-09-16T16:59:38.362000Z",
-        "end": "2026-09-16T18:06:50.865000Z",
-        "duration_min": 67,
+        "start": "2026-09-17T16:00:29.170000Z",
+        "end": "2026-09-17T17:26:01.765000Z",
+        "duration_min": 85,
         "status": "success"
       },
-      "next_run": "2026-09-17T16:00:00Z",
+      "next_run": "2026-09-18T16:00:00Z",
       "tags": [
         "storms"
       ],
@@ -401,12 +401,12 @@
       ],
       "schedule": "At 0 and 30 minutes past the hour, every 3 hours UTC",
       "last_run": {
-        "start": "2026-09-17T12:30:02.632000Z",
+        "start": "2026-09-17T18:30:03.155000Z",
         "end": null,
         "duration_min": null,
         "status": "running"
       },
-      "next_run": "2026-09-17T15:00:00Z",
+      "next_run": "2026-09-17T21:00:00Z",
       "tags": [
         "storms"
       ],
@@ -433,12 +433,12 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": {
-        "start": "2026-09-17T12:00:04.568000Z",
-        "end": "2026-09-17T12:10:48.618000Z",
+        "start": "2026-09-17T18:00:03.689000Z",
+        "end": "2026-09-17T18:10:18.365000Z",
         "duration_min": 10,
         "status": "success"
       },
-      "next_run": "2026-09-17T15:00:00Z",
+      "next_run": "2026-09-17T21:00:00Z",
       "tags": [
         "storms"
       ],
@@ -457,7 +457,7 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": null,
-      "next_run": "2026-09-17T15:00:00Z",
+      "next_run": "2026-09-17T21:00:00Z",
       "tags": [
         "storms",
         "forecast",
@@ -817,12 +817,12 @@
       ],
       "schedule": "At 16:00 UTC",
       "last_run": {
-        "start": "2026-09-16T16:00:30.481000Z",
-        "end": "2026-09-16T16:28:51.664000Z",
-        "duration_min": 28,
+        "start": "2026-09-17T16:00:29.179000Z",
+        "end": "2026-09-17T16:08:41.044000Z",
+        "duration_min": 8,
         "status": "failed"
       },
-      "next_run": "2026-09-17T16:00:00Z",
+      "next_run": "2026-09-18T16:00:00Z",
       "tags": [
         "storms"
       ],
@@ -1274,12 +1274,12 @@
       ],
       "schedule": "At 14:40 UTC",
       "last_run": {
-        "start": "2026-09-16T14:40:57.197000Z",
-        "end": "2026-09-16T15:06:00.006000Z",
-        "duration_min": 25,
+        "start": "2026-09-17T14:40:57.591000Z",
+        "end": "2026-09-17T15:08:54.544000Z",
+        "duration_min": 27,
         "status": "success"
       },
-      "next_run": "2026-09-17T14:40:00Z",
+      "next_run": "2026-09-18T14:40:00Z",
       "tags": [
         "rainfall"
       ],
@@ -1358,7 +1358,7 @@
           "timestamp_ranges": {
             "valid_date": {
               "min": "1998-01-01",
-              "max": "2026-09-15"
+              "max": "2026-09-16"
             }
           }
         }
@@ -1366,8 +1366,8 @@
       "blob_storage": {
         "container": "raster",
         "prefix": "imerg/daily/late/v7/processed/",
-        "blob_size_gb": 155.51,
-        "blob_count": 10485
+        "blob_size_gb": 155.53,
+        "blob_count": 10486
       }
     },
     {
