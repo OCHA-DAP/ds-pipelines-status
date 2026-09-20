@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-19T18:26:26.317535Z",
+  "generated_at": "2026-09-20T01:04:23.839479Z",
   "pipelines": [
     {
       "name": "Run IBTrACS",
@@ -233,12 +233,12 @@
       ],
       "schedule": "At 22:00 UTC",
       "last_run": {
-        "start": "2026-09-18T22:00:47.532000Z",
-        "end": "2026-09-18T22:10:23.446000Z",
-        "duration_min": 9,
+        "start": "2026-09-19T22:00:46.922000Z",
+        "end": "2026-09-19T22:11:02.949000Z",
+        "duration_min": 10,
         "status": "success"
       },
-      "next_run": "2026-09-19T22:00:00Z",
+      "next_run": "2026-09-20T22:00:00Z",
       "tags": [
         "storms",
         "forecast"
@@ -401,12 +401,12 @@
       ],
       "schedule": "At 0 and 30 minutes past the hour, every 3 hours UTC",
       "last_run": {
-        "start": "2026-09-19T18:00:01.980000Z",
-        "end": "2026-09-19T18:11:54.192000Z",
-        "duration_min": 11,
+        "start": "2026-09-20T00:30:02.410000Z",
+        "end": "2026-09-20T00:39:51.880000Z",
+        "duration_min": 9,
         "status": "success"
       },
-      "next_run": "2026-09-19T18:30:00Z",
+      "next_run": "2026-09-20T03:00:00Z",
       "tags": [
         "storms"
       ],
@@ -433,12 +433,12 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": {
-        "start": "2026-09-19T18:00:02.157000Z",
-        "end": "2026-09-19T18:13:53.315000Z",
-        "duration_min": 13,
+        "start": "2026-09-20T00:00:02.565000Z",
+        "end": "2026-09-20T00:11:51.617000Z",
+        "duration_min": 11,
         "status": "success"
       },
-      "next_run": "2026-09-19T21:00:00Z",
+      "next_run": "2026-09-20T03:00:00Z",
       "tags": [
         "storms"
       ],
@@ -457,7 +457,7 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": null,
-      "next_run": "2026-09-19T21:00:00Z",
+      "next_run": "2026-09-20T03:00:00Z",
       "tags": [
         "storms",
         "forecast",
@@ -673,12 +673,12 @@
       ],
       "schedule": "At 22:00 UTC",
       "last_run": {
-        "start": "2026-09-18T22:00:47.124000Z",
-        "end": "2026-09-18T22:08:22.094000Z",
-        "duration_min": 7,
+        "start": "2026-09-19T22:00:46.928000Z",
+        "end": "2026-09-19T22:09:49.347000Z",
+        "duration_min": 9,
         "status": "failed"
       },
-      "next_run": "2026-09-19T22:00:00Z",
+      "next_run": "2026-09-20T22:00:00Z",
       "tags": [
         "storms",
         "forecast"
@@ -1046,12 +1046,12 @@
       ],
       "schedule": "At 20:00 UTC",
       "last_run": {
-        "start": "2026-09-18T23:00:37.463000Z",
-        "end": "2026-09-18T23:23:58.898000Z",
-        "duration_min": 23,
-        "status": "success"
+        "start": "2026-09-19T23:00:37.604000Z",
+        "end": "2026-09-19T23:10:30.238000Z",
+        "duration_min": 9,
+        "status": "failed"
       },
-      "next_run": "2026-09-19T20:00:00Z",
+      "next_run": "2026-09-20T20:00:00Z",
       "tags": [
         "floods",
         "africa"
