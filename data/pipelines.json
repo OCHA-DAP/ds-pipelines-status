@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-22T18:31:17.719380Z",
+  "generated_at": "2026-09-23T00:57:09.441159Z",
   "pipelines": [
     {
       "name": "Run IBTrACS",
@@ -233,12 +233,12 @@
       ],
       "schedule": "At 22:00 UTC",
       "last_run": {
-        "start": "2026-09-21T22:00:48.251000Z",
-        "end": "2026-09-21T22:11:08.437000Z",
-        "duration_min": 10,
+        "start": "2026-09-22T22:00:47.424000Z",
+        "end": "2026-09-22T22:12:15.735000Z",
+        "duration_min": 11,
         "status": "success"
       },
-      "next_run": "2026-09-22T22:00:00Z",
+      "next_run": "2026-09-23T22:00:00Z",
       "tags": [
         "storms",
         "forecast"
@@ -401,12 +401,12 @@
       ],
       "schedule": "At 0 and 30 minutes past the hour, every 3 hours UTC",
       "last_run": {
-        "start": "2026-09-22T18:30:03.614000Z",
-        "end": null,
-        "duration_min": null,
-        "status": "running"
+        "start": "2026-09-23T00:30:03.186000Z",
+        "end": "2026-09-23T00:41:42.055000Z",
+        "duration_min": 11,
+        "status": "success"
       },
-      "next_run": "2026-09-22T21:00:00Z",
+      "next_run": "2026-09-23T03:00:00Z",
       "tags": [
         "storms"
       ],
@@ -433,12 +433,12 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": {
-        "start": "2026-09-22T18:00:02.573000Z",
-        "end": "2026-09-22T18:11:53.699000Z",
+        "start": "2026-09-23T00:00:03.790000Z",
+        "end": "2026-09-23T00:11:57.665000Z",
         "duration_min": 11,
-        "status": "failed"
+        "status": "success"
       },
-      "next_run": "2026-09-22T21:00:00Z",
+      "next_run": "2026-09-23T03:00:00Z",
       "tags": [
         "storms"
       ],
@@ -457,7 +457,7 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": null,
-      "next_run": "2026-09-22T21:00:00Z",
+      "next_run": "2026-09-23T03:00:00Z",
       "tags": [
         "storms",
         "forecast",
@@ -646,16 +646,16 @@
               "comment": "Point geometry in WGS84 (EPSG:4326)"
             }
           ],
-          "row_count": 203730,
-          "size_mb": 93.55,
+          "row_count": 212800,
+          "size_mb": 95.56,
           "timestamp_ranges": {
             "issued_time": {
               "min": "1990-05-13T00:00:00",
-              "max": "2025-10-31T12:00:00"
+              "max": "2026-09-23T00:00:00"
             },
             "valid_time": {
               "min": "1990-05-13T12:00:00",
-              "max": "2025-11-05T00:00:00"
+              "max": "2026-09-27T18:00:00"
             }
           }
         }
@@ -673,12 +673,12 @@
       ],
       "schedule": "At 22:00 UTC",
       "last_run": {
-        "start": "2026-09-21T22:00:47.600000Z",
-        "end": "2026-09-21T22:11:43.367000Z",
+        "start": "2026-09-22T22:00:47.427000Z",
+        "end": "2026-09-22T22:11:05.468000Z",
         "duration_min": 10,
         "status": "failed"
       },
-      "next_run": "2026-09-22T22:00:00Z",
+      "next_run": "2026-09-23T22:00:00Z",
       "tags": [
         "storms",
         "forecast"
@@ -1046,12 +1046,12 @@
       ],
       "schedule": "At 20:00 UTC",
       "last_run": {
-        "start": "2026-09-21T23:00:37.813000Z",
-        "end": "2026-09-21T23:19:15.076000Z",
-        "duration_min": 18,
+        "start": "2026-09-22T23:00:38.183000Z",
+        "end": "2026-09-22T23:18:23.949000Z",
+        "duration_min": 17,
         "status": "success"
       },
-      "next_run": "2026-09-22T20:00:00Z",
+      "next_run": "2026-09-23T20:00:00Z",
       "tags": [
         "floods",
         "africa"
@@ -1136,7 +1136,7 @@
           "timestamp_ranges": {
             "valid_date": {
               "min": "1998-01-12",
-              "max": "2026-09-20"
+              "max": "2026-09-21"
             }
           }
         }
@@ -1145,7 +1145,7 @@
         "container": "raster",
         "prefix": "floodscan/daily/v5/processed",
         "blob_size_gb": 3.91,
-        "blob_count": 10480
+        "blob_count": 10481
       }
     },
     {
