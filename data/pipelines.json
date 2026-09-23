@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-23T12:36:30.452343Z",
+  "generated_at": "2026-09-23T18:30:53.875450Z",
   "pipelines": [
     {
       "name": "Run IBTrACS",
@@ -12,12 +12,12 @@
       ],
       "schedule": "At 16:00 UTC",
       "last_run": {
-        "start": "2026-09-22T16:00:29.518000Z",
-        "end": "2026-09-22T17:14:25.612000Z",
-        "duration_min": 73,
+        "start": "2026-09-23T16:00:29.091000Z",
+        "end": "2026-09-23T17:34:56.843000Z",
+        "duration_min": 94,
         "status": "success"
       },
-      "next_run": "2026-09-23T16:00:00Z",
+      "next_run": "2026-09-24T16:00:00Z",
       "tags": [
         "storms"
       ],
@@ -77,7 +77,7 @@
               "comment": "Standardized storm identifier linking to tracks"
             }
           ],
-          "row_count": 13708,
+          "row_count": 13710,
           "size_mb": 2.95
         },
         {
@@ -215,7 +215,7 @@
           "timestamp_ranges": {
             "valid_time": {
               "min": "1848-01-11T06:00:00",
-              "max": "2026-09-20T00:00:00"
+              "max": "2026-09-22T00:00:00"
             }
           }
         }
@@ -401,12 +401,12 @@
       ],
       "schedule": "At 0 and 30 minutes past the hour, every 3 hours UTC",
       "last_run": {
-        "start": "2026-09-23T12:30:03.484000Z",
+        "start": "2026-09-23T18:30:02.556000Z",
         "end": null,
         "duration_min": null,
         "status": "running"
       },
-      "next_run": "2026-09-23T15:00:00Z",
+      "next_run": "2026-09-23T21:00:00Z",
       "tags": [
         "storms"
       ],
@@ -433,12 +433,12 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": {
-        "start": "2026-09-23T12:00:02.738000Z",
-        "end": "2026-09-23T12:13:06.191000Z",
-        "duration_min": 13,
+        "start": "2026-09-23T18:00:02.539000Z",
+        "end": "2026-09-23T18:12:14.179000Z",
+        "duration_min": 12,
         "status": "success"
       },
-      "next_run": "2026-09-23T15:00:00Z",
+      "next_run": "2026-09-23T21:00:00Z",
       "tags": [
         "storms"
       ],
@@ -457,7 +457,7 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": null,
-      "next_run": "2026-09-23T15:00:00Z",
+      "next_run": "2026-09-23T21:00:00Z",
       "tags": [
         "storms",
         "forecast",
@@ -512,7 +512,7 @@
               "comment": "Standardized identifier: {name}_{basin}_{season} (lowercase)"
             }
           ],
-          "row_count": 1263,
+          "row_count": 1322,
           "size_mb": 0.3
         },
         {
@@ -647,15 +647,15 @@
             }
           ],
           "row_count": 212800,
-          "size_mb": 95.61,
+          "size_mb": 95.63,
           "timestamp_ranges": {
             "issued_time": {
               "min": "1990-05-13T00:00:00",
-              "max": "2026-09-23T12:00:00"
+              "max": "2026-09-23T18:00:00"
             },
             "valid_time": {
               "min": "1990-05-13T12:00:00",
-              "max": "2026-09-28T06:00:00"
+              "max": "2026-09-28T12:00:00"
             }
           }
         }
@@ -817,12 +817,12 @@
       ],
       "schedule": "At 16:00 UTC",
       "last_run": {
-        "start": "2026-09-22T16:00:28.743000Z",
-        "end": "2026-09-22T16:10:30.719000Z",
-        "duration_min": 10,
+        "start": "2026-09-23T16:00:29.078000Z",
+        "end": "2026-09-23T16:13:00.693000Z",
+        "duration_min": 12,
         "status": "failed"
       },
-      "next_run": "2026-09-23T16:00:00Z",
+      "next_run": "2026-09-24T16:00:00Z",
       "tags": [
         "storms"
       ],
@@ -882,7 +882,7 @@
               "comment": "Standardized storm identifier linking to tracks"
             }
           ],
-          "row_count": 13708,
+          "row_count": 13710,
           "size_mb": 2.95
         },
         {
@@ -1020,7 +1020,7 @@
           "timestamp_ranges": {
             "valid_time": {
               "min": "1848-01-11T06:00:00",
-              "max": "2026-09-20T00:00:00"
+              "max": "2026-09-22T00:00:00"
             }
           }
         }
@@ -1274,12 +1274,12 @@
       ],
       "schedule": "At 14:40 UTC",
       "last_run": {
-        "start": "2026-09-22T14:40:58.289000Z",
-        "end": "2026-09-22T15:05:42.500000Z",
-        "duration_min": 24,
+        "start": "2026-09-23T14:40:57.891000Z",
+        "end": "2026-09-23T15:05:58.026000Z",
+        "duration_min": 25,
         "status": "success"
       },
-      "next_run": "2026-09-23T14:40:00Z",
+      "next_run": "2026-09-24T14:40:00Z",
       "tags": [
         "rainfall"
       ],
@@ -1358,7 +1358,7 @@
           "timestamp_ranges": {
             "valid_date": {
               "min": "1998-01-01",
-              "max": "2026-09-21"
+              "max": "2026-09-22"
             }
           }
         }
@@ -1366,8 +1366,8 @@
       "blob_storage": {
         "container": "raster",
         "prefix": "imerg/daily/late/v7/processed/",
-        "blob_size_gb": 155.61,
-        "blob_count": 10491
+        "blob_size_gb": 155.62,
+        "blob_count": 10492
       }
     },
     {
