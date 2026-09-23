@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-23T00:57:09.441159Z",
+  "generated_at": "2026-09-23T06:40:52.498412Z",
   "pipelines": [
     {
       "name": "Run IBTrACS",
@@ -401,12 +401,12 @@
       ],
       "schedule": "At 0 and 30 minutes past the hour, every 3 hours UTC",
       "last_run": {
-        "start": "2026-09-23T00:30:03.186000Z",
-        "end": "2026-09-23T00:41:42.055000Z",
-        "duration_min": 11,
-        "status": "success"
+        "start": "2026-09-23T06:30:02.961000Z",
+        "end": null,
+        "duration_min": null,
+        "status": "running"
       },
-      "next_run": "2026-09-23T03:00:00Z",
+      "next_run": "2026-09-23T09:00:00Z",
       "tags": [
         "storms"
       ],
@@ -433,12 +433,12 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": {
-        "start": "2026-09-23T00:00:03.790000Z",
-        "end": "2026-09-23T00:11:57.665000Z",
-        "duration_min": 11,
+        "start": "2026-09-23T06:00:05.865000Z",
+        "end": "2026-09-23T06:14:30.384000Z",
+        "duration_min": 14,
         "status": "success"
       },
-      "next_run": "2026-09-23T03:00:00Z",
+      "next_run": "2026-09-23T09:00:00Z",
       "tags": [
         "storms"
       ],
@@ -457,7 +457,7 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": null,
-      "next_run": "2026-09-23T03:00:00Z",
+      "next_run": "2026-09-23T09:00:00Z",
       "tags": [
         "storms",
         "forecast",
@@ -647,15 +647,15 @@
             }
           ],
           "row_count": 212800,
-          "size_mb": 95.56,
+          "size_mb": 95.59,
           "timestamp_ranges": {
             "issued_time": {
               "min": "1990-05-13T00:00:00",
-              "max": "2026-09-23T00:00:00"
+              "max": "2026-09-23T06:00:00"
             },
             "valid_time": {
               "min": "1990-05-13T12:00:00",
-              "max": "2026-09-27T18:00:00"
+              "max": "2026-09-28T00:00:00"
             }
           }
         }
