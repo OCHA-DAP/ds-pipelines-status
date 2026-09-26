@@ -1,6 +1,152 @@
 {
-  "generated_at": "2026-09-25T18:29:37.831795Z",
+  "generated_at": "2026-09-26T00:58:03.089261Z",
   "pipelines": [
+    {
+      "name": "CERF Supplement Daily",
+      "description": "Daily OneGMS mirrors (CERF + CBPF allocations and projects \u2192 aa.cerf_*, aa.cbpf_*), then the storm and drought matchers (deterministic + Claude research, human replies on GitHub issues authoritative \u2192 aa.cerf_allocation_storm, aa.cerf_supplement), then the site export to the dev blob + Pages deploy dispatch.\n",
+      "tasks": [
+        {
+          "name": "match_droughts",
+          "git_url": "https://github.com/OCHA-DAP/ds-cerf-supplement.git"
+        },
+        {
+          "name": "match_storms",
+          "git_url": "https://github.com/OCHA-DAP/ds-cerf-supplement.git"
+        },
+        {
+          "name": "publish_site",
+          "git_url": "https://github.com/OCHA-DAP/ds-cerf-supplement.git"
+        },
+        {
+          "name": "refresh",
+          "git_url": "https://github.com/OCHA-DAP/ds-cerf-supplement.git"
+        }
+      ],
+      "schedule": "At 05:30 UTC",
+      "last_run": {
+        "start": "2026-09-25T20:12:16.784000Z",
+        "end": "2026-09-25T20:25:34.913000Z",
+        "duration_min": 13,
+        "status": "success"
+      },
+      "next_run": "2026-09-26T05:30:00Z",
+      "tags": [],
+      "job_status": null,
+      "output_schemas": [],
+      "blob_storage": null
+    },
+    {
+      "name": "SEAS5 Skill Monthly Refresh",
+      "description": "Recomputes SEAS5-vs-ERA5 skill at admin 0/1/2 and per pixel for the new issuance, builds every payload of the static Pages site, verifies that all of them show that issuance, and publishes them as a bundle to the dev blob (projects/ds-seas5-skill/site/<YYYY-MM>/) for the GitHub Pages deploy workflow to pick up.",
+      "tasks": [
+        {
+          "name": "clim_signal",
+          "git_url": "https://github.com/OCHA-DAP/ds-seas5-skill.git"
+        },
+        {
+          "name": "enso_slides",
+          "git_url": "https://github.com/OCHA-DAP/ds-seas5-skill.git"
+        },
+        {
+          "name": "preflight",
+          "git_url": "https://github.com/OCHA-DAP/ds-seas5-skill.git"
+        },
+        {
+          "name": "publish",
+          "git_url": "https://github.com/OCHA-DAP/ds-seas5-skill.git"
+        },
+        {
+          "name": "raster",
+          "git_url": "https://github.com/OCHA-DAP/ds-seas5-skill.git"
+        },
+        {
+          "name": "site",
+          "git_url": "https://github.com/OCHA-DAP/ds-seas5-skill.git"
+        },
+        {
+          "name": "skill_adm0",
+          "git_url": "https://github.com/OCHA-DAP/ds-seas5-skill.git"
+        },
+        {
+          "name": "skill_adm1",
+          "git_url": "https://github.com/OCHA-DAP/ds-seas5-skill.git"
+        },
+        {
+          "name": "skill_adm2",
+          "git_url": "https://github.com/OCHA-DAP/ds-seas5-skill.git"
+        }
+      ],
+      "schedule": "At 13:15, on day 6 of the month UTC",
+      "last_run": {
+        "start": "2026-09-25T20:10:23.970000Z",
+        "end": "2026-09-25T20:27:07.887000Z",
+        "duration_min": 16,
+        "status": "success"
+      },
+      "next_run": "2026-10-06T13:15:00Z",
+      "tags": [
+        "seas5-skill"
+      ],
+      "job_status": null,
+      "output_schemas": [],
+      "blob_storage": null
+    },
+    {
+      "name": "[dev adm_tdowning] SEAS5 Skill Monthly Refresh",
+      "description": "Recomputes SEAS5-vs-ERA5 skill at admin 0/1/2 and per pixel for the new issuance, builds every payload of the static Pages site, verifies that all of them show that issuance, and publishes them as a bundle to the dev blob (projects/ds-seas5-skill/site/<YYYY-MM>/) for the GitHub Pages deploy workflow to pick up.",
+      "tasks": [
+        {
+          "name": "clim_signal",
+          "git_url": "https://github.com/OCHA-DAP/ds-seas5-skill.git"
+        },
+        {
+          "name": "enso_slides",
+          "git_url": "https://github.com/OCHA-DAP/ds-seas5-skill.git"
+        },
+        {
+          "name": "preflight",
+          "git_url": "https://github.com/OCHA-DAP/ds-seas5-skill.git"
+        },
+        {
+          "name": "publish",
+          "git_url": "https://github.com/OCHA-DAP/ds-seas5-skill.git"
+        },
+        {
+          "name": "raster",
+          "git_url": "https://github.com/OCHA-DAP/ds-seas5-skill.git"
+        },
+        {
+          "name": "site",
+          "git_url": "https://github.com/OCHA-DAP/ds-seas5-skill.git"
+        },
+        {
+          "name": "skill_adm0",
+          "git_url": "https://github.com/OCHA-DAP/ds-seas5-skill.git"
+        },
+        {
+          "name": "skill_adm1",
+          "git_url": "https://github.com/OCHA-DAP/ds-seas5-skill.git"
+        },
+        {
+          "name": "skill_adm2",
+          "git_url": "https://github.com/OCHA-DAP/ds-seas5-skill.git"
+        }
+      ],
+      "schedule": "At 13:15, on day 6 of the month UTC",
+      "last_run": {
+        "start": "2026-09-25T20:02:55.025000Z",
+        "end": "2026-09-25T20:05:33.079000Z",
+        "duration_min": 2,
+        "status": "failed"
+      },
+      "next_run": "2026-10-06T13:15:00Z",
+      "tags": [
+        "seas5-skill"
+      ],
+      "job_status": null,
+      "output_schemas": [],
+      "blob_storage": null
+    },
     {
       "name": "NGA Riverine Flood Monitoring",
       "description": "Daily Adamawa riverine flood AA monitor: GloFAS at Wuroboki (EWDS) + Google GRRR gauges \u2192 projects.ds_aa_nga_flooding_monitoring \u2192 chart \u2192 email \u2192 status page export. Replaces the GitHub Actions \"Monitor flooding\" cron.\n",
@@ -23,8 +169,13 @@
         }
       ],
       "schedule": "At 20:00 UTC",
-      "last_run": null,
-      "next_run": "2026-09-25T20:00:00Z",
+      "last_run": {
+        "start": "2026-09-25T20:27:39.173000Z",
+        "end": "2026-09-25T20:38:11.322000Z",
+        "duration_min": 10,
+        "status": "success"
+      },
+      "next_run": "2026-09-26T20:00:00Z",
       "tags": [],
       "job_status": null,
       "output_schemas": [],
@@ -45,9 +196,9 @@
       ],
       "schedule": "At 01:30 UTC",
       "last_run": {
-        "start": "2026-09-25T01:30:03.071000Z",
-        "end": "2026-09-25T01:38:30.471000Z",
-        "duration_min": 8,
+        "start": "2026-09-25T20:27:39.606000Z",
+        "end": "2026-09-25T20:36:51.863000Z",
+        "duration_min": 9,
         "status": "success"
       },
       "next_run": "2026-09-26T01:30:00Z",
@@ -75,12 +226,12 @@
       ],
       "schedule": "At 23:15 UTC",
       "last_run": {
-        "start": "2026-09-24T23:15:02.642000Z",
-        "end": "2026-09-24T23:42:55.606000Z",
-        "duration_min": 27,
+        "start": "2026-09-25T23:15:02.459000Z",
+        "end": "2026-09-25T23:45:53.199000Z",
+        "duration_min": 30,
         "status": "success"
       },
-      "next_run": "2026-09-25T23:15:00Z",
+      "next_run": "2026-09-26T23:15:00Z",
       "tags": [],
       "job_status": null,
       "output_schemas": [],
@@ -104,8 +255,13 @@
         }
       ],
       "schedule": "At 20:00 UTC",
-      "last_run": null,
-      "next_run": "2026-09-25T20:00:00Z",
+      "last_run": {
+        "start": "2026-09-25T20:27:26.055000Z",
+        "end": "2026-09-25T20:38:35.183000Z",
+        "duration_min": 11,
+        "status": "success"
+      },
+      "next_run": "2026-09-26T20:00:00Z",
       "tags": [],
       "job_status": null,
       "output_schemas": [],
@@ -122,9 +278,9 @@
       ],
       "schedule": "At 03:30 UTC",
       "last_run": {
-        "start": "2026-09-25T03:30:03.408000Z",
-        "end": "2026-09-25T03:39:24.332000Z",
-        "duration_min": 9,
+        "start": "2026-09-25T18:52:26.798000Z",
+        "end": "2026-09-25T18:56:56.210000Z",
+        "duration_min": 4,
         "status": "success"
       },
       "next_run": "2026-09-26T03:30:00Z",
@@ -367,12 +523,12 @@
       ],
       "schedule": "At 22:00 UTC",
       "last_run": {
-        "start": "2026-09-24T22:00:47.216000Z",
-        "end": "2026-09-24T22:12:56.401000Z",
-        "duration_min": 12,
+        "start": "2026-09-25T22:00:48.576000Z",
+        "end": "2026-09-25T22:10:20.121000Z",
+        "duration_min": 9,
         "status": "success"
       },
-      "next_run": "2026-09-25T22:00:00Z",
+      "next_run": "2026-09-26T22:00:00Z",
       "tags": [
         "storms",
         "forecast"
@@ -535,12 +691,12 @@
       ],
       "schedule": "At 0 and 30 minutes past the hour, every 3 hours UTC",
       "last_run": {
-        "start": "2026-09-25T18:00:03.210000Z",
-        "end": "2026-09-25T18:11:15.138000Z",
+        "start": "2026-09-26T00:30:02.959000Z",
+        "end": "2026-09-26T00:41:16.360000Z",
         "duration_min": 11,
         "status": "success"
       },
-      "next_run": "2026-09-25T21:00:00Z",
+      "next_run": "2026-09-26T03:00:00Z",
       "tags": [
         "storms"
       ],
@@ -567,12 +723,12 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": {
-        "start": "2026-09-25T18:00:05.550000Z",
-        "end": "2026-09-25T18:11:18.016000Z",
-        "duration_min": 11,
+        "start": "2026-09-26T00:00:03.997000Z",
+        "end": "2026-09-26T00:13:16.482000Z",
+        "duration_min": 13,
         "status": "success"
       },
-      "next_run": "2026-09-25T21:00:00Z",
+      "next_run": "2026-09-26T03:00:00Z",
       "tags": [
         "storms"
       ],
@@ -591,7 +747,7 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": null,
-      "next_run": "2026-09-25T21:00:00Z",
+      "next_run": "2026-09-26T03:00:00Z",
       "tags": [
         "storms",
         "forecast",
@@ -781,15 +937,15 @@
             }
           ],
           "row_count": 212800,
-          "size_mb": 95.8,
+          "size_mb": 95.84,
           "timestamp_ranges": {
             "issued_time": {
               "min": "1990-05-13T00:00:00",
-              "max": "2026-09-25T18:00:00"
+              "max": "2026-09-26T00:00:00"
             },
             "valid_time": {
               "min": "1990-05-13T12:00:00",
-              "max": "2026-09-30T12:00:00"
+              "max": "2026-09-30T18:00:00"
             }
           }
         }
@@ -807,12 +963,12 @@
       ],
       "schedule": "At 22:00 UTC",
       "last_run": {
-        "start": "2026-09-24T22:00:48.052000Z",
-        "end": "2026-09-24T22:11:12.681000Z",
-        "duration_min": 10,
+        "start": "2026-09-25T22:00:47.287000Z",
+        "end": "2026-09-25T22:09:25.359000Z",
+        "duration_min": 8,
         "status": "failed"
       },
-      "next_run": "2026-09-25T22:00:00Z",
+      "next_run": "2026-09-26T22:00:00Z",
       "tags": [
         "storms",
         "forecast"
@@ -1180,12 +1336,12 @@
       ],
       "schedule": "At 20:00 UTC",
       "last_run": {
-        "start": "2026-09-24T23:00:37.793000Z",
-        "end": "2026-09-24T23:19:39.596000Z",
+        "start": "2026-09-25T23:00:37.612000Z",
+        "end": "2026-09-25T23:20:32.344000Z",
         "duration_min": 19,
         "status": "success"
       },
-      "next_run": "2026-09-25T20:00:00Z",
+      "next_run": "2026-09-26T20:00:00Z",
       "tags": [
         "floods",
         "africa"
@@ -1270,7 +1426,7 @@
           "timestamp_ranges": {
             "valid_date": {
               "min": "1998-01-12",
-              "max": "2026-09-23"
+              "max": "2026-09-24"
             }
           }
         }
@@ -1279,7 +1435,7 @@
         "container": "raster",
         "prefix": "floodscan/daily/v5/processed",
         "blob_size_gb": 3.91,
-        "blob_count": 10483
+        "blob_count": 10484
       }
     },
     {
