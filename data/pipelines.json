@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-26T06:37:45.234271Z",
+  "generated_at": "2026-09-26T12:32:48.390910Z",
   "pipelines": [
     {
       "name": "CERF Supplement Daily",
@@ -691,12 +691,12 @@
       ],
       "schedule": "At 0 and 30 minutes past the hour, every 3 hours UTC",
       "last_run": {
-        "start": "2026-09-26T06:30:02.539000Z",
+        "start": "2026-09-26T12:30:03.013000Z",
         "end": null,
         "duration_min": null,
         "status": "running"
       },
-      "next_run": "2026-09-26T09:00:00Z",
+      "next_run": "2026-09-26T15:00:00Z",
       "tags": [
         "storms"
       ],
@@ -723,12 +723,12 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": {
-        "start": "2026-09-26T06:00:04.110000Z",
-        "end": "2026-09-26T06:10:47.371000Z",
-        "duration_min": 10,
+        "start": "2026-09-26T12:00:04.229000Z",
+        "end": "2026-09-26T12:09:48.252000Z",
+        "duration_min": 9,
         "status": "success"
       },
-      "next_run": "2026-09-26T09:00:00Z",
+      "next_run": "2026-09-26T15:00:00Z",
       "tags": [
         "storms"
       ],
@@ -747,7 +747,7 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": null,
-      "next_run": "2026-09-26T09:00:00Z",
+      "next_run": "2026-09-26T15:00:00Z",
       "tags": [
         "storms",
         "forecast",
@@ -937,15 +937,15 @@
             }
           ],
           "row_count": 212800,
-          "size_mb": 95.87,
+          "size_mb": 95.92,
           "timestamp_ranges": {
             "issued_time": {
               "min": "1990-05-13T00:00:00",
-              "max": "2026-09-26T06:00:00"
+              "max": "2026-09-26T12:00:00"
             },
             "valid_time": {
               "min": "1990-05-13T12:00:00",
-              "max": "2026-10-01T00:00:00"
+              "max": "2026-10-01T06:00:00"
             }
           }
         }
