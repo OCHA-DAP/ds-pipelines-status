@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-27T12:34:49.621836Z",
+  "generated_at": "2026-09-27T18:29:30.207726Z",
   "pipelines": [
     {
       "name": "CERF Supplement Daily",
@@ -302,12 +302,12 @@
       ],
       "schedule": "At 16:00 UTC",
       "last_run": {
-        "start": "2026-09-26T16:00:28.731000Z",
-        "end": "2026-09-26T17:47:41.478000Z",
-        "duration_min": 107,
+        "start": "2026-09-27T16:00:28.110000Z",
+        "end": "2026-09-27T17:18:08.827000Z",
+        "duration_min": 77,
         "status": "success"
       },
-      "next_run": "2026-09-27T16:00:00Z",
+      "next_run": "2026-09-28T16:00:00Z",
       "tags": [
         "storms"
       ],
@@ -501,7 +501,7 @@
             }
           ],
           "row_count": 5430464,
-          "size_gb": 2.3,
+          "size_gb": 2.32,
           "timestamp_ranges": {
             "valid_time": {
               "min": "1848-01-11T06:00:00",
@@ -691,12 +691,12 @@
       ],
       "schedule": "At 0 and 30 minutes past the hour, every 3 hours UTC",
       "last_run": {
-        "start": "2026-09-27T12:30:03.140000Z",
-        "end": null,
-        "duration_min": null,
-        "status": "running"
+        "start": "2026-09-27T18:00:03.059000Z",
+        "end": "2026-09-27T18:12:59.363000Z",
+        "duration_min": 12,
+        "status": "success"
       },
-      "next_run": "2026-09-27T15:00:00Z",
+      "next_run": "2026-09-27T21:00:00Z",
       "tags": [
         "storms"
       ],
@@ -723,12 +723,12 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": {
-        "start": "2026-09-27T12:00:04.918000Z",
-        "end": "2026-09-27T12:11:44.231000Z",
-        "duration_min": 11,
+        "start": "2026-09-27T18:00:03.073000Z",
+        "end": "2026-09-27T18:09:24.256000Z",
+        "duration_min": 9,
         "status": "success"
       },
-      "next_run": "2026-09-27T15:00:00Z",
+      "next_run": "2026-09-27T21:00:00Z",
       "tags": [
         "storms"
       ],
@@ -747,7 +747,7 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": null,
-      "next_run": "2026-09-27T15:00:00Z",
+      "next_run": "2026-09-27T21:00:00Z",
       "tags": [
         "storms",
         "forecast",
@@ -937,15 +937,15 @@
             }
           ],
           "row_count": 212800,
-          "size_mb": 96.05,
+          "size_mb": 96.09,
           "timestamp_ranges": {
             "issued_time": {
               "min": "1990-05-13T00:00:00",
-              "max": "2026-09-27T12:00:00"
+              "max": "2026-09-27T18:00:00"
             },
             "valid_time": {
               "min": "1990-05-13T12:00:00",
-              "max": "2026-10-02T06:00:00"
+              "max": "2026-10-02T12:00:00"
             }
           }
         }
@@ -1107,12 +1107,12 @@
       ],
       "schedule": "At 16:00 UTC",
       "last_run": {
-        "start": "2026-09-26T16:00:29.326000Z",
-        "end": "2026-09-26T16:10:00.254000Z",
-        "duration_min": 9,
+        "start": "2026-09-27T16:00:29.799000Z",
+        "end": "2026-09-27T16:12:26.820000Z",
+        "duration_min": 11,
         "status": "failed"
       },
-      "next_run": "2026-09-27T16:00:00Z",
+      "next_run": "2026-09-28T16:00:00Z",
       "tags": [
         "storms"
       ],
@@ -1306,7 +1306,7 @@
             }
           ],
           "row_count": 5430464,
-          "size_gb": 2.3,
+          "size_gb": 2.32,
           "timestamp_ranges": {
             "valid_time": {
               "min": "1848-01-11T06:00:00",
@@ -1564,12 +1564,12 @@
       ],
       "schedule": "At 14:40 UTC",
       "last_run": {
-        "start": "2026-09-26T14:40:57.946000Z",
-        "end": "2026-09-26T15:08:25.022000Z",
-        "duration_min": 27,
+        "start": "2026-09-27T14:40:57.411000Z",
+        "end": "2026-09-27T15:04:54.568000Z",
+        "duration_min": 23,
         "status": "success"
       },
-      "next_run": "2026-09-27T14:40:00Z",
+      "next_run": "2026-09-28T14:40:00Z",
       "tags": [
         "rainfall"
       ],
@@ -1648,7 +1648,7 @@
           "timestamp_ranges": {
             "valid_date": {
               "min": "1998-01-01",
-              "max": "2026-09-25"
+              "max": "2026-09-26"
             }
           }
         }
@@ -1656,8 +1656,8 @@
       "blob_storage": {
         "container": "raster",
         "prefix": "imerg/daily/late/v7/processed/",
-        "blob_size_gb": 155.67,
-        "blob_count": 10495
+        "blob_size_gb": 155.69,
+        "blob_count": 10496
       }
     },
     {
