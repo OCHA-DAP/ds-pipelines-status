@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-28T18:33:27.966823Z",
+  "generated_at": "2026-09-28T21:11:02.344261Z",
   "pipelines": [
     {
       "name": "MOZ Cyclone Monitoring",
@@ -17,15 +17,18 @@
         "duration_min": 9,
         "status": "failed"
       },
-      "next_run": "2026-09-28T19:00:00Z",
+      "next_run": "2026-09-28T22:00:00Z",
       "tags": [],
+      "hazard": [],
+      "kb": null,
       "job_status": null,
+      "data_mode": "prod",
       "output_schemas": [],
-      "blob_storage": null
+      "blob_storage": []
     },
     {
       "name": "MDG IMERG Monitoring",
-      "description": "Daily Madagascar cyclone AA rainfall monitor: 3-day IMERG totals per ADM1 (prod public.imerg, after Run IMERG at 14:40 UTC) \u2192 chart \u2192 Listmonk informational campaign. Replaces the GitHub Actions \"Monitor IMERG\" cron.\n",
+      "description": "Monitor the Madagascar cyclone trigger from 3-day [IMERG](https://gpm.nasa.gov/data/imerg) rainfall totals per ADM1",
       "tasks": [
         {
           "name": "monitor_imerg",
@@ -35,14 +38,21 @@
       "schedule": "At 16:00 UTC",
       "last_run": null,
       "next_run": "2026-09-29T16:00:00Z",
-      "tags": [],
+      "tags": [
+        "monitoring"
+      ],
+      "hazard": [
+        "tropical-cyclone"
+      ],
+      "kb": "mdg-monitoring",
       "job_status": null,
+      "data_mode": "prod",
       "output_schemas": [],
-      "blob_storage": null
+      "blob_storage": []
     },
     {
       "name": "HDX FloodScan Prepare",
-      "description": "Runs the public.floodscan queries behind the HDX \"FloodScan\" dataset (yearly maxima, 10-year day-of-year baseline, last 90 days; admin 1+2, SFED) against the prod rasterstats DB, parks them as parquet on the dev blob under projects/hdx-floodscan/intermediate/, then dispatches the GitHub publisher (run-python-script.yaml).",
+      "description": "Prepare FloodScan zonal statistics for the [HDX floodscan dataset](https://data.humdata.org/dataset/floodscan)",
       "tasks": [
         {
           "name": "prepare",
@@ -58,15 +68,28 @@
       },
       "next_run": "2026-09-29T00:15:00Z",
       "tags": [
-        "hdx-publish"
+        "publish"
       ],
+      "hazard": [
+        "flood"
+      ],
+      "kb": "hdx-floodscan",
       "job_status": null,
+      "data_mode": "prod",
       "output_schemas": [],
-      "blob_storage": null
+      "blob_storage": [
+        {
+          "container": "projects",
+          "prefix": "hdx-floodscan/intermediate",
+          "stage": "dev",
+          "blob_size_mb": 14.16,
+          "blob_count": 25
+        }
+      ]
     },
     {
       "name": "Population Mirror",
-      "description": "Monthly full-replace mirror of the HDX HAPI baseline population (COD-PS totals, p-coded admin 0-2) into the dev `pop` schema.\n",
+      "description": "Mirror baseline population by admin unit from [HAPI](https://hapi.humdata.org/)",
       "tasks": [
         {
           "name": "refresh_pop",
@@ -81,14 +104,114 @@
         "status": "success"
       },
       "next_run": "2026-10-03T04:23:00Z",
-      "tags": [],
+      "tags": [
+        "dataset-ingest"
+      ],
+      "hazard": [],
+      "kb": "population-mirror",
       "job_status": null,
-      "output_schemas": [],
-      "blob_storage": null
+      "data_mode": "dev",
+      "output_schemas": [
+        {
+          "table": "pop.population_admin",
+          "columns": [
+            {
+              "name": "location_code",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "location_name",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "admin1_code",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "admin1_name",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "admin2_code",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "admin2_name",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "admin_level",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32
+            },
+            {
+              "name": "gender",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "age_range",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "population",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "reference_period_start",
+              "type": "date",
+              "nullable": true
+            },
+            {
+              "name": "reference_period_end",
+              "type": "date",
+              "nullable": true
+            },
+            {
+              "name": "resource_hdx_id",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "refreshed_at",
+              "type": "timestamp with time zone",
+              "nullable": true
+            }
+          ],
+          "row_count": 21016,
+          "size_mb": 7.0,
+          "timestamp_ranges": {
+            "reference_period_start": {
+              "min": "2001-01-01",
+              "max": "2025-01-01"
+            },
+            "reference_period_end": {
+              "min": "2001-12-31",
+              "max": "2025-12-31"
+            },
+            "refreshed_at": {
+              "min": "2026-09-28T13:22:15.313653Z",
+              "max": "2026-09-28T13:22:15.313653Z"
+            }
+          },
+          "stage": "dev"
+        }
+      ],
+      "blob_storage": []
     },
     {
       "name": "IPC Mirror",
-      "description": "Daily IPC / Cadre Harmonis\u00e9 mirror into the dev `ipc` schema (HDX per-country history + HAPI p-coded layer + IPC API analyses), followed by the site-data export to the dev blob for the GitHub Pages explorer.\n",
+      "description": "Mirror [IPC](https://www.ipcinfo.org/) population-in-phase analyses from the [IPC API](https://docs.api.ipcinfo.org/) and [HAPI](https://hapi.humdata.org/)",
       "tasks": [
         {
           "name": "export_site",
@@ -111,14 +234,287 @@
         "status": "success"
       },
       "next_run": "2026-09-29T03:37:00Z",
-      "tags": [],
+      "tags": [
+        "dataset-ingest"
+      ],
+      "hazard": [],
+      "kb": "ipc-mirror",
       "job_status": null,
-      "output_schemas": [],
-      "blob_storage": null
+      "data_mode": "dev",
+      "output_schemas": [
+        {
+          "table": "ipc.population",
+          "columns": [
+            {
+              "name": "iso3",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "level",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "level1_name",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "area_name",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "analysis_date",
+              "type": "date",
+              "nullable": true
+            },
+            {
+              "name": "period_type",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "reference_period_start",
+              "type": "date",
+              "nullable": true
+            },
+            {
+              "name": "reference_period_end",
+              "type": "date",
+              "nullable": true
+            },
+            {
+              "name": "phase",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "population",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "fraction",
+              "type": "double precision",
+              "nullable": true,
+              "precision": 53
+            },
+            {
+              "name": "country_population",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "source_dataset",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "refreshed_at",
+              "type": "timestamp with time zone",
+              "nullable": true
+            }
+          ],
+          "row_count": 497500,
+          "size_mb": 178.41,
+          "timestamp_ranges": {
+            "analysis_date": {
+              "min": "2017-01-01",
+              "max": "2026-08-01"
+            },
+            "reference_period_start": {
+              "min": "2017-01-01",
+              "max": "2026-11-01"
+            },
+            "reference_period_end": {
+              "min": "2017-01-31",
+              "max": "2027-03-31"
+            },
+            "refreshed_at": {
+              "min": "2026-09-28T13:21:56.086803Z",
+              "max": "2026-09-28T13:21:56.086803Z"
+            }
+          },
+          "stage": "dev"
+        },
+        {
+          "table": "ipc.population_admin",
+          "columns": [
+            {
+              "name": "location_code",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "location_name",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "admin1_code",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "admin1_name",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "admin2_code",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "admin2_name",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "admin_level",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32
+            },
+            {
+              "name": "ipc_phase",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "ipc_type",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "population_in_phase",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "population_fraction_in_phase",
+              "type": "double precision",
+              "nullable": true,
+              "precision": 53
+            },
+            {
+              "name": "reference_period_start",
+              "type": "date",
+              "nullable": true
+            },
+            {
+              "name": "reference_period_end",
+              "type": "date",
+              "nullable": true
+            },
+            {
+              "name": "resource_hdx_id",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "refreshed_at",
+              "type": "timestamp with time zone",
+              "nullable": true
+            }
+          ],
+          "row_count": 358424,
+          "size_mb": 128.61,
+          "timestamp_ranges": {
+            "reference_period_start": {
+              "min": "2020-10-01",
+              "max": "2026-10-01"
+            },
+            "reference_period_end": {
+              "min": "2021-02-28",
+              "max": "2027-03-31"
+            },
+            "refreshed_at": {
+              "min": "2026-09-28T13:25:46.159760Z",
+              "max": "2026-09-28T13:25:46.159760Z"
+            }
+          },
+          "stage": "dev"
+        },
+        {
+          "table": "ipc.analyses",
+          "columns": [
+            {
+              "name": "analysis_id",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "title",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "link",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "country_iso2",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "year",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32
+            },
+            {
+              "name": "condition",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "created",
+              "type": "date",
+              "nullable": true
+            },
+            {
+              "name": "modified",
+              "type": "date",
+              "nullable": true
+            },
+            {
+              "name": "refreshed_at",
+              "type": "timestamp with time zone",
+              "nullable": true
+            }
+          ],
+          "row_count": 616,
+          "size_mb": 0.31,
+          "timestamp_ranges": {
+            "created": {
+              "min": "2017-11-20",
+              "max": "2026-09-17"
+            },
+            "modified": {
+              "min": "2025-12-02",
+              "max": "2026-09-17"
+            },
+            "refreshed_at": {
+              "min": "2026-09-28T13:28:36.761360Z",
+              "max": "2026-09-28T13:28:36.761360Z"
+            }
+          },
+          "stage": "dev"
+        }
+      ],
+      "blob_storage": []
     },
     {
       "name": "FEWS NET Mirror",
-      "description": "Daily mirror of FEWS NET FDW classifications into the dev `fewsnet` schema (+ unit geometry on the dev blob), followed by the site-data export to the dev blob for the GitHub Pages explorer.\n",
+      "description": "Mirror [FEWS NET](https://fews.net/data) food security classifications and units from the [FDW API](https://fdw.fews.net/api/)",
       "tasks": [
         {
           "name": "export_site",
@@ -141,14 +537,303 @@
         "status": "success"
       },
       "next_run": "2026-09-29T04:52:00Z",
-      "tags": [],
+      "tags": [
+        "dataset-ingest"
+      ],
+      "hazard": [],
+      "kb": "fewsnet-mirror",
       "job_status": null,
-      "output_schemas": [],
-      "blob_storage": null
+      "data_mode": "dev",
+      "output_schemas": [
+        {
+          "table": "fewsnet.classification",
+          "columns": [
+            {
+              "name": "iso3",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "iso2",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "country",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "fnid",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "unit_name",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "unit_full_name",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "unit_type",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "geographic_unit",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "scale",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "scenario",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "scenario_name",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "assistance",
+              "type": "boolean",
+              "nullable": true
+            },
+            {
+              "name": "projection_start",
+              "type": "date",
+              "nullable": true
+            },
+            {
+              "name": "projection_end",
+              "type": "date",
+              "nullable": true
+            },
+            {
+              "name": "reporting_date",
+              "type": "date",
+              "nullable": true
+            },
+            {
+              "name": "source_document",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "document_type",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "collection",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "collection_period",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "status",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "collection_status",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "phase",
+              "type": "double precision",
+              "nullable": true,
+              "precision": 53
+            },
+            {
+              "name": "description",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "pct_phase3",
+              "type": "double precision",
+              "nullable": true,
+              "precision": 53
+            },
+            {
+              "name": "pct_phase4",
+              "type": "double precision",
+              "nullable": true,
+              "precision": 53
+            },
+            {
+              "name": "pct_phase5",
+              "type": "double precision",
+              "nullable": true,
+              "precision": 53
+            },
+            {
+              "name": "source_id",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "created",
+              "type": "timestamp with time zone",
+              "nullable": true
+            },
+            {
+              "name": "modified",
+              "type": "timestamp with time zone",
+              "nullable": true
+            },
+            {
+              "name": "refreshed_at",
+              "type": "timestamp with time zone",
+              "nullable": true
+            }
+          ],
+          "row_count": 1320734,
+          "size_gb": 1.05,
+          "timestamp_ranges": {
+            "projection_start": {
+              "min": "2011-01-01",
+              "max": "2027-02-01"
+            },
+            "projection_end": {
+              "min": "2011-01-31",
+              "max": "2027-02-28"
+            },
+            "reporting_date": {
+              "min": "2011-01-01",
+              "max": "2026-08-01"
+            },
+            "created": {
+              "min": "2020-10-30T16:46:34Z",
+              "max": "2026-09-14T15:40:45Z"
+            },
+            "modified": {
+              "min": "2020-10-30T16:46:34Z",
+              "max": "2026-09-14T15:40:45Z"
+            },
+            "refreshed_at": {
+              "min": "2026-09-28T13:25:41.965154Z",
+              "max": "2026-09-28T13:25:41.965154Z"
+            }
+          },
+          "stage": "dev"
+        },
+        {
+          "table": "fewsnet.units",
+          "columns": [
+            {
+              "name": "fnid",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "iso3",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "iso2",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "unit_name",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "admin0",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "admin1",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "admin2",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "admin3",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "lzcode",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "lzname",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "unit_type",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "report_mon",
+              "type": "date",
+              "nullable": true
+            },
+            {
+              "name": "refreshed_at",
+              "type": "timestamp with time zone",
+              "nullable": true
+            }
+          ],
+          "row_count": 7208,
+          "size_mb": 1.93,
+          "timestamp_ranges": {
+            "report_mon": {
+              "min": "2015-04-01",
+              "max": "2026-08-01"
+            },
+            "refreshed_at": {
+              "min": "2026-08-26T15:50:46.190427Z",
+              "max": "2026-09-21T05:12:23.779384Z"
+            }
+          },
+          "stage": "dev"
+        }
+      ],
+      "blob_storage": [
+        {
+          "container": "projects",
+          "prefix": "ds-fewsnet-mirror/processed/units",
+          "stage": "dev",
+          "blob_size_mb": 190.25,
+          "blob_count": 45
+        }
+      ]
     },
     {
       "name": "HNRP Mirror",
-      "description": "Daily HNRP/PiN mirror into the dev `hpc` schema (HPC plans + caseloads + FTS funding, then admin-level PiN, JIAF severity and subnational monitoring in parallel), followed by the site-data export to the dev blob for the GitHub Pages explorer.\n",
+      "description": "Mirror HNRP plans, caseloads and JIAF severity from the [HPC API](https://api.hpc.tools) and [HAPI](https://hapi.humdata.org/)",
       "tasks": [
         {
           "name": "export_site",
@@ -183,14 +868,797 @@
         "status": "success"
       },
       "next_run": "2026-09-29T04:17:00Z",
-      "tags": [],
+      "tags": [
+        "dataset-ingest"
+      ],
+      "hazard": [],
+      "kb": "hnrp-mirror",
       "job_status": null,
-      "output_schemas": [],
-      "blob_storage": null
+      "data_mode": "dev",
+      "output_schemas": [
+        {
+          "table": "hpc.plans",
+          "columns": [
+            {
+              "name": "plan_id",
+              "type": "integer",
+              "nullable": false,
+              "precision": 32
+            },
+            {
+              "name": "code",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "name",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "short_name",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "plan_type",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "iso3",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "year",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32
+            },
+            {
+              "name": "start_date",
+              "type": "date",
+              "nullable": true
+            },
+            {
+              "name": "end_date",
+              "type": "date",
+              "nullable": true
+            },
+            {
+              "name": "is_gho",
+              "type": "boolean",
+              "nullable": true
+            },
+            {
+              "name": "released_date",
+              "type": "timestamp with time zone",
+              "nullable": true
+            },
+            {
+              "name": "source_updated_at",
+              "type": "timestamp with time zone",
+              "nullable": true
+            },
+            {
+              "name": "orig_requirements",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "revised_requirements",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "funding_total",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "total_population",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "in_need",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "targeted",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "affected",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "expected_reach",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "reached",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "refreshed_at",
+              "type": "timestamp with time zone",
+              "nullable": true
+            }
+          ],
+          "row_count": 818,
+          "size_mb": 0.3,
+          "timestamp_ranges": {
+            "start_date": {
+              "min": "2004-01-01",
+              "max": "2026-08-26"
+            },
+            "end_date": {
+              "min": "2004-03-31",
+              "max": "2026-12-31"
+            },
+            "released_date": {
+              "min": "1970-01-01T00:00:00Z",
+              "max": "2026-09-04T09:48:18.240000Z"
+            },
+            "source_updated_at": {
+              "min": "2017-02-22T17:18:19.273000Z",
+              "max": "2026-09-11T14:29:58.720000Z"
+            },
+            "refreshed_at": {
+              "min": "2026-09-20T02:51:57.100731Z",
+              "max": "2026-09-28T13:24:12.885304Z"
+            }
+          },
+          "stage": "dev"
+        },
+        {
+          "table": "hpc.plan_caseloads",
+          "columns": [
+            {
+              "name": "plan_id",
+              "type": "integer",
+              "nullable": false,
+              "precision": 32
+            },
+            {
+              "name": "entity_id",
+              "type": "integer",
+              "nullable": false,
+              "precision": 32
+            },
+            {
+              "name": "cluster_name",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "requirements",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "total_population",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "in_need",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "targeted",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "affected",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "expected_reach",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "reached",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "refreshed_at",
+              "type": "timestamp with time zone",
+              "nullable": true
+            }
+          ],
+          "row_count": 3278,
+          "size_mb": 0.61,
+          "timestamp_ranges": {
+            "refreshed_at": {
+              "min": "2026-09-20T02:57:33.818161Z",
+              "max": "2026-09-28T13:24:13.020140Z"
+            }
+          },
+          "stage": "dev"
+        },
+        {
+          "table": "hpc.needs_admin",
+          "columns": [
+            {
+              "name": "location_code",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "location_name",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "admin1_code",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "admin1_name",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "admin2_code",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "admin2_name",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "admin_level",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32
+            },
+            {
+              "name": "sector_code",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "sector_name",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "category",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "population_status",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "population",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "reference_period_start",
+              "type": "date",
+              "nullable": true
+            },
+            {
+              "name": "reference_period_end",
+              "type": "date",
+              "nullable": true
+            },
+            {
+              "name": "resource_hdx_id",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "refreshed_at",
+              "type": "timestamp with time zone",
+              "nullable": true
+            },
+            {
+              "name": "admin3_code",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "admin3_name",
+              "type": "text",
+              "nullable": true
+            }
+          ],
+          "row_count": 1242711,
+          "size_mb": 528.16,
+          "timestamp_ranges": {
+            "reference_period_start": {
+              "min": "2024-01-01",
+              "max": "2026-01-01"
+            },
+            "reference_period_end": {
+              "min": "2024-12-31",
+              "max": "2026-12-31"
+            },
+            "refreshed_at": {
+              "min": "2026-09-28T13:31:55.005450Z",
+              "max": "2026-09-28T13:31:55.005450Z"
+            }
+          },
+          "stage": "dev"
+        },
+        {
+          "table": "hpc.severity_admin",
+          "columns": [
+            {
+              "name": "iso3",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "year",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32
+            },
+            {
+              "name": "admin1_code",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "admin1_name",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "admin2_code",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "admin2_name",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "population_group",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "population",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "final_severity",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32
+            },
+            {
+              "name": "refreshed_at",
+              "type": "timestamp with time zone",
+              "nullable": true
+            },
+            {
+              "name": "admin3_code",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "admin3_name",
+              "type": "text",
+              "nullable": true
+            }
+          ],
+          "row_count": 8109,
+          "size_mb": 1.9,
+          "timestamp_ranges": {
+            "refreshed_at": {
+              "min": "2026-09-28T13:25:53.554459Z",
+              "max": "2026-09-28T13:25:53.554459Z"
+            }
+          },
+          "stage": "dev"
+        },
+        {
+          "table": "hpc.pin_admin",
+          "columns": [
+            {
+              "name": "iso3",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "year",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32
+            },
+            {
+              "name": "admin1_code",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "admin1_name",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "admin2_code",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "admin2_name",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "admin3_code",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "admin3_name",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "population_group",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "population",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "severity",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32
+            },
+            {
+              "name": "preliminary_pin",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "final_pin",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "refreshed_at",
+              "type": "timestamp with time zone",
+              "nullable": true
+            },
+            {
+              "name": "final_severity",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32
+            }
+          ],
+          "row_count": 10905,
+          "size_mb": 2.93,
+          "timestamp_ranges": {
+            "refreshed_at": {
+              "min": "2026-09-28T13:25:57.351469Z",
+              "max": "2026-09-28T13:25:57.351469Z"
+            }
+          },
+          "stage": "dev"
+        },
+        {
+          "table": "hpc.monitoring_admin",
+          "columns": [
+            {
+              "name": "snapshot_date",
+              "type": "date",
+              "nullable": false
+            },
+            {
+              "name": "plan_id",
+              "type": "integer",
+              "nullable": false,
+              "precision": 32
+            },
+            {
+              "name": "iso3",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "country",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "year",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32
+            },
+            {
+              "name": "pcode",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "location_path",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "admin_level",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32
+            },
+            {
+              "name": "admin0_code",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "admin1_code",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "cluster_name",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "ic_severity",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32
+            },
+            {
+              "name": "ic_severity_class",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "in_need",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "targeted",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "prioritized_target",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "reached",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "prioritized_reached",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "refreshed_at",
+              "type": "timestamp with time zone",
+              "nullable": true
+            }
+          ],
+          "row_count": 1565232,
+          "size_mb": 430.8,
+          "timestamp_ranges": {
+            "snapshot_date": {
+              "min": "2026-08-10",
+              "max": "2026-09-28"
+            },
+            "refreshed_at": {
+              "min": "2026-08-10T20:02:07.363522Z",
+              "max": "2026-09-28T13:25:06.049106Z"
+            }
+          },
+          "stage": "dev"
+        },
+        {
+          "table": "hpc.monitoring_national",
+          "columns": [
+            {
+              "name": "snapshot_date",
+              "type": "date",
+              "nullable": false
+            },
+            {
+              "name": "plan_id",
+              "type": "integer",
+              "nullable": false,
+              "precision": 32
+            },
+            {
+              "name": "iso3",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "country",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "year",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32
+            },
+            {
+              "name": "admin0_code",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "cluster_name",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "in_need",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "targeted",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "prioritized_target",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "reached",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "prioritized_reached",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "refreshed_at",
+              "type": "timestamp with time zone",
+              "nullable": true
+            }
+          ],
+          "row_count": 12857,
+          "size_mb": 3.38,
+          "timestamp_ranges": {
+            "snapshot_date": {
+              "min": "2026-08-11",
+              "max": "2026-09-28"
+            },
+            "refreshed_at": {
+              "min": "2026-08-11T19:16:10.236870Z",
+              "max": "2026-09-28T13:25:25.187390Z"
+            }
+          },
+          "stage": "dev"
+        },
+        {
+          "table": "hpc.monitoring_periods",
+          "columns": [
+            {
+              "name": "snapshot_date",
+              "type": "date",
+              "nullable": false
+            },
+            {
+              "name": "plan_id",
+              "type": "integer",
+              "nullable": false,
+              "precision": 32
+            },
+            {
+              "name": "year",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32
+            },
+            {
+              "name": "country",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "latest_update",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "refreshed_at",
+              "type": "timestamp with time zone",
+              "nullable": true
+            }
+          ],
+          "row_count": 1470,
+          "size_mb": 0.22,
+          "timestamp_ranges": {
+            "snapshot_date": {
+              "min": "2026-08-10",
+              "max": "2026-09-28"
+            },
+            "refreshed_at": {
+              "min": "2026-08-10T20:02:23.486976Z",
+              "max": "2026-09-28T13:25:25.526931Z"
+            }
+          },
+          "stage": "dev"
+        }
+      ],
+      "blob_storage": []
     },
     {
       "name": "HNRP Mirror \u2014 weekly full backfill",
-      "description": "Sunday full historical backfill of HPC plans/caseloads/funding (refresh_hpc.py --all). The daily job 90 minutes later refreshes the dependent tables and the site as usual.\n",
+      "description": "Full weekly refresh of HPC plans, caseloads and funding from the [HPC API](https://api.hpc.tools)",
       "tasks": [
         {
           "name": "refresh_hpc_all",
@@ -200,14 +1668,249 @@
       "schedule": "At 02:47, only on Sunday UTC",
       "last_run": null,
       "next_run": "2026-10-04T02:47:00Z",
-      "tags": [],
+      "tags": [
+        "dataset-ingest"
+      ],
+      "hazard": [],
+      "kb": "hnrp-mirror",
       "job_status": null,
-      "output_schemas": [],
-      "blob_storage": null
+      "data_mode": "dev",
+      "output_schemas": [
+        {
+          "table": "hpc.plans",
+          "columns": [
+            {
+              "name": "plan_id",
+              "type": "integer",
+              "nullable": false,
+              "precision": 32
+            },
+            {
+              "name": "code",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "name",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "short_name",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "plan_type",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "iso3",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "year",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32
+            },
+            {
+              "name": "start_date",
+              "type": "date",
+              "nullable": true
+            },
+            {
+              "name": "end_date",
+              "type": "date",
+              "nullable": true
+            },
+            {
+              "name": "is_gho",
+              "type": "boolean",
+              "nullable": true
+            },
+            {
+              "name": "released_date",
+              "type": "timestamp with time zone",
+              "nullable": true
+            },
+            {
+              "name": "source_updated_at",
+              "type": "timestamp with time zone",
+              "nullable": true
+            },
+            {
+              "name": "orig_requirements",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "revised_requirements",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "funding_total",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "total_population",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "in_need",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "targeted",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "affected",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "expected_reach",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "reached",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "refreshed_at",
+              "type": "timestamp with time zone",
+              "nullable": true
+            }
+          ],
+          "row_count": 818,
+          "size_mb": 0.3,
+          "timestamp_ranges": {
+            "start_date": {
+              "min": "2004-01-01",
+              "max": "2026-08-26"
+            },
+            "end_date": {
+              "min": "2004-03-31",
+              "max": "2026-12-31"
+            },
+            "released_date": {
+              "min": "1970-01-01T00:00:00Z",
+              "max": "2026-09-04T09:48:18.240000Z"
+            },
+            "source_updated_at": {
+              "min": "2017-02-22T17:18:19.273000Z",
+              "max": "2026-09-11T14:29:58.720000Z"
+            },
+            "refreshed_at": {
+              "min": "2026-09-20T02:51:57.100731Z",
+              "max": "2026-09-28T13:24:12.885304Z"
+            }
+          },
+          "stage": "dev"
+        },
+        {
+          "table": "hpc.plan_caseloads",
+          "columns": [
+            {
+              "name": "plan_id",
+              "type": "integer",
+              "nullable": false,
+              "precision": 32
+            },
+            {
+              "name": "entity_id",
+              "type": "integer",
+              "nullable": false,
+              "precision": 32
+            },
+            {
+              "name": "cluster_name",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "requirements",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "total_population",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "in_need",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "targeted",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "affected",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "expected_reach",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "reached",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "refreshed_at",
+              "type": "timestamp with time zone",
+              "nullable": true
+            }
+          ],
+          "row_count": 3278,
+          "size_mb": 0.61,
+          "timestamp_ranges": {
+            "refreshed_at": {
+              "min": "2026-09-20T02:57:33.818161Z",
+              "max": "2026-09-28T13:24:13.020140Z"
+            }
+          },
+          "stage": "dev"
+        }
+      ],
+      "blob_storage": []
     },
     {
       "name": "CERF Supplement Daily",
-      "description": "Daily OneGMS mirrors (CERF + CBPF allocations, projects, donor contributions \u2192 aa.cerf_*, aa.cbpf_*), then the storm and drought matchers (deterministic + Claude research, human replies on GitHub issues authoritative \u2192 aa.cerf_allocation_storm, aa.cerf_supplement), then the site export to the dev blob + Pages deploy dispatch.\n",
+      "description": "Mirror CERF and CBPF allocations from [OneGMS](https://cerfgms-webapi.unocha.org/) and [CBPF OData](https://cbpfapi.unocha.org/vo2/odata) and match them to storms and droughts",
       "tasks": [
         {
           "name": "match_droughts",
@@ -234,14 +1937,676 @@
         "status": "success"
       },
       "next_run": "2026-09-29T05:30:00Z",
-      "tags": [],
+      "tags": [
+        "annotation"
+      ],
+      "hazard": [],
+      "kb": "cerf-supplement",
       "job_status": null,
-      "output_schemas": [],
-      "blob_storage": null
+      "data_mode": "dev",
+      "output_schemas": [
+        {
+          "table": "aa.cerf_allocation",
+          "columns": [
+            {
+              "name": "application_code",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "application_id",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32
+            },
+            {
+              "name": "year",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32
+            },
+            {
+              "name": "country_iso3",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "country_name",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "region_name",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "window_name",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "emergency_type",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "emergency_group",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "title",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "allocation_status",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "agencies",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "amount_requested",
+              "type": "numeric",
+              "nullable": true
+            },
+            {
+              "name": "amount_approved",
+              "type": "numeric",
+              "nullable": true
+            },
+            {
+              "name": "individuals_affected",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "individuals_planned",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "individuals_reached",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "erc_endorsement_date",
+              "type": "date",
+              "nullable": true
+            },
+            {
+              "name": "first_project_approved_date",
+              "type": "date",
+              "nullable": true
+            },
+            {
+              "name": "last_project_approved_date",
+              "type": "date",
+              "nullable": true
+            },
+            {
+              "name": "report_due_date",
+              "type": "date",
+              "nullable": true
+            },
+            {
+              "name": "aa_keyword",
+              "type": "boolean",
+              "nullable": false
+            },
+            {
+              "name": "summary",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "humanitarian_overview",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "allocation_rationale",
+              "type": "text",
+              "nullable": true
+            }
+          ],
+          "row_count": 1628,
+          "size_mb": 4.77,
+          "timestamp_ranges": {
+            "erc_endorsement_date": {
+              "min": "2006-03-15",
+              "max": "2026-09-18"
+            },
+            "first_project_approved_date": {
+              "min": "2006-03-15",
+              "max": "2026-09-25"
+            },
+            "last_project_approved_date": {
+              "min": "2006-03-22",
+              "max": "2026-10-24"
+            },
+            "report_due_date": {
+              "min": "2014-11-18",
+              "max": "2027-04-07"
+            }
+          },
+          "stage": "dev"
+        },
+        {
+          "table": "aa.cerf_project",
+          "columns": [
+            {
+              "name": "project_code",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "project_id",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32
+            },
+            {
+              "name": "application_code",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "year",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32
+            },
+            {
+              "name": "country_iso3",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "country_name",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "region_name",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "subregion_name",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "window_name",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "agency_short_name",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "agency_name",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "implementing_agency_name",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "emergency_type",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "emergency_group",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "title",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "summary",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "project_status",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "allocation_status",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "project_type",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "sector_name",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "amount_approved",
+              "type": "numeric",
+              "nullable": true
+            },
+            {
+              "name": "beneficiary_type",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "gender_marker_id",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32
+            },
+            {
+              "name": "gender_marker_type",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "gender_marker_name",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "start_date",
+              "type": "date",
+              "nullable": true
+            },
+            {
+              "name": "end_date",
+              "type": "date",
+              "nullable": true
+            },
+            {
+              "name": "letter_sent_date",
+              "type": "date",
+              "nullable": true
+            },
+            {
+              "name": "usg_signature_date",
+              "type": "date",
+              "nullable": true
+            },
+            {
+              "name": "disbursement_date",
+              "type": "date",
+              "nullable": true
+            },
+            {
+              "name": "people_planned",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "planned_female",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "planned_male",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "planned_women",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "planned_men",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "planned_girls",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "planned_boys",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "people_reached",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "reached_female",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "reached_male",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "reached_women",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "reached_men",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "reached_girls",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "reached_boys",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            },
+            {
+              "name": "cap_codes",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "grouping_names",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "source_table",
+              "type": "text",
+              "nullable": true
+            }
+          ],
+          "row_count": 8650,
+          "size_mb": 11.52,
+          "timestamp_ranges": {
+            "start_date": {
+              "min": "2006-03-24",
+              "max": "2026-11-01"
+            },
+            "end_date": {
+              "min": "2006-09-23",
+              "max": "2027-09-08"
+            },
+            "letter_sent_date": {
+              "min": "2006-03-15",
+              "max": "2026-10-24"
+            },
+            "usg_signature_date": {
+              "min": "2006-03-15",
+              "max": "2026-10-24"
+            },
+            "disbursement_date": {
+              "min": "2006-03-24",
+              "max": "2026-09-21"
+            }
+          },
+          "stage": "dev"
+        },
+        {
+          "table": "aa.cbpf_allocation",
+          "columns": [
+            {
+              "name": "allocation_type_id",
+              "type": "integer",
+              "nullable": false,
+              "precision": 32
+            },
+            {
+              "name": "pooled_fund_id",
+              "type": "integer",
+              "nullable": false,
+              "precision": 32
+            },
+            {
+              "name": "pooled_fund_name",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "year",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32
+            },
+            {
+              "name": "allocation_source",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "title",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "summary",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "planned_usd",
+              "type": "numeric",
+              "nullable": true
+            },
+            {
+              "name": "planned_start_date",
+              "type": "date",
+              "nullable": true
+            },
+            {
+              "name": "planned_end_date",
+              "type": "date",
+              "nullable": true
+            },
+            {
+              "name": "hrp_plans",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "projects_under_approval",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32
+            },
+            {
+              "name": "under_approval_budget",
+              "type": "numeric",
+              "nullable": true
+            },
+            {
+              "name": "projects_approved",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32
+            },
+            {
+              "name": "approved_budget",
+              "type": "numeric",
+              "nullable": true
+            },
+            {
+              "name": "aa_keyword",
+              "type": "boolean",
+              "nullable": false
+            },
+            {
+              "name": "updated_at",
+              "type": "timestamp with time zone",
+              "nullable": false
+            }
+          ],
+          "row_count": 752,
+          "size_mb": 1.54,
+          "timestamp_ranges": {
+            "planned_start_date": {
+              "min": "2017-12-01",
+              "max": "2026-09-22"
+            },
+            "planned_end_date": {
+              "min": "2017-12-31",
+              "max": "2026-11-13"
+            },
+            "updated_at": {
+              "min": "2026-08-25T15:40:53.881074Z",
+              "max": "2026-09-25T05:42:12.973188Z"
+            }
+          },
+          "stage": "dev"
+        },
+        {
+          "table": "aa.cerf_allocation_storm",
+          "columns": [
+            {
+              "name": "application_code",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "sid",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "updated_at",
+              "type": "timestamp with time zone",
+              "nullable": true
+            }
+          ],
+          "row_count": 99,
+          "size_mb": 0.07,
+          "timestamp_ranges": {
+            "updated_at": {
+              "min": "2026-06-26T19:32:49.908493Z",
+              "max": "2026-07-13T08:10:25.762160Z"
+            }
+          },
+          "stage": "dev"
+        },
+        {
+          "table": "aa.cerf_supplement",
+          "columns": [
+            {
+              "name": "application_code",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "not_tc",
+              "type": "boolean",
+              "nullable": true
+            },
+            {
+              "name": "valid_month_start",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32
+            },
+            {
+              "name": "valid_year_start",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32
+            },
+            {
+              "name": "valid_month_end",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32
+            },
+            {
+              "name": "valid_year_end",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32
+            },
+            {
+              "name": "notes",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "updated_at",
+              "type": "timestamp with time zone",
+              "nullable": true
+            },
+            {
+              "name": "confidence",
+              "type": "double precision",
+              "nullable": true,
+              "precision": 53
+            },
+            {
+              "name": "not_drought",
+              "type": "boolean",
+              "nullable": true
+            }
+          ],
+          "row_count": 269,
+          "size_mb": 0.2,
+          "timestamp_ranges": {
+            "updated_at": {
+              "min": "2026-06-26T19:32:49.908493Z",
+              "max": "2026-09-22T05:53:08.400790Z"
+            }
+          },
+          "stage": "dev"
+        }
+      ],
+      "blob_storage": [
+        {
+          "container": "projects",
+          "prefix": "ds-cerf-supplement/site",
+          "stage": "dev",
+          "blob_size_mb": 0.12,
+          "blob_count": 2
+        }
+      ]
     },
     {
       "name": "SEAS5 Skill Monthly Refresh",
-      "description": "Recomputes SEAS5-vs-ERA5 skill at admin 0/1/2 and per pixel for the new issuance, builds every payload of the static Pages site, verifies that all of them show that issuance, and publishes them as a bundle to the dev blob (projects/ds-seas5-skill/site/<YYYY-MM>/) for the GitHub Pages deploy workflow to pick up.",
+      "description": "Recompute SEAS5 versus ERA5 forecast skill for the new issuance and rebuild the skill site",
       "tasks": [
         {
           "name": "clim_signal",
@@ -289,71 +2654,35 @@
       },
       "next_run": "2026-10-06T13:15:00Z",
       "tags": [
-        "seas5-skill"
+        "dataset-ingest"
       ],
+      "hazard": [
+        "drought"
+      ],
+      "kb": null,
       "job_status": null,
+      "data_mode": "prod",
       "output_schemas": [],
-      "blob_storage": null
-    },
-    {
-      "name": "[dev adm_tdowning] SEAS5 Skill Monthly Refresh",
-      "description": "Recomputes SEAS5-vs-ERA5 skill at admin 0/1/2 and per pixel for the new issuance, builds every payload of the static Pages site, verifies that all of them show that issuance, and publishes them as a bundle to the dev blob (projects/ds-seas5-skill/site/<YYYY-MM>/) for the GitHub Pages deploy workflow to pick up.",
-      "tasks": [
+      "blob_storage": [
         {
-          "name": "clim_signal",
-          "git_url": "https://github.com/OCHA-DAP/ds-seas5-skill.git"
+          "container": "projects",
+          "prefix": "ds-seas5-skill/processed",
+          "stage": "dev",
+          "blob_size_gb": 5.14,
+          "blob_count": 959
         },
         {
-          "name": "enso_slides",
-          "git_url": "https://github.com/OCHA-DAP/ds-seas5-skill.git"
-        },
-        {
-          "name": "preflight",
-          "git_url": "https://github.com/OCHA-DAP/ds-seas5-skill.git"
-        },
-        {
-          "name": "publish",
-          "git_url": "https://github.com/OCHA-DAP/ds-seas5-skill.git"
-        },
-        {
-          "name": "raster",
-          "git_url": "https://github.com/OCHA-DAP/ds-seas5-skill.git"
-        },
-        {
-          "name": "site",
-          "git_url": "https://github.com/OCHA-DAP/ds-seas5-skill.git"
-        },
-        {
-          "name": "skill_adm0",
-          "git_url": "https://github.com/OCHA-DAP/ds-seas5-skill.git"
-        },
-        {
-          "name": "skill_adm1",
-          "git_url": "https://github.com/OCHA-DAP/ds-seas5-skill.git"
-        },
-        {
-          "name": "skill_adm2",
-          "git_url": "https://github.com/OCHA-DAP/ds-seas5-skill.git"
+          "container": "projects",
+          "prefix": "ds-seas5-skill/site",
+          "stage": "dev",
+          "blob_size_mb": 103.09,
+          "blob_count": 974
         }
-      ],
-      "schedule": "At 13:15, on day 6 of the month UTC",
-      "last_run": {
-        "start": "2026-09-25T20:02:55.025000Z",
-        "end": "2026-09-25T20:05:33.079000Z",
-        "duration_min": 2,
-        "status": "failed"
-      },
-      "next_run": "2026-10-06T13:15:00Z",
-      "tags": [
-        "seas5-skill"
-      ],
-      "job_status": null,
-      "output_schemas": [],
-      "blob_storage": null
+      ]
     },
     {
       "name": "NGA Riverine Flood Monitoring",
-      "description": "Daily Adamawa riverine flood AA monitor: GloFAS at Wuroboki (EWDS) + Google GRRR gauges \u2192 projects.ds_aa_nga_flooding_monitoring \u2192 chart \u2192 email \u2192 status page export. Replaces the GitHub Actions \"Monitor flooding\" cron.\n",
+      "description": "Monitor the Adamawa riverine trigger using [GloFAS](https://global-flood.emergency.copernicus.eu/) at Wuroboki and [Google Flood Hub](https://sites.research.google/floods/) gauges",
       "tasks": [
         {
           "name": "check_forecasts",
@@ -374,20 +2703,92 @@
       ],
       "schedule": "At 20:00 UTC",
       "last_run": {
-        "start": "2026-09-27T20:00:02.862000Z",
-        "end": "2026-09-27T20:22:21.238000Z",
-        "duration_min": 22,
+        "start": "2026-09-28T20:00:04.382000Z",
+        "end": "2026-09-28T20:19:42.029000Z",
+        "duration_min": 19,
         "status": "success"
       },
-      "next_run": "2026-09-28T20:00:00Z",
-      "tags": [],
+      "next_run": "2026-09-29T20:00:00Z",
+      "tags": [
+        "monitoring"
+      ],
+      "hazard": [
+        "flood"
+      ],
+      "kb": "nga-flooding-monitoring",
       "job_status": null,
-      "output_schemas": [],
-      "blob_storage": null
+      "data_mode": "dev",
+      "output_schemas": [
+        {
+          "table": "projects.ds_aa_nga_flooding_monitoring",
+          "columns": [
+            {
+              "name": "issued_time",
+              "type": "timestamp with time zone",
+              "nullable": true
+            },
+            {
+              "name": "value",
+              "type": "numeric",
+              "nullable": true
+            },
+            {
+              "name": "src",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "monitoring_date",
+              "type": "date",
+              "nullable": true
+            },
+            {
+              "name": "issued_date",
+              "type": "date",
+              "nullable": true
+            },
+            {
+              "name": "valid_date",
+              "type": "date",
+              "nullable": true
+            }
+          ],
+          "row_count": 5834,
+          "size_mb": 0.99,
+          "timestamp_ranges": {
+            "issued_time": {
+              "min": "2024-09-10T23:38:34.150140Z",
+              "max": "2026-09-28T20:07:22.460328Z"
+            },
+            "monitoring_date": {
+              "min": "2024-09-10",
+              "max": "2026-09-28"
+            },
+            "issued_date": {
+              "min": "2024-09-08",
+              "max": "2026-09-28"
+            },
+            "valid_date": {
+              "min": "2024-09-08",
+              "max": "2026-10-09"
+            }
+          },
+          "stage": "dev"
+        }
+      ],
+      "blob_storage": [
+        {
+          "container": "projects",
+          "prefix": "ds-aa-nga-flooding/monitoring",
+          "stage": "dev",
+          "blob_size_mb": 58.62,
+          "blob_count": 259
+        }
+      ]
     },
     {
       "name": "NGA Flash Flood Monitoring",
-      "description": "Daily BAY-states flash-flood AA monitor: per-LGA FloodScan \u00d7 WorldPop exposure (app.floodscan_exposure, prod) vs thresholds \u2192 chart \u2192 email \u2192 status page export. Replaces the GitHub Actions \"Monitor flash flooding\" cron. Runs after the Flood Exposure Monitoring job.\n",
+      "description": "Monitor the BAY-states flash flood trigger from FloodScan \u00d7 WorldPop exposure per LGA",
       "tasks": [
         {
           "name": "export_status",
@@ -406,14 +2807,29 @@
         "status": "failed"
       },
       "next_run": "2026-09-29T01:30:00Z",
-      "tags": [],
+      "tags": [
+        "monitoring"
+      ],
+      "hazard": [
+        "flood"
+      ],
+      "kb": "nga-flooding-monitoring",
       "job_status": null,
+      "data_mode": "dev",
       "output_schemas": [],
-      "blob_storage": null
+      "blob_storage": [
+        {
+          "container": "projects",
+          "prefix": "ds-aa-nga-flooding/monitoring",
+          "stage": "dev",
+          "blob_size_mb": 58.62,
+          "blob_count": 259
+        }
+      ]
     },
     {
       "name": "Flood Exposure Monitoring",
-      "description": "Daily FloodScan \u00d7 WorldPop population-exposure chain: exposure rasters (blob) \u2192 admin raster stats (app.floodscan_exposure) \u2192 rolling quantiles (app.quantile / app.current_quantile). Consumed by the flood exposure app and the Nigeria flash-flood AA monitor.\n",
+      "description": "Compute daily FloodScan \u00d7 [WorldPop](https://hub.worldpop.org/) population exposure and rolling quantile scores by admin unit",
       "tasks": [
         {
           "name": "update_exposure",
@@ -436,14 +2852,193 @@
         "status": "success"
       },
       "next_run": "2026-09-28T23:15:00Z",
-      "tags": [],
+      "tags": [
+        "exposure"
+      ],
+      "hazard": [
+        "flood"
+      ],
+      "kb": "floodexposure-monitoring",
       "job_status": null,
-      "output_schemas": [],
-      "blob_storage": null
+      "data_mode": "prod",
+      "output_schemas": [
+        {
+          "table": "app.floodscan_exposure",
+          "columns": [
+            {
+              "name": "iso3",
+              "type": "character",
+              "nullable": true,
+              "max_length": 3
+            },
+            {
+              "name": "adm_level",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "valid_date",
+              "type": "date",
+              "nullable": true
+            },
+            {
+              "name": "pcode",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "sum",
+              "type": "real",
+              "nullable": true,
+              "precision": 24
+            }
+          ],
+          "row_count": 22902510,
+          "size_gb": 2.23,
+          "timestamp_ranges": {
+            "valid_date": {
+              "min": "1998-01-12",
+              "max": "2026-09-25"
+            }
+          },
+          "stage": "prod"
+        },
+        {
+          "table": "app.floodscan_exposure_regions",
+          "columns": [
+            {
+              "name": "iso3",
+              "type": "character",
+              "nullable": true,
+              "max_length": 3
+            },
+            {
+              "name": "adm_level",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "valid_date",
+              "type": "date",
+              "nullable": true
+            },
+            {
+              "name": "pcode",
+              "type": "character varying",
+              "nullable": true
+            },
+            {
+              "name": "sum",
+              "type": "real",
+              "nullable": true,
+              "precision": 24
+            }
+          ],
+          "row_count": 31446,
+          "size_mb": 6.53,
+          "timestamp_ranges": {
+            "valid_date": {
+              "min": "1998-01-12",
+              "max": "2026-09-25"
+            }
+          },
+          "stage": "prod"
+        },
+        {
+          "table": "app.quantile",
+          "columns": [
+            {
+              "name": "pcode",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "adm_level",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "valid_date",
+              "type": "timestamp without time zone",
+              "nullable": true
+            },
+            {
+              "name": "rolling_avg",
+              "type": "double precision",
+              "nullable": true,
+              "precision": 53
+            },
+            {
+              "name": "quantile",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            }
+          ],
+          "row_count": 2238,
+          "size_mb": 0.19,
+          "timestamp_ranges": {
+            "valid_date": {
+              "min": "2026-09-25T00:00:00",
+              "max": "2026-09-25T00:00:00"
+            }
+          },
+          "stage": "prod"
+        },
+        {
+          "table": "app.quantile_regions",
+          "columns": [
+            {
+              "name": "pcode",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "adm_level",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "valid_date",
+              "type": "timestamp without time zone",
+              "nullable": true
+            },
+            {
+              "name": "rolling_avg",
+              "type": "double precision",
+              "nullable": true,
+              "precision": 53
+            },
+            {
+              "name": "quantile",
+              "type": "bigint",
+              "nullable": true,
+              "precision": 64
+            }
+          ],
+          "size_mb": 0.02,
+          "timestamp_ranges": {
+            "valid_date": {
+              "min": "2026-09-25T00:00:00",
+              "max": "2026-09-25T00:00:00"
+            }
+          },
+          "stage": "prod"
+        }
+      ],
+      "blob_storage": [
+        {
+          "container": "projects",
+          "prefix": "ds-floodexposure-monitoring/processed/flood_exposure",
+          "stage": "prod",
+          "blob_size_gb": 16.33,
+          "blob_count": 146767
+        }
+      ]
     },
     {
       "name": "TCD Flood Monitoring",
-      "description": "Daily Chad riverine flood AA monitor: GloFAS forecast at N'Djamena (EWDS) \u2192 projects.pa_aa_tcd_flooding_monitoring \u2192 chart \u2192 email. Replaces the GitHub Actions \"Monitor flooding\" cron.\n",
+      "description": "Monitor the Chad riverine trigger using the [GloFAS](https://global-flood.emergency.copernicus.eu/) forecast at N'Djamena",
       "tasks": [
         {
           "name": "check_forecasts",
@@ -460,20 +3055,88 @@
       ],
       "schedule": "At 20:00 UTC",
       "last_run": {
-        "start": "2026-09-27T20:00:04.153000Z",
-        "end": "2026-09-27T20:14:53.183000Z",
-        "duration_min": 14,
+        "start": "2026-09-28T20:00:03.607000Z",
+        "end": "2026-09-28T20:19:24.502000Z",
+        "duration_min": 19,
         "status": "success"
       },
-      "next_run": "2026-09-28T20:00:00Z",
-      "tags": [],
+      "next_run": "2026-09-29T20:00:00Z",
+      "tags": [
+        "monitoring"
+      ],
+      "hazard": [
+        "flood"
+      ],
+      "kb": "tcd-flooding-monitoring",
       "job_status": null,
-      "output_schemas": [],
-      "blob_storage": null
+      "data_mode": "dev",
+      "output_schemas": [
+        {
+          "table": "projects.pa_aa_tcd_flooding_monitoring",
+          "columns": [
+            {
+              "name": "issued_time",
+              "type": "timestamp with time zone",
+              "nullable": true
+            },
+            {
+              "name": "value",
+              "type": "numeric",
+              "nullable": true
+            },
+            {
+              "name": "src",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "monitoring_date",
+              "type": "date",
+              "nullable": true
+            },
+            {
+              "name": "issued_date",
+              "type": "date",
+              "nullable": true
+            },
+            {
+              "name": "valid_date",
+              "type": "date",
+              "nullable": true
+            }
+          ],
+          "row_count": 1708,
+          "size_mb": 0.3,
+          "timestamp_ranges": {
+            "monitoring_date": {
+              "min": "2025-08-15",
+              "max": "2026-09-28"
+            },
+            "issued_date": {
+              "min": "2025-08-15",
+              "max": "2026-09-28"
+            },
+            "valid_date": {
+              "min": "2025-08-16",
+              "max": "2026-10-12"
+            }
+          },
+          "stage": "dev"
+        }
+      ],
+      "blob_storage": [
+        {
+          "container": "projects",
+          "prefix": "pa-aa-tcd-flooding/monitoring",
+          "stage": "dev",
+          "blob_size_mb": 20.29,
+          "blob_count": 133
+        }
+      ]
     },
     {
       "name": "AA Tracking Nightly (KB sync + aa snapshot)",
-      "description": "Upserts new knowledge-base framework pages into aa.framework_version, then snapshots the whole dev `aa` schema (parquet + DDL) to the dev blob under projects/ds-aa-tracking/snapshot/ for the GitHub Actions site build.",
+      "description": "Sync knowledge base framework versions into the aa schema and snapshot it to blob",
       "tasks": [
         {
           "name": "nightly",
@@ -489,11 +3152,279 @@
       },
       "next_run": "2026-09-29T03:30:00Z",
       "tags": [
-        "aa-tracking"
+        "schema-owner"
       ],
+      "hazard": [],
+      "kb": "aa-tracking",
       "job_status": null,
-      "output_schemas": [],
-      "blob_storage": null
+      "data_mode": "prod",
+      "output_schemas": [
+        {
+          "table": "aa.framework_version",
+          "columns": [
+            {
+              "name": "country_iso3",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "hazard",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "version",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "kb_framework",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "kb_status",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "valid_from",
+              "type": "date",
+              "nullable": true
+            },
+            {
+              "name": "valid_until",
+              "type": "date",
+              "nullable": true
+            },
+            {
+              "name": "valid_until_source",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "endorsed_by",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "supersedes",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "prearranged_usd_doc",
+              "type": "numeric",
+              "nullable": true
+            },
+            {
+              "name": "doc_title",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "doc_url",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "analysis_ref",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "window_rollup",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "source",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "note",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "updated_at",
+              "type": "timestamp with time zone",
+              "nullable": false
+            }
+          ],
+          "row_count": 65,
+          "size_mb": 0.08,
+          "timestamp_ranges": {
+            "valid_from": {
+              "min": "2019-01-01",
+              "max": "2026-06-18"
+            },
+            "valid_until": {
+              "min": "2021-12-31",
+              "max": "2028-06-30"
+            },
+            "updated_at": {
+              "min": "2026-09-10T20:21:34.118651Z",
+              "max": "2026-09-24T20:56:09.279527Z"
+            }
+          },
+          "stage": "dev"
+        },
+        {
+          "table": "aa.country_hazard",
+          "columns": [
+            {
+              "name": "country_iso3",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "hazard",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "country_name",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "hazard_raw",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "region",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "kb_framework",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "language",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "us_prio",
+              "type": "boolean",
+              "nullable": true
+            },
+            {
+              "name": "coordination_group",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "in_kb",
+              "type": "boolean",
+              "nullable": false
+            },
+            {
+              "name": "updated_at",
+              "type": "timestamp with time zone",
+              "nullable": false
+            },
+            {
+              "name": "retired",
+              "type": "boolean",
+              "nullable": false
+            },
+            {
+              "name": "retired_note",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "technical_support",
+              "type": "boolean",
+              "nullable": false
+            },
+            {
+              "name": "technical_support_note",
+              "type": "text",
+              "nullable": true
+            }
+          ],
+          "row_count": 46,
+          "size_mb": 0.06,
+          "timestamp_ranges": {
+            "updated_at": {
+              "min": "2026-09-10T20:21:34.118651Z",
+              "max": "2026-09-10T20:21:34.118651Z"
+            }
+          },
+          "stage": "dev"
+        },
+        {
+          "table": "aa.entry_audit",
+          "columns": [
+            {
+              "name": "id",
+              "type": "bigint",
+              "nullable": false,
+              "precision": 64
+            },
+            {
+              "name": "at",
+              "type": "timestamp with time zone",
+              "nullable": false
+            },
+            {
+              "name": "entered_by",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "table_name",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "row_key",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "field",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "old_value",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "new_value",
+              "type": "text",
+              "nullable": true
+            }
+          ],
+          "row_count": 29,
+          "size_mb": 0.03,
+          "timestamp_ranges": {
+            "at": {
+              "min": "2026-09-10T20:21:06.934647Z",
+              "max": "2026-09-24T20:56:09.279527Z"
+            }
+          },
+          "stage": "dev"
+        }
+      ],
+      "blob_storage": [
+        {
+          "container": "projects",
+          "prefix": "ds-aa-tracking/snapshot",
+          "stage": "dev",
+          "blob_size_mb": 43.68,
+          "blob_count": 328
+        }
+      ]
     },
     {
       "name": "Run IBTrACS",
@@ -513,9 +3444,14 @@
       },
       "next_run": "2026-09-29T16:00:00Z",
       "tags": [
-        "storms"
+        "dataset-ingest"
       ],
+      "hazard": [
+        "tropical-cyclone"
+      ],
+      "kb": "storms-pipeline",
       "job_status": null,
+      "data_mode": "prod",
       "output_schemas": [
         {
           "table": "storms.ibtracs_storms",
@@ -572,7 +3508,8 @@
             }
           ],
           "row_count": 13712,
-          "size_mb": 2.95
+          "size_mb": 2.95,
+          "stage": "prod"
         },
         {
           "table": "storms.ibtracs_tracks_geo",
@@ -711,14 +3648,15 @@
               "min": "1848-01-11T06:00:00",
               "max": "2026-09-24T00:00:00"
             }
-          }
+          },
+          "stage": "prod"
         }
       ],
-      "blob_storage": null
+      "blob_storage": []
     },
     {
       "name": "Run ECMWF Storms",
-      "description": "Retrieve ECMWF tropical cyclone forecast tracks",
+      "description": "Retrieve ECMWF ensemble cyclone forecast tracks from the [UCAR Geoscience Data Exchange](https://gdex.ucar.edu/datasets/d330003/)",
       "tasks": [
         {
           "name": "download_ecmwf",
@@ -734,10 +3672,14 @@
       },
       "next_run": "2026-09-28T22:00:00Z",
       "tags": [
-        "storms",
-        "forecast"
+        "dataset-ingest"
       ],
+      "hazard": [
+        "tropical-cyclone"
+      ],
+      "kb": "storms-pipeline",
       "job_status": null,
+      "data_mode": "prod",
       "output_schemas": [
         {
           "table": "storms.ecmwf_storms",
@@ -775,7 +3717,8 @@
             }
           ],
           "row_count": 2024,
-          "size_mb": 0.27
+          "size_mb": 0.27,
+          "stage": "prod"
         },
         {
           "table": "storms.ecmwf_tracks_geo",
@@ -855,14 +3798,52 @@
               "min": "2006-10-01T00:00:00",
               "max": "2026-05-22T00:00:00"
             }
-          }
+          },
+          "stage": "prod"
         }
       ],
-      "blob_storage": null
+      "blob_storage": []
+    },
+    {
+      "name": "HTI Hurricane Monitoring",
+      "description": "Monitor the Haiti trigger from NHC forecast and observed wind exposure and send Listmonk alerts",
+      "tasks": [
+        {
+          "name": "run_monitoring",
+          "git_url": "https://github.com/OCHA-DAP/ds-aa-hti-hurricanes.git"
+        }
+      ],
+      "schedule": "At 03:50, 09:50, 15:50 and 21:50 UTC",
+      "last_run": {
+        "start": "2026-09-28T18:40:12.594000Z",
+        "end": "2026-09-28T18:44:27.501000Z",
+        "duration_min": 4,
+        "status": "success"
+      },
+      "next_run": "2026-09-28T21:50:00Z",
+      "tags": [
+        "monitoring"
+      ],
+      "hazard": [
+        "tropical-cyclone"
+      ],
+      "kb": "hti-hurricanes-monitoring",
+      "job_status": null,
+      "data_mode": "prod",
+      "output_schemas": [],
+      "blob_storage": [
+        {
+          "container": "projects",
+          "prefix": "ds-aa-hti-hurricanes/monitoring",
+          "stage": "dev",
+          "blob_size_mb": 0.06,
+          "blob_count": 5
+        }
+      ]
     },
     {
       "name": "NHC Pipeline",
-      "description": null,
+      "description": "Retrieve [National Hurricane Center](https://www.nhc.noaa.gov/) forecasts and compute wind buffers and population exposure",
       "tasks": [
         {
           "name": "etl",
@@ -895,69 +3876,21 @@
       ],
       "schedule": "At 0 and 30 minutes past the hour, every 3 hours UTC",
       "last_run": {
-        "start": "2026-09-28T18:30:02.955000Z",
+        "start": "2026-09-28T21:00:03.803000Z",
         "end": null,
         "duration_min": null,
         "status": "running"
       },
-      "next_run": "2026-09-28T21:00:00Z",
+      "next_run": "2026-09-28T21:30:00Z",
       "tags": [
-        "storms"
+        "dataset-ingest"
       ],
+      "hazard": [
+        "tropical-cyclone"
+      ],
+      "kb": "storms-pipeline",
       "job_status": null,
-      "output_schemas": [],
-      "blob_storage": null
-    },
-    {
-      "name": "GDACS/ADAM Pipeline",
-      "description": null,
-      "tasks": [
-        {
-          "name": "adam",
-          "git_url": "https://github.com/OCHA-DAP/ds-storms-pipeline.git"
-        },
-        {
-          "name": "gdacs",
-          "git_url": "https://github.com/OCHA-DAP/ds-storms-pipeline.git"
-        },
-        {
-          "name": "match",
-          "git_url": "https://github.com/OCHA-DAP/ds-storms-pipeline.git"
-        }
-      ],
-      "schedule": "Every 3 hours UTC",
-      "last_run": {
-        "start": "2026-09-28T18:00:02.457000Z",
-        "end": "2026-09-28T18:10:09.902000Z",
-        "duration_min": 10,
-        "status": "success"
-      },
-      "next_run": "2026-09-28T21:00:00Z",
-      "tags": [
-        "storms"
-      ],
-      "job_status": null,
-      "output_schemas": [],
-      "blob_storage": null
-    },
-    {
-      "name": "Run NHC",
-      "description": "Retrieve tropical cyclones forecasts from the NOAA [National Hurricane Center](https://www.nhc.noaa.gov/)",
-      "tasks": [
-        {
-          "name": "download_nhc",
-          "git_url": "https://github.com/OCHA-DAP/ds-storms-pipeline.git"
-        }
-      ],
-      "schedule": "Every 3 hours UTC",
-      "last_run": null,
-      "next_run": "2026-09-28T21:00:00Z",
-      "tags": [
-        "storms",
-        "forecast",
-        "north america"
-      ],
-      "job_status": null,
+      "data_mode": "prod",
       "output_schemas": [
         {
           "table": "storms.nhc_storms",
@@ -1007,7 +3940,8 @@
             }
           ],
           "row_count": 1323,
-          "size_mb": 0.3
+          "size_mb": 0.3,
+          "stage": "prod"
         },
         {
           "table": "storms.nhc_tracks_geo",
@@ -1141,20 +4075,485 @@
             }
           ],
           "row_count": 212800,
-          "size_mb": 96.22,
+          "size_mb": 96.23,
           "timestamp_ranges": {
             "issued_time": {
               "min": "1990-05-13T00:00:00",
-              "max": "2026-09-28T18:00:00"
+              "max": "2026-09-28T21:00:00"
             },
             "valid_time": {
               "min": "1990-05-13T12:00:00",
-              "max": "2026-10-03T12:00:00"
+              "max": "2026-10-03T18:00:00"
             }
-          }
+          },
+          "stage": "prod"
+        },
+        {
+          "table": "storms.nhc_tracks_fcast_exposure",
+          "columns": [
+            {
+              "name": "atcf_id",
+              "type": "character varying",
+              "nullable": false,
+              "comment": "ATCF storm identifier (e.g. AL092023)"
+            },
+            {
+              "name": "issued_time",
+              "type": "timestamp without time zone",
+              "nullable": false,
+              "comment": "Forecast issuance timestamp (UTC)"
+            },
+            {
+              "name": "wind_speed_kt",
+              "type": "smallint",
+              "nullable": false,
+              "precision": 16,
+              "comment": "Wind speed threshold in knots (34, 50, or 64)"
+            },
+            {
+              "name": "admin_level",
+              "type": "smallint",
+              "nullable": false,
+              "precision": 16,
+              "comment": "Administrative level (0 = country, 1 = first subnational, etc.)"
+            },
+            {
+              "name": "iso3",
+              "type": "character varying",
+              "nullable": false,
+              "max_length": 3,
+              "comment": "ISO 3166-1 alpha-3 country code"
+            },
+            {
+              "name": "pcode",
+              "type": "character varying",
+              "nullable": false,
+              "max_length": 20,
+              "comment": "Admin unit p-code (ISO3 at admin_level=0, country-prefixed pcode for subnational)"
+            },
+            {
+              "name": "pop_exposed",
+              "type": "integer",
+              "nullable": false,
+              "precision": 32,
+              "comment": "Population count exposed within this admin unit to this wind buffer (WorldPop 2026 1km) \u2014 0 means checked but no overlap or no population"
+            }
+          ],
+          "row_count": 263,
+          "size_mb": 0.16,
+          "timestamp_ranges": {
+            "issued_time": {
+              "min": "2026-09-22T15:00:00",
+              "max": "2026-09-28T21:00:00"
+            }
+          },
+          "stage": "prod"
+        },
+        {
+          "table": "storms.nhc_tracks_obsv_exposure",
+          "columns": [
+            {
+              "name": "atcf_id",
+              "type": "character varying",
+              "nullable": false,
+              "comment": "ATCF storm identifier (e.g. AL092023)"
+            },
+            {
+              "name": "valid_time",
+              "type": "timestamp without time zone",
+              "nullable": false,
+              "comment": "Most recent advisory issued_time included in the cumulative observed buffer (UTC)"
+            },
+            {
+              "name": "wind_speed_kt",
+              "type": "smallint",
+              "nullable": false,
+              "precision": 16,
+              "comment": "Wind speed threshold in knots (34, 50, or 64)"
+            },
+            {
+              "name": "admin_level",
+              "type": "smallint",
+              "nullable": false,
+              "precision": 16,
+              "comment": "Administrative level (0 = country, 1 = first subnational, etc.)"
+            },
+            {
+              "name": "iso3",
+              "type": "character varying",
+              "nullable": false,
+              "max_length": 3,
+              "comment": "ISO 3166-1 alpha-3 country code"
+            },
+            {
+              "name": "pcode",
+              "type": "character varying",
+              "nullable": false,
+              "max_length": 20,
+              "comment": "Admin unit p-code (ISO3 at admin_level=0, country-prefixed pcode for subnational)"
+            },
+            {
+              "name": "pop_exposed",
+              "type": "integer",
+              "nullable": false,
+              "precision": 32,
+              "comment": "Population count exposed within this admin unit to this wind buffer (WorldPop 2026 1km) \u2014 0 means checked but no overlap or no population"
+            }
+          ],
+          "row_count": 172,
+          "size_mb": 0.15,
+          "timestamp_ranges": {
+            "valid_time": {
+              "min": "2026-09-25T15:00:00",
+              "max": "2026-09-28T21:00:00"
+            }
+          },
+          "stage": "prod"
+        },
+        {
+          "table": "storms.nhc_wsp_exposure",
+          "columns": [
+            {
+              "name": "issued_time",
+              "type": "timestamp without time zone",
+              "nullable": false,
+              "comment": "WSP forecast issuance timestamp (UTC)"
+            },
+            {
+              "name": "wind_threshold_kt",
+              "type": "smallint",
+              "nullable": false,
+              "precision": 16,
+              "comment": "Wind speed threshold in knots (34, 50, or 64)"
+            },
+            {
+              "name": "percentage",
+              "type": "smallint",
+              "nullable": false,
+              "precision": 16,
+              "comment": "WSP probability band as integer percentage (e.g. 5, 10, 20, 30)"
+            },
+            {
+              "name": "atcf_id",
+              "type": "character varying",
+              "nullable": true,
+              "comment": "ATCF storm identifier matched from storms.nhc_tracks_geo (NULL if no track found)"
+            },
+            {
+              "name": "admin_level",
+              "type": "smallint",
+              "nullable": false,
+              "precision": 16,
+              "comment": "Administrative level (0 = country, 1 = first subnational, etc.)"
+            },
+            {
+              "name": "iso3",
+              "type": "character varying",
+              "nullable": false,
+              "max_length": 3,
+              "comment": "ISO 3166-1 alpha-3 country code"
+            },
+            {
+              "name": "pcode",
+              "type": "character varying",
+              "nullable": false,
+              "max_length": 20,
+              "comment": "Admin unit p-code (ISO3 at admin_level=0, country-prefixed pcode for subnational)"
+            },
+            {
+              "name": "pop_exposed",
+              "type": "integer",
+              "nullable": false,
+              "precision": 32,
+              "comment": "Population count exposed within this admin unit to this WSP polygon (WorldPop 2026 1km) \u2014 0 means checked but no overlap or no population"
+            }
+          ],
+          "row_count": 2882,
+          "size_mb": 0.67,
+          "timestamp_ranges": {
+            "issued_time": {
+              "min": "2026-09-22T12:00:00",
+              "max": "2026-09-28T12:00:00"
+            }
+          },
+          "stage": "prod"
         }
       ],
-      "blob_storage": null
+      "blob_storage": []
+    },
+    {
+      "name": "GDACS/ADAM Pipeline",
+      "description": "Retrieve [GDACS](https://www.gdacs.org/) cyclone events and WFP ADAM exposure and match them to NHC storms",
+      "tasks": [
+        {
+          "name": "adam",
+          "git_url": "https://github.com/OCHA-DAP/ds-storms-pipeline.git"
+        },
+        {
+          "name": "gdacs",
+          "git_url": "https://github.com/OCHA-DAP/ds-storms-pipeline.git"
+        },
+        {
+          "name": "match",
+          "git_url": "https://github.com/OCHA-DAP/ds-storms-pipeline.git"
+        }
+      ],
+      "schedule": "Every 3 hours UTC",
+      "last_run": {
+        "start": "2026-09-28T21:00:05.455000Z",
+        "end": "2026-09-28T21:11:37.964000Z",
+        "duration_min": 11,
+        "status": "success"
+      },
+      "next_run": "2026-09-29T00:00:00Z",
+      "tags": [
+        "dataset-ingest"
+      ],
+      "hazard": [
+        "tropical-cyclone"
+      ],
+      "kb": "storms-pipeline",
+      "job_status": null,
+      "data_mode": "prod",
+      "output_schemas": [
+        {
+          "table": "storms.gdacs_exposure",
+          "columns": [
+            {
+              "name": "gdacs_eventid",
+              "type": "integer",
+              "nullable": false,
+              "precision": 32,
+              "comment": "GDACS native event identifier (e.g. 1001067 for BERYL-24)"
+            },
+            {
+              "name": "gdacs_episodeid",
+              "type": "integer",
+              "nullable": false,
+              "precision": 32,
+              "comment": "GDACS episode (advisory) identifier \u2014 one episode per ~6h model run"
+            },
+            {
+              "name": "valid_time",
+              "type": "timestamp without time zone",
+              "nullable": false,
+              "comment": "Timestamp of the episode (most recent advisory included in the cumulative buffer, UTC)"
+            },
+            {
+              "name": "wind_speed_kt",
+              "type": "smallint",
+              "nullable": false,
+              "precision": 16,
+              "comment": "Wind speed threshold in knots (34, 50, or 64). GDACS buffer39 maps to 34 kt, buffer74 maps to 64 kt; 50 kt is not produced by GDACS."
+            },
+            {
+              "name": "admin_level",
+              "type": "smallint",
+              "nullable": false,
+              "precision": 16,
+              "comment": "Administrative level (0 = country, 1 = first subnational, etc.)"
+            },
+            {
+              "name": "iso3",
+              "type": "character varying",
+              "nullable": false,
+              "max_length": 3,
+              "comment": "ISO 3166-1 alpha-3 country code (parent country at admin_level=1). Standardized via ocha_lens.datasources.gdacs.to_iso3() \u2014 GDACS proprietary codes like XJE (Jersey) are remapped to the official ISO3 (JEY)."
+            },
+            {
+              "name": "admin_name",
+              "type": "character varying",
+              "nullable": false,
+              "comment": "Admin unit name as reported by GDACS \u2014 CNTRY_NAME at admin_level=0, ADMIN_NAME at admin_level=1. Always populated."
+            },
+            {
+              "name": "gdacs_admin_code",
+              "type": "character varying",
+              "nullable": false,
+              "comment": "Native GDACS admin code preserved as-is. At admin_level=0: GMI_CNTRY (= iso3 except for territories with X-prefixed proprietary codes). At admin_level=1: GMI_ADMIN (e.g., USA-ARK for Arkansas, XJE-JE for Jersey-as-region) \u2014 country-prefixed proprietary, not a standard humanitarian pcode."
+            },
+            {
+              "name": "pcode",
+              "type": "character varying",
+              "nullable": true,
+              "max_length": 20,
+              "comment": "Admin unit p-code. Nullable: populated as iso3 at admin_level=0; null at admin_level=1 until backfilled by a downstream enrichment step (GDACS only emits proprietary FIPS_ADMIN/GMI_ADMIN codes, not standard pcodes)."
+            },
+            {
+              "name": "pop_exposed",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32,
+              "comment": "Population count exposed within this admin unit to this wind buffer, as reported by GDACS. NULL when GDACS legitimately omits POP_AFFECTED (typically: country intersected the wind footprint geometrically but no population is exposed at that wind threshold)."
+            }
+          ],
+          "size_mb": 0.11,
+          "timestamp_ranges": {
+            "valid_time": {
+              "min": "2026-09-22T15:00:00",
+              "max": "2026-09-25T09:00:00"
+            }
+          },
+          "stage": "prod"
+        },
+        {
+          "table": "storms.adam_exposure",
+          "columns": [
+            {
+              "name": "adam_eventid",
+              "type": "integer",
+              "nullable": false,
+              "precision": 32,
+              "comment": "ADAM native event identifier (integer; ADAM also exposes a string ``uid`` field which is not stored here)"
+            },
+            {
+              "name": "adam_episodeid",
+              "type": "integer",
+              "nullable": false,
+              "precision": 32,
+              "comment": "ADAM episode identifier \u2014 one episode per advisory; latest-per-event used in the historical compile"
+            },
+            {
+              "name": "valid_time",
+              "type": "timestamp without time zone",
+              "nullable": false,
+              "comment": "Timestamp of the episode (most recent advisory included in the cumulative footprint, UTC)"
+            },
+            {
+              "name": "wind_speed_kt",
+              "type": "smallint",
+              "nullable": false,
+              "precision": 16,
+              "comment": "Wind speed threshold in knots (34, 50, or 64). ADAM 60/90/120 km/h thresholds are mapped to 34/50/64 kt for cross-source comparability."
+            },
+            {
+              "name": "admin_level",
+              "type": "smallint",
+              "nullable": false,
+              "precision": 16,
+              "comment": "Administrative level (0 = country, 1 = first subnational, 2 = second subnational). ADAM CSV is at admin_level=2; admin_level=0 and =1 rows are aggregated by the pipeline."
+            },
+            {
+              "name": "iso3",
+              "type": "character varying",
+              "nullable": true,
+              "max_length": 3,
+              "comment": "ISO 3166-1 alpha-3 country code (parent country at admin_level=1,2). Nullable when ADAM's ADM0_NAME cannot be mapped via pycountry + overrides (rare: disputed territories)."
+            },
+            {
+              "name": "admin_name",
+              "type": "character varying",
+              "nullable": false,
+              "comment": "Admin unit name as reported by ADAM \u2014 ADM0_NAME at admin_level=0, ADM1_NAME at admin_level=1, ADM2_NAME at admin_level=2. Always populated."
+            },
+            {
+              "name": "parent_admin_name",
+              "type": "character varying",
+              "nullable": true,
+              "comment": "Name of the parent admin unit \u2014 null at admin_level=0, ADM0_NAME at admin_level=1, ADM1_NAME at admin_level=2. Lets consumers walk the hierarchy without joins."
+            },
+            {
+              "name": "pcode",
+              "type": "character varying",
+              "nullable": true,
+              "max_length": 20,
+              "comment": "Admin unit p-code. Nullable: populated as iso3 at admin_level=0; null at admin_level=1 until backfilled by a downstream enrichment step (ADAM only emits an admin name at ADM1, no code)."
+            },
+            {
+              "name": "pop_exposed",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32,
+              "comment": "Population count exposed within this admin unit to this wind threshold, as reported by ADAM"
+            }
+          ],
+          "row_count": 3463,
+          "size_mb": 0.9,
+          "timestamp_ranges": {
+            "valid_time": {
+              "min": "2026-09-08T15:00:00",
+              "max": "2026-09-28T21:00:00"
+            }
+          },
+          "stage": "prod"
+        },
+        {
+          "table": "storms.storm_id_lookup",
+          "columns": [
+            {
+              "name": "gdacs_eventid",
+              "type": "integer",
+              "nullable": false,
+              "precision": 32,
+              "comment": "GDACS native event id. Primary key in the MVP \u2014 every row originates from a GDACS event ingest."
+            },
+            {
+              "name": "atcf_id",
+              "type": "character varying",
+              "nullable": true,
+              "comment": "NHC ATCF storm id (e.g. AL142024); nullable. Populated by run_pipeline.py match."
+            },
+            {
+              "name": "sid",
+              "type": "character varying",
+              "nullable": true,
+              "comment": "IBTrACS serial id; nullable. Populated by a future IBTrACS-side enrichment step."
+            },
+            {
+              "name": "adam_eventid",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32,
+              "comment": "WFP ADAM event id; nullable. Often equal to gdacs_eventid (ADAM ingests GDACS upstream), confirmed by a future ADAM-side enrichment step."
+            },
+            {
+              "name": "last_updated",
+              "type": "timestamp without time zone",
+              "nullable": false,
+              "comment": "Auto-set on insert; bump on update via the matching pipeline if you want to track linkage churn."
+            }
+          ],
+          "row_count": 10,
+          "size_mb": 0.1,
+          "timestamp_ranges": {
+            "last_updated": {
+              "min": "2026-09-22T21:11:24.059036",
+              "max": "2026-09-28T21:11:08.230417"
+            }
+          },
+          "stage": "prod"
+        }
+      ],
+      "blob_storage": []
+    },
+    {
+      "name": "Storm Alert",
+      "description": "Email subscribers when NHC forecast or observed cyclone exposure crosses a country threshold",
+      "tasks": [
+        {
+          "name": "run_alert",
+          "git_url": "https://github.com/OCHA-DAP/ds-storms-alerts.git"
+        }
+      ],
+      "schedule": "At 03:50, 09:50, 15:50 and 21:50 UTC",
+      "last_run": {
+        "start": "2026-09-28T15:50:02.787000Z",
+        "end": "2026-09-28T15:59:03.816000Z",
+        "duration_min": 9,
+        "status": "success"
+      },
+      "next_run": "2026-09-28T21:50:00Z",
+      "tags": [
+        "alert"
+      ],
+      "hazard": [
+        "tropical-cyclone"
+      ],
+      "kb": "storms-alerts",
+      "job_status": null,
+      "data_mode": "prod",
+      "output_schemas": [],
+      "blob_storage": []
     },
     {
       "name": "Run FloodScan",
@@ -1180,12 +4579,16 @@
         "duration_min": 10,
         "status": "failed"
       },
-      "next_run": "2026-09-28T20:00:00Z",
+      "next_run": "2026-09-29T20:00:00Z",
       "tags": [
-        "floods",
-        "africa"
+        "dataset-ingest"
       ],
+      "hazard": [
+        "flood"
+      ],
+      "kb": "raster-pipelines",
       "job_status": null,
+      "data_mode": "prod",
       "output_schemas": [
         {
           "table": "public.floodscan",
@@ -1267,15 +4670,19 @@
               "min": "1998-01-12",
               "max": "2026-09-25"
             }
-          }
+          },
+          "stage": "prod"
         }
       ],
-      "blob_storage": {
-        "container": "raster",
-        "prefix": "floodscan/daily/v5/processed",
-        "blob_size_gb": 3.91,
-        "blob_count": 10485
-      }
+      "blob_storage": [
+        {
+          "container": "raster",
+          "prefix": "floodscan/daily/v5/processed",
+          "stage": "prod",
+          "blob_size_gb": 3.91,
+          "blob_count": 10485
+        }
+      ]
     },
     {
       "name": "Run ERA5",
@@ -1299,9 +4706,12 @@
       },
       "next_run": "2026-10-06T12:00:00Z",
       "tags": [
-        "rainfall"
+        "dataset-ingest"
       ],
+      "hazard": [],
+      "kb": "raster-pipelines",
       "job_status": null,
+      "data_mode": "prod",
       "output_schemas": [
         {
           "table": "public.era5",
@@ -1378,15 +4788,19 @@
               "min": "1981-01-01",
               "max": "2026-08-01"
             }
-          }
+          },
+          "stage": "prod"
         }
       ],
-      "blob_storage": {
-        "container": "raster",
-        "prefix": "era5/monthly/processed/",
-        "blob_size_gb": 2.34,
-        "blob_count": 548
-      }
+      "blob_storage": [
+        {
+          "container": "raster",
+          "prefix": "era5/monthly/processed",
+          "stage": "prod",
+          "blob_size_gb": 2.34,
+          "blob_count": 549
+        }
+      ]
     },
     {
       "name": "Run IMERG",
@@ -1410,9 +4824,12 @@
       },
       "next_run": "2026-09-29T14:40:00Z",
       "tags": [
-        "rainfall"
+        "dataset-ingest"
       ],
+      "hazard": [],
+      "kb": "raster-pipelines",
       "job_status": null,
+      "data_mode": "prod",
       "output_schemas": [
         {
           "table": "public.imerg",
@@ -1489,15 +4906,19 @@
               "min": "1998-01-01",
               "max": "2026-09-27"
             }
-          }
+          },
+          "stage": "prod"
         }
       ],
-      "blob_storage": {
-        "container": "raster",
-        "prefix": "imerg/daily/late/v7/processed/",
-        "blob_size_gb": 155.7,
-        "blob_count": 10497
-      }
+      "blob_storage": [
+        {
+          "container": "raster",
+          "prefix": "imerg/daily/late/v7/processed",
+          "stage": "prod",
+          "blob_size_gb": 155.7,
+          "blob_count": 10498
+        }
+      ]
     },
     {
       "name": "Run SEAS5",
@@ -1521,10 +4942,12 @@
       },
       "next_run": "2026-10-05T12:30:00Z",
       "tags": [
-        "rainfall",
-        "forecast"
+        "dataset-ingest"
       ],
+      "hazard": [],
+      "kb": "raster-pipelines",
       "job_status": null,
+      "data_mode": "prod",
       "output_schemas": [
         {
           "table": "public.seas5",
@@ -1616,15 +5039,19 @@
               "min": "1981-01-01",
               "max": "2026-09-01"
             }
-          }
+          },
+          "stage": "prod"
         }
       ],
-      "blob_storage": {
-        "container": "raster",
-        "prefix": "seas5/monthly/processed",
-        "blob_size_gb": 8.13,
-        "blob_count": 3844
-      }
+      "blob_storage": [
+        {
+          "container": "raster",
+          "prefix": "seas5/monthly/processed",
+          "stage": "prod",
+          "blob_size_gb": 8.13,
+          "blob_count": 3844
+        }
+      ]
     }
   ]
 }
