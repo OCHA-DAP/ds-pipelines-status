@@ -9,7 +9,10 @@ Optional additional tags on jobs (vocabularies follow the team knowledge base):
     kb: Knowledge-base pipeline page stem (e.g. storms-pipeline)
     status: Job status (e.g., development)
     output_schema: Comma-separated schema.table list (e.g., storms.nhc_tracks)
-    output_blob: Comma-separated container/prefix paths in prod blob storage
+    output_blob: Comma-separated container/prefix paths in blob storage
+    data_mode: dev | prod — which data plane the job writes; inferred from job parameters when absent
+
+Tables and blob paths are looked up in the job's data plane first, then the other one.
 
 Usage:
     uv run scripts/fetch_pipelines.py
@@ -34,6 +37,47 @@ from ocha_stratus import get_engine
 from sqlalchemy import text
 
 load_dotenv()
+
+STAGES = ("prod", "dev")
+BLOB_ACCOUNTS = {"prod": "imb0chd0prod", "dev": "imb0chd0dev"}
+_unavailable_engines: dict[str, object] = {}
+_missing_sas_warned: set[str] = set()
+
+
+def get_data_mode(job: BaseJob) -> str:
+    """Which data plane the job writes: the data_mode tag, else job parameters, else prod."""
+    settings = job.settings
+    tags = (settings.tags or {}) if settings else {}
+    if tags.get("data_mode") in STAGES:
+        return tags["data_mode"]
+    params = {p.name.lower(): str(p.default).lower() for p in ((settings.parameters if settings else None) or []) if p.default}
+    for key in ("data_stage", "stage", "mode"):
+        if params.get(key) in STAGES:
+            return params[key]
+    for task in (settings.tasks if settings else None) or []:
+        args = task.spark_python_task.parameters if task.spark_python_task else []
+        for flag, value in zip(args or [], (args or [])[1:]):
+            if flag == "--mode" and value.lower() in STAGES:
+                return value.lower()
+    return "prod"
+
+
+def stages_to_try(expected: str) -> tuple[str, ...]:
+    return (expected, *(s for s in STAGES if s != expected))
+
+
+def get_stage_engine(stage: str):
+    """Database engine for a stage, or None once that stage has failed to connect."""
+    if stage not in _unavailable_engines:
+        try:
+            engine = get_engine(stage=stage)
+            with engine.connect() as conn:
+                conn.execute(text("SELECT 1"))
+            _unavailable_engines[stage] = engine
+        except Exception as e:
+            print(f"  {stage} database unavailable, skipping its table stats: {e}")
+            _unavailable_engines[stage] = None
+    return _unavailable_engines[stage]
 
 
 def quartz_to_standard_cron(quartz_cron: str) -> str | None:
@@ -70,11 +114,16 @@ def get_blob_locations(job: BaseJob) -> list[dict]:
     return locations
 
 
-def calculate_blob_storage_size(container_name: str, prefix: str) -> dict | None:
-    """Calculate total size of blobs in a container under a specific prefix using Azure SDK with SAS token."""
+def calculate_blob_storage_size(stage: str, container_name: str, prefix: str) -> dict | None:
+    """Total size and count of blobs under a prefix in the given stage's storage account."""
+    sas_token = os.getenv(f"DSCI_AZ_BLOB_{stage.upper()}_SAS")
+    if not sas_token:
+        if stage not in _missing_sas_warned:
+            print(f"  No DSCI_AZ_BLOB_{stage.upper()}_SAS set, skipping {stage} blob stats")
+            _missing_sas_warned.add(stage)
+        return None
     try:
-        sas_token = os.getenv("DSCI_AZ_BLOB_PROD_SAS")
-        account_url = f"https://imb0chd0prod.blob.core.windows.net"
+        account_url = f"https://{BLOB_ACCOUNTS[stage]}.blob.core.windows.net"
 
         # Use SAS token for authentication
         blob_service_client = BlobServiceClient(account_url=account_url, credential=sas_token)
@@ -179,12 +228,16 @@ def fetch_table_stats(engine, schema_name: str, table_name: str, timestamp_colum
 
 
 def fetch_table_schema(engine, full_table_name: str) -> dict | None:
-    """Fetch column definitions for a table from the database."""
-    parts = full_table_name.split(".")
-    if len(parts) != 2:
+    """Fetch column definitions for a table from the database, or None if it is missing or unreachable."""
+    try:
+        return _fetch_table_schema(engine, full_table_name)
+    except Exception as e:
+        print(f"  Could not read {full_table_name}: {e}")
         return None
 
-    schema_name, table_name = parts
+
+def _fetch_table_schema(engine, full_table_name: str) -> dict | None:
+    schema_name, table_name = full_table_name.split(".")
 
     query = text("""
         SELECT
@@ -243,14 +296,31 @@ def fetch_table_schema(engine, full_table_name: str) -> dict | None:
         return None
 
 
-def fetch_all_schemas(output_schemas: list[str], engine) -> list[dict]:
-    """Fetch schema definitions for all unique tables."""
+def fetch_all_schemas(output_schemas: list[str], expected_stage: str) -> list[dict]:
+    """Schema definitions for each table, from the expected data plane or failing that the other."""
     schemas = []
     for table_name in output_schemas:
-        schema = fetch_table_schema(engine, table_name)
-        if schema:
-            schemas.append(schema)
+        for stage in stages_to_try(expected_stage):
+            engine = get_stage_engine(stage)
+            schema = fetch_table_schema(engine, table_name) if engine is not None else None
+            if schema:
+                schemas.append({**schema, "stage": stage})
+                break
     return schemas
+
+
+def fetch_all_blob_storage(locations: list[dict], expected_stage: str) -> list[dict]:
+    """Blob size per location, from the expected data plane or failing that the other."""
+    results = []
+    for location in locations:
+        entry = {**location, "stage": expected_stage}
+        for stage in stages_to_try(expected_stage):
+            size = calculate_blob_storage_size(stage, location["container"], location["prefix"])
+            if size:
+                entry = {**location, "stage": stage, **size}
+                break
+        results.append(entry)
+    return results
 
 
 def get_jobs(client: WorkspaceClient) -> list[BaseJob]:
@@ -364,7 +434,7 @@ def epoch_to_iso(epoch_ms: int) -> str:
     return datetime.fromtimestamp(epoch_ms / 1000, tz=timezone.utc).isoformat().replace("+00:00", "Z")
 
 
-def fetch_pipeline_data(client: WorkspaceClient, db_engine) -> dict:
+def fetch_pipeline_data(client: WorkspaceClient) -> dict:
     """Fetch data for all discovered jobs."""
     jobs = get_jobs(client)
     print(f"Found {len(jobs)} jobs with databricks=job tag")
@@ -383,14 +453,9 @@ def fetch_pipeline_data(client: WorkspaceClient, db_engine) -> dict:
 
         job_name = full_job.settings.name if full_job.settings else f"Job {job.job_id}"
 
-        # Fetch schema definitions from database
-        output_schemas = get_output_schemas(full_job)
-        schema_definitions = fetch_all_schemas(output_schemas, db_engine) if output_schemas else []
-
-        blob_storage = []
-        for location in get_blob_locations(full_job):
-            blob_size = calculate_blob_storage_size(location["container"], location["prefix"])
-            blob_storage.append({**location, **(blob_size or {})})
+        data_mode = get_data_mode(full_job)
+        schema_definitions = fetch_all_schemas(get_output_schemas(full_job), data_mode)
+        blob_storage = fetch_all_blob_storage(get_blob_locations(full_job), data_mode)
 
         # Get latest run
         latest_run = None
@@ -428,6 +493,7 @@ def fetch_pipeline_data(client: WorkspaceClient, db_engine) -> dict:
             "hazard": get_tag_list(full_job, "hazard"),
             "kb": full_job.settings.tags.get("kb") if full_job.settings and full_job.settings.tags else None,
             "job_status": get_job_status(full_job),
+            "data_mode": data_mode,
             "output_schemas": schema_definitions,
             "blob_storage": blob_storage,
         })
@@ -439,10 +505,7 @@ def main():
     client = WorkspaceClient()
     print(f"Fetching pipeline data from {client.config.host}...")
 
-    print("Connecting to database...")
-    db_engine = get_engine(stage="prod")
-
-    output = fetch_pipeline_data(client, db_engine)
+    output = fetch_pipeline_data(client)
 
     output_path = Path(__file__).parent.parent / "data" / "pipelines.json"
     output_path.parent.mkdir(parents=True, exist_ok=True)

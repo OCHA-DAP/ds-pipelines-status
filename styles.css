@@ -52,6 +52,67 @@ body {
   color: #007CE0;
 }
 
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.filters input,
+.filters select {
+  font-family: inherit;
+  font-size: 14px;
+  color: #333;
+  padding: 6px 8px;
+  border: 1px solid #DDDDDD;
+  border-radius: 3px;
+  background: white;
+}
+
+.filters input {
+  flex: 1 1 200px;
+}
+
+.filters input:focus,
+.filters select:focus {
+  outline: none;
+  border-color: #007CE0;
+}
+
+.filter-clear {
+  font-family: inherit;
+  font-size: 14px;
+  color: #007CE0;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.filter-count {
+  font-size: 13px;
+  color: #888888;
+  margin-left: auto;
+}
+
+.tag.type,
+.tag.hazard {
+  cursor: pointer;
+}
+
+.stage-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1;
+  padding: 2px 5px;
+  border-radius: 3px;
+  color: #B5651D;
+  background: rgba(181, 101, 29, 0.1);
+  vertical-align: middle;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
@@ -175,6 +236,11 @@ tr.development td {
 
 .tag.kb::before {
   content: '';
+}
+
+.tag.stage {
+  color: #B5651D;
+  font-weight: 600;
 }
 
 .duration {

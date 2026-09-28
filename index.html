@@ -17,6 +17,15 @@
       <span class="last-updated" id="last-updated"></span>
     </div>
 
+    <div class="filters">
+      <input type="search" id="filter-search" placeholder="Search jobs" aria-label="Search jobs">
+      <select id="filter-type" aria-label="Type"><option value="">All types</option></select>
+      <select id="filter-hazard" aria-label="Hazard"><option value="">All hazards</option></select>
+      <select id="filter-status" aria-label="Status"><option value="">All statuses</option></select>
+      <button type="button" id="filter-clear" class="filter-clear" hidden>Clear</button>
+      <span class="filter-count" id="filter-count"></span>
+    </div>
+
     <table>
       <thead>
         <tr>

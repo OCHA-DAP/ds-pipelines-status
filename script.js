@@ -84,6 +84,15 @@ function formatTimestampRange(ranges) {
   return items.join('');
 }
 
+function stageBadge(stage) {
+  return stage === 'dev' ? '<span class="stage-badge">dev</span>' : '';
+}
+
+function writesToDev(pipeline) {
+  const outputs = [...(pipeline.output_schemas || []), ...(pipeline.blob_storage || [])];
+  return outputs.length ? outputs.some(o => o.stage === 'dev') : pipeline.data_mode === 'dev';
+}
+
 function renderBlobStorage(blobStorage) {
   if (!blobStorage) return '';
 
@@ -93,7 +102,7 @@ function renderBlobStorage(blobStorage) {
 
   return `
     <div class="blob-storage-info">
-      <h3>Azure Blob Storage</h3>
+      <h3>Azure Blob Storage ${stageBadge(blobStorage.stage)}</h3>
       <div class="schema-stats">
         <span class="stat-item"><strong>Container:</strong> ${blobStorage.container}</span>
         ${blobStorage.prefix ? `<span class="stat-item"><strong>Prefix:</strong> ${blobStorage.prefix}</span>` : ''}
@@ -129,7 +138,7 @@ function renderSchemaTable(schema) {
 
   return `
     <div class="schema-table">
-      <h3>${schema.table}</h3>
+      <h3>${schema.table} ${stageBadge(schema.stage)}</h3>
       ${statsHtml}
       <table>
         <thead>
@@ -197,14 +206,11 @@ function setupModalListeners() {
   });
 }
 
-function renderTable(data) {
+function renderTable(pipelines) {
   const tbody = document.getElementById('table-body');
   tbody.innerHTML = '';
 
-  document.getElementById('last-updated').textContent =
-    `Last updated: ${formatDateTime(data.generated_at)}`;
-
-  data.pipelines.forEach(pipeline => {
+  pipelines.forEach(pipeline => {
     const row = document.createElement('tr');
 
     // Add development class if job has status: development tag
@@ -252,9 +258,10 @@ function renderTable(data) {
       </td>
       <td>
         <div class="tags">
-          ${pipeline.tags.map(t => `<span class="tag type">${t}</span>`).join('')}
-          ${(pipeline.hazard || []).map(t => `<span class="tag hazard">${t}</span>`).join('')}
+          ${pipeline.tags.map(t => `<span class="tag type" data-filter="type" data-value="${t}">${t}</span>`).join('')}
+          ${(pipeline.hazard || []).map(t => `<span class="tag hazard" data-filter="hazard" data-value="${t}">${t}</span>`).join('')}
           ${pipeline.kb ? `<a class="tag kb" href="${KB_BASE}${pipeline.kb}.md" target="_blank">${pipeline.kb}</a>` : ''}
+          ${writesToDev(pipeline) ? '<span class="tag stage">dev</span>' : ''}
         </div>
       </td>
     `;
@@ -265,13 +272,72 @@ function renderTable(data) {
       nameCell.addEventListener('click', () => showSchemaModal(pipeline));
     }
 
+    row.querySelectorAll('[data-filter]').forEach(chip => {
+      chip.addEventListener('click', () => {
+        document.getElementById(`filter-${chip.dataset.filter}`).value = chip.dataset.value;
+        applyFilters();
+      });
+    });
+
     tbody.appendChild(row);
+  });
+}
+
+let allPipelines = [];
+
+function fillSelect(id, values) {
+  const select = document.getElementById(id);
+  [...new Set(values)].sort().forEach(v => select.add(new Option(v, v)));
+}
+
+function readFilters() {
+  return {
+    search: document.getElementById('filter-search').value.trim().toLowerCase(),
+    type: document.getElementById('filter-type').value,
+    hazard: document.getElementById('filter-hazard').value,
+    status: document.getElementById('filter-status').value,
+  };
+}
+
+function matchesFilters(pipeline, f) {
+  if (f.search && !pipeline.name.toLowerCase().includes(f.search)) return false;
+  if (f.type && !pipeline.tags.includes(f.type)) return false;
+  if (f.hazard && !(pipeline.hazard || []).includes(f.hazard)) return false;
+  if (f.status && (pipeline.last_run?.status || 'unknown') !== f.status) return false;
+  return true;
+}
+
+function applyFilters() {
+  const f = readFilters();
+  const shown = allPipelines.filter(p => matchesFilters(p, f));
+  renderTable(shown);
+  const active = Object.values(f).some(Boolean);
+  document.getElementById('filter-clear').hidden = !active;
+  document.getElementById('filter-count').textContent =
+    active ? `${shown.length} of ${allPipelines.length} jobs` : `${allPipelines.length} jobs`;
+}
+
+function setupFilters() {
+  fillSelect('filter-type', allPipelines.flatMap(p => p.tags));
+  fillSelect('filter-hazard', allPipelines.flatMap(p => p.hazard || []));
+  fillSelect('filter-status', allPipelines.map(p => p.last_run?.status || 'unknown'));
+  ['filter-search', 'filter-type', 'filter-hazard', 'filter-status'].forEach(id => {
+    document.getElementById(id).addEventListener('input', applyFilters);
+  });
+  document.getElementById('filter-clear').addEventListener('click', () => {
+    document.getElementById('filter-search').value = '';
+    ['filter-type', 'filter-hazard', 'filter-status'].forEach(id => { document.getElementById(id).value = ''; });
+    applyFilters();
   });
 }
 
 async function init() {
   const data = await loadData();
-  renderTable(data);
+  document.getElementById('last-updated').textContent =
+    `Last updated: ${formatDateTime(data.generated_at)}`;
+  allPipelines = data.pipelines;
+  setupFilters();
+  applyFilters();
   setupModalListeners();
 }
 

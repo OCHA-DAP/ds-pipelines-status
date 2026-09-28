@@ -44,7 +44,9 @@ The GitHub Action in `.github/workflows/update.yml` runs every 4 hours to fetch 
 
 - `DATABRICKS_HOST`
 - `DATABRICKS_TOKEN`
-- `DSCI_AZ_BLOB_PROD_SAS`
+- `DSCI_AZ_DB_PROD_HOST`, `DSCI_AZ_DB_PROD_UID`, `DSCI_AZ_DB_PROD_PW`
+- `DSCI_AZ_DB_DEV_HOST`, `DSCI_AZ_DB_DEV_UID`, `DSCI_AZ_DB_DEV_PW`
+- `DSCI_AZ_BLOB_PROD_SAS`, `DSCI_AZ_BLOB_DEV_SAS`
 
 ## Job configuration
 
@@ -57,4 +59,5 @@ Jobs are discovered automatically by filtering for the `databricks=job` tag. Add
 | `kb` | Stem of the job's knowledge-base pipeline page, e.g. `storms-pipeline` (rendered as a link) |
 | `status` | Set to `development` to highlight the row as in-progress |
 | `output_schema` | Comma-separated output tables, each as `schema.table` (e.g., `storms.nhc_tracks,storms.nhc_forecasts`). Bare schema names are ignored. |
-| `output_blob` | Comma-separated prod blob paths, each as `container/prefix` (e.g., `raster/imerg/daily/late/v7/processed`) |
+| `output_blob` | Comma-separated blob paths, each as `container/prefix` (e.g., `raster/imerg/daily/late/v7/processed`) |
+| `data_mode` | `dev` or `prod`: which data plane the job writes. Inferred from job parameters (`data_stage`, `stage`, `mode`) when absent. Tables and blob paths are looked up in that plane first, then the other, and the dashboard marks dev outputs with a badge. |
