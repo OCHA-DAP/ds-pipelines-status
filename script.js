@@ -1,3 +1,5 @@
+const KB_BASE = 'https://github.com/OCHA-DAP/ds-knowledge-base/blob/main/pipelines/';
+
 async function loadData() {
   const response = await fetch('data/pipelines.json');
   return await response.json();
@@ -156,14 +158,14 @@ function showSchemaModal(pipeline) {
   let content = '';
 
   // Add blob storage info if available
-  if (pipeline.blob_storage) {
-    content += renderBlobStorage(pipeline.blob_storage);
+  if (pipeline.blob_storage?.length) {
+    content += pipeline.blob_storage.map(renderBlobStorage).join('');
   }
 
   // Add schema tables
   if (pipeline.output_schemas && pipeline.output_schemas.length > 0) {
     content += pipeline.output_schemas.map(renderSchemaTable).join('');
-  } else if (!pipeline.blob_storage) {
+  } else if (!pipeline.blob_storage?.length) {
     content = '<p>No schema information available.</p>';
   }
 
@@ -216,7 +218,7 @@ function renderTable(data) {
     const nextRun = pipeline.next_run ? formatFutureTime(pipeline.next_run) : '-';
 
     const tasks = pipeline.tasks || [];
-    const hasSchemas = pipeline.output_schemas && pipeline.output_schemas.length > 0;
+    const hasSchemas = pipeline.output_schemas?.length > 0 || pipeline.blob_storage?.length > 0;
 
     // Render tasks with links to their git repos
     const tasksHtml = tasks.map(task => {
@@ -250,7 +252,9 @@ function renderTable(data) {
       </td>
       <td>
         <div class="tags">
-          ${pipeline.tags.map(t => `<span class="tag ${t}">${t}</span>`).join('')}
+          ${pipeline.tags.map(t => `<span class="tag type">${t}</span>`).join('')}
+          ${(pipeline.hazard || []).map(t => `<span class="tag hazard">${t}</span>`).join('')}
+          ${pipeline.kb ? `<a class="tag kb" href="${KB_BASE}${pipeline.kb}.md" target="_blank">${pipeline.kb}</a>` : ''}
         </div>
       </td>
     `;

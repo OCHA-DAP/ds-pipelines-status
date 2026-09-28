@@ -52,19 +52,9 @@ Jobs are discovered automatically by filtering for the `databricks=job` tag. Add
 
 | Tag | Description |
 |-----|-------------|
-| `type` | Comma-separated categories (e.g., `precipitation,daily`) |
+| `type` | One value from the knowledge-base pipeline vocabulary: `dataset-ingest`, `monitoring`, `exposure`, `alert`, `publish`, `annotation`, `schema-owner` |
+| `hazard` | Comma-separated, same words as knowledge-base framework pages: `drought`, `flood`, `tropical-cyclone`, `cholera`, `plague` |
+| `kb` | Stem of the job's knowledge-base pipeline page, e.g. `storms-pipeline` (rendered as a link) |
 | `status` | Set to `development` to highlight the row as in-progress |
-| `output_schema` | Comma-separated list of output tables (e.g., `storms.nhc_tracks,storms.nhc_forecasts`) |
-| `blob_container` | Azure blob storage container name for pipeline outputs |
-| `blob_prefix` | Path prefix within the blob container (optional) |
-
-### Database and Blob Storage Information
-
-When `output_schema` is specified, the dashboard displays detailed table information including:
-- Column names, types, and descriptions
-- Row count and table size (MB/GB)
-- Timestamp column ranges (min/max dates)
-
-When `blob_container` is specified, the dashboard displays:
-- Total size of all blobs under the prefix (MB/GB)
-- Number of blobs stored
+| `output_schema` | Comma-separated output tables, each as `schema.table` (e.g., `storms.nhc_tracks,storms.nhc_forecasts`). Bare schema names are ignored. |
+| `output_blob` | Comma-separated prod blob paths, each as `container/prefix` (e.g., `raster/imerg/daily/late/v7/processed`) |

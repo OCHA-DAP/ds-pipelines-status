@@ -3,10 +3,13 @@ Fetch pipeline metadata from Databricks and output to JSON.
 
 Jobs are discovered automatically by filtering for databricks=job tag.
 
-Optional additional tags on jobs:
-    type: Comma-separated categories (e.g., storms, rainfall)
+Optional additional tags on jobs (vocabularies follow the team knowledge base):
+    type: dataset-ingest | monitoring | exposure | alert | publish | annotation | schema-owner
+    hazard: Comma-separated, e.g. flood,tropical-cyclone
+    kb: Knowledge-base pipeline page stem (e.g. storms-pipeline)
     status: Job status (e.g., development)
-    output_schema: Comma-separated list of output tables (e.g., storms.nhc_tracks)
+    output_schema: Comma-separated schema.table list (e.g., storms.nhc_tracks)
+    output_blob: Comma-separated container/prefix paths in prod blob storage
 
 Usage:
     uv run scripts/fetch_pipelines.py
@@ -41,28 +44,30 @@ def quartz_to_standard_cron(quartz_cron: str) -> str | None:
     return None
 
 
-def get_output_schemas(job: BaseJob) -> list[str]:
-    """Extract output_schema tag from a job (comma-separated)."""
+def get_tag_list(job: BaseJob, key: str) -> list[str]:
+    """Split a comma-separated tag into a list."""
     if not job.settings or not job.settings.tags:
         return []
-    schema_tag = job.settings.tags.get("output_schema", "")
-    return [s.strip() for s in schema_tag.split(",") if s.strip()]
+    return [t.strip() for t in job.settings.tags.get(key, "").split(",") if t.strip()]
 
 
-def get_blob_storage_info(job: BaseJob) -> dict | None:
-    """Extract blob_container and blob_prefix tags from a job."""
-    if not job.settings or not job.settings.tags:
-        return None
+def get_output_schemas(job: BaseJob) -> list[str]:
+    """Extract output_schema tag entries, keeping only those in schema.table form."""
+    entries = get_tag_list(job, "output_schema")
+    valid = [e for e in entries if e.count(".") == 1 and all(e.split("."))]
+    for bad in set(entries) - set(valid):
+        print(f"  Ignoring output_schema '{bad}' on {job.settings.name}: must be schema.table")
+    return valid
 
-    container = job.settings.tags.get("blob_container")
-    prefix = job.settings.tags.get("blob_prefix")
 
-    if container:
-        return {
-            "container": container,
-            "prefix": prefix or ""
-        }
-    return None
+def get_blob_locations(job: BaseJob) -> list[dict]:
+    """Split the comma-separated output_blob tag into container/prefix entries."""
+    locations = []
+    for entry in get_tag_list(job, "output_blob"):
+        container, _, prefix = entry.strip("/").partition("/")
+        if container:
+            locations.append({"container": container, "prefix": prefix})
+    return locations
 
 
 def calculate_blob_storage_size(container_name: str, prefix: str) -> dict | None:
@@ -286,14 +291,6 @@ def get_job_tasks(job: BaseJob, client: WorkspaceClient) -> list[dict]:
     return tasks
 
 
-def get_job_tags(job: BaseJob) -> list[str]:
-    """Extract type tags from a job (comma-separated 'type' tag)."""
-    if not job.settings or not job.settings.tags:
-        return []
-    type_tag = job.settings.tags.get("type", "")
-    return [t.strip() for t in type_tag.split(",") if t.strip()]
-
-
 def get_job_status(job: BaseJob) -> str | None:
     """Extract status tag from a job (e.g., 'development')."""
     if not job.settings or not job.settings.tags:
@@ -390,20 +387,10 @@ def fetch_pipeline_data(client: WorkspaceClient, db_engine) -> dict:
         output_schemas = get_output_schemas(full_job)
         schema_definitions = fetch_all_schemas(output_schemas, db_engine) if output_schemas else []
 
-        # Get blob storage info and size
-        blob_info = get_blob_storage_info(full_job)
-        blob_storage = None
-        if blob_info:
-            blob_size = calculate_blob_storage_size(
-                container_name=blob_info["container"],
-                prefix=blob_info["prefix"]
-            )
-            if blob_size:
-                blob_storage = {
-                    "container": blob_info["container"],
-                    "prefix": blob_info["prefix"],
-                    **blob_size
-                }
+        blob_storage = []
+        for location in get_blob_locations(full_job):
+            blob_size = calculate_blob_storage_size(location["container"], location["prefix"])
+            blob_storage.append({**location, **(blob_size or {})})
 
         # Get latest run
         latest_run = None
@@ -437,7 +424,9 @@ def fetch_pipeline_data(client: WorkspaceClient, db_engine) -> dict:
             "schedule": get_job_schedule(full_job),
             "last_run": last_run_data,
             "next_run": get_next_run(full_job),
-            "tags": get_job_tags(full_job),
+            "tags": get_tag_list(full_job, "type"),
+            "hazard": get_tag_list(full_job, "hazard"),
+            "kb": full_job.settings.tags.get("kb") if full_job.settings and full_job.settings.tags else None,
             "job_status": get_job_status(full_job),
             "output_schemas": schema_definitions,
             "blob_storage": blob_storage,

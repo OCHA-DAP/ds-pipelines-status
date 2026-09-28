@@ -164,6 +164,19 @@ tr.development td {
   content: '#';
 }
 
+.tag.hazard {
+  color: #b5651d;
+}
+
+.tag.kb {
+  color: #0066cc;
+  text-decoration: none;
+}
+
+.tag.kb::before {
+  content: '';
+}
+
 .duration {
   font-size: 14px;
   color: #888888;
