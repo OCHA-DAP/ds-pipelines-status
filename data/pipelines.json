@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-29T06:43:26.864710Z",
+  "generated_at": "2026-09-29T12:40:31.295692Z",
   "pipelines": [
     {
       "name": "MOZ Cyclone Monitoring",
@@ -17,7 +17,7 @@
         "duration_min": 9,
         "status": "failed"
       },
-      "next_run": "2026-09-29T07:00:00Z",
+      "next_run": "2026-09-29T13:00:00Z",
       "tags": [],
       "hazard": [],
       "kb": null,
@@ -3558,12 +3558,12 @@
       ],
       "schedule": "At 03:50, 09:50, 15:50 and 21:50 UTC",
       "last_run": {
-        "start": "2026-09-29T06:42:28.393000Z",
+        "start": "2026-09-29T12:40:13.941000Z",
         "end": null,
         "duration_min": null,
         "status": "running"
       },
-      "next_run": "2026-09-29T09:50:00Z",
+      "next_run": "2026-09-29T15:50:00Z",
       "tags": [
         "monitoring"
       ],
@@ -3619,12 +3619,12 @@
       ],
       "schedule": "At 0 and 30 minutes past the hour, every 3 hours UTC",
       "last_run": {
-        "start": "2026-09-29T06:30:02.885000Z",
-        "end": "2026-09-29T06:42:34.587000Z",
-        "duration_min": 12,
+        "start": "2026-09-29T12:30:03.145000Z",
+        "end": "2026-09-29T12:40:22.027000Z",
+        "duration_min": 10,
         "status": "success"
       },
-      "next_run": "2026-09-29T09:00:00Z",
+      "next_run": "2026-09-29T15:00:00Z",
       "tags": [
         "dataset-ingest"
       ],
@@ -3682,7 +3682,7 @@
               "comment": "Standardized identifier: {name}_{basin}_{season} (lowercase)"
             }
           ],
-          "row_count": 1323,
+          "row_count": 1325,
           "size_mb": 0.3,
           "stage": "prod"
         },
@@ -3818,15 +3818,15 @@
             }
           ],
           "row_count": 212800,
-          "size_mb": 96.29,
+          "size_mb": 96.32,
           "timestamp_ranges": {
             "issued_time": {
               "min": "1990-05-13T00:00:00",
-              "max": "2026-09-29T06:00:00"
+              "max": "2026-09-29T12:00:00"
             },
             "valid_time": {
               "min": "1990-05-13T12:00:00",
-              "max": "2026-10-04T00:00:00"
+              "max": "2026-10-04T06:00:00"
             }
           },
           "stage": "prod"
@@ -3882,12 +3882,12 @@
               "comment": "Population count exposed within this admin unit to this wind buffer (WorldPop 2026 1km) \u2014 0 means checked but no overlap or no population"
             }
           ],
-          "row_count": 263,
-          "size_mb": 0.17,
+          "row_count": 346,
+          "size_mb": 0.18,
           "timestamp_ranges": {
             "issued_time": {
               "min": "2026-09-22T15:00:00",
-              "max": "2026-09-29T06:00:00"
+              "max": "2026-09-29T12:00:00"
             }
           },
           "stage": "prod"
@@ -3948,7 +3948,7 @@
           "timestamp_ranges": {
             "valid_time": {
               "min": "2026-09-25T15:00:00",
-              "max": "2026-09-29T06:00:00"
+              "max": "2026-09-29T12:00:00"
             }
           },
           "stage": "prod"
@@ -4011,12 +4011,12 @@
               "comment": "Population count exposed within this admin unit to this WSP polygon (WorldPop 2026 1km) \u2014 0 means checked but no overlap or no population"
             }
           ],
-          "row_count": 3058,
-          "size_mb": 0.73,
+          "row_count": 3461,
+          "size_mb": 0.76,
           "timestamp_ranges": {
             "issued_time": {
               "min": "2026-09-22T12:00:00",
-              "max": "2026-09-29T00:00:00"
+              "max": "2026-09-29T06:00:00"
             }
           },
           "stage": "prod"
@@ -4043,12 +4043,12 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": {
-        "start": "2026-09-29T06:00:02.340000Z",
-        "end": "2026-09-29T06:16:11.537000Z",
-        "duration_min": 16,
+        "start": "2026-09-29T12:00:04.510000Z",
+        "end": "2026-09-29T12:14:47.263000Z",
+        "duration_min": 14,
         "status": "success"
       },
-      "next_run": "2026-09-29T09:00:00Z",
+      "next_run": "2026-09-29T15:00:00Z",
       "tags": [
         "dataset-ingest"
       ],
@@ -4210,12 +4210,12 @@
               "comment": "Population count exposed within this admin unit to this wind threshold, as reported by ADAM"
             }
           ],
-          "row_count": 3463,
-          "size_mb": 0.92,
+          "row_count": 4028,
+          "size_mb": 0.97,
           "timestamp_ranges": {
             "valid_time": {
               "min": "2026-09-08T15:00:00",
-              "max": "2026-09-29T03:00:00"
+              "max": "2026-09-29T09:00:00"
             }
           },
           "stage": "prod"
@@ -4261,7 +4261,7 @@
           "timestamp_ranges": {
             "last_updated": {
               "min": "2026-09-22T21:11:24.059036",
-              "max": "2026-09-29T06:15:36.549650"
+              "max": "2026-09-29T12:14:11.772088"
             }
           },
           "stage": "prod"
@@ -4280,9 +4280,9 @@
       ],
       "schedule": null,
       "last_run": {
-        "start": "2026-09-29T06:08:48.609000Z",
-        "end": "2026-09-29T06:16:55.886000Z",
-        "duration_min": 8,
+        "start": "2026-09-29T12:11:53.757000Z",
+        "end": "2026-09-29T12:21:05.210000Z",
+        "duration_min": 9,
         "status": "success"
       },
       "next_run": null,
@@ -4338,12 +4338,12 @@
       ],
       "schedule": "At 03:50, 09:50, 15:50 and 21:50 UTC",
       "last_run": {
-        "start": "2026-09-29T03:50:01.173000Z",
-        "end": "2026-09-29T03:56:33.063000Z",
-        "duration_min": 6,
+        "start": "2026-09-29T09:50:02.801000Z",
+        "end": "2026-09-29T10:01:03.204000Z",
+        "duration_min": 11,
         "status": "success"
       },
-      "next_run": "2026-09-29T09:50:00Z",
+      "next_run": "2026-09-29T15:50:00Z",
       "tags": [
         "alert"
       ],
