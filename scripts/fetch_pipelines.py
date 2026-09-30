@@ -29,7 +29,6 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from cron_descriptor import Options, get_description
-from croniter import croniter
 from databricks.sdk import WorkspaceClient
 from databricks.sdk.service.jobs import BaseJob, RunLifeCycleState, RunResultState
 from dotenv import load_dotenv
@@ -362,29 +361,6 @@ def get_job_schedule(job: BaseJob) -> str | None:
     return None
 
 
-def get_next_run(job: BaseJob) -> str | None:
-    """Calculate next scheduled run time from cron expression."""
-    if not job.settings or not job.settings.schedule:
-        return None
-
-    cron = job.settings.schedule.quartz_cron_expression
-    if not cron:
-        return None
-
-    cron_5 = quartz_to_standard_cron(cron)
-    if not cron_5:
-        return None
-
-    try:
-        now = datetime.now(timezone.utc)
-        cron_iter = croniter(cron_5, now)
-        next_dt = cron_iter.get_next(datetime)
-        next_dt = next_dt.replace(tzinfo=timezone.utc)
-        return next_dt.isoformat().replace("+00:00", "Z")
-    except Exception:
-        return None
-
-
 def map_status(run) -> str:
     """Map Databricks run state to simple status."""
     if not run or not run.state:
@@ -456,7 +432,6 @@ def fetch_pipeline_data(client: WorkspaceClient) -> dict:
             "tasks": get_job_tasks(full_job, client),
             "schedule": get_job_schedule(full_job),
             "last_run": last_run_data,
-            "next_run": get_next_run(full_job),
             "tags": get_tag_list(full_job, "type"),
             "hazard": get_tag_list(full_job, "hazard"),
             "kb": full_job.settings.tags.get("kb") if full_job.settings and full_job.settings.tags else None,

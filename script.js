@@ -17,33 +17,6 @@ function formatDateTime(isoString) {
   }) + ' UTC';
 }
 
-function formatRelativeTime(isoString) {
-  const date = new Date(isoString);
-  const now = new Date();
-  const diffMs = now - date;
-  const diffMins = Math.floor(diffMs / 60000);
-  const diffHours = Math.floor(diffMins / 60);
-  const diffDays = Math.floor(diffHours / 24);
-
-  if (diffMins < 60) return `${diffMins}m ago`;
-  if (diffHours < 24) return `${diffHours}h ago`;
-  return `${diffDays}d ago`;
-}
-
-function formatFutureTime(isoString) {
-  const date = new Date(isoString);
-  const now = new Date();
-  const diffMs = date - now;
-  const diffMins = Math.floor(diffMs / 60000);
-  const diffHours = Math.floor(diffMins / 60);
-  const diffDays = Math.floor(diffHours / 24);
-
-  if (diffMins < 0) return 'now';
-  if (diffMins < 60) return `in ${diffMins}m`;
-  if (diffHours < 24) return `in ${diffHours}h`;
-  return `in ${diffDays}d`;
-}
-
 function renderMarkdown(text) {
   if (!text) return '';
   return text.replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" target="_blank">$1</a>');
@@ -214,9 +187,6 @@ function renderTable(pipelines) {
     const row = document.createElement('tr');
 
     const lastRun = pipeline.last_run;
-    const runTime = lastRun ? formatRelativeTime(lastRun.end || lastRun.start) : 'Never';
-    const duration = lastRun?.duration_min ? `${lastRun.duration_min}m` : '';
-    const nextRun = pipeline.next_run ? formatFutureTime(pipeline.next_run) : '-';
 
     const tasks = pipeline.tasks || [];
     const hasSchemas = pipeline.output_schemas?.length > 0 || pipeline.blob_storage?.length > 0;
@@ -238,13 +208,6 @@ function renderTable(pipelines) {
         </div>
       </td>
       <td class="schedule">${pipeline.schedule || '-'}</td>
-      <td>
-        <div class="timing">${runTime}</div>
-        ${duration ? `<div class="duration">${duration}</div>` : ''}
-      </td>
-      <td>
-        <div class="timing">${nextRun}</div>
-      </td>
       <td>
         <span class="status ${lastRun?.status || 'unknown'}">
           <span class="status-dot"></span>

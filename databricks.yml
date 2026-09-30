@@ -46,7 +46,6 @@ variables:
 .libs: &libs
   - pypi: { package: "ocha-stratus>=0.1.7" }
   - pypi: { package: "cron-descriptor>=2.0.0" }
-  - pypi: { package: "croniter>=2.0.0" }
   - pypi: { package: "python-dotenv>=1.0.0" }
   - pypi: { package: "psycopg2-binary" }
   - pypi: { package: "sqlalchemy>=2.0" }
