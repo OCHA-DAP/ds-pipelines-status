@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-29T18:33:20.098482Z",
+  "generated_at": "2026-09-30T01:06:02.019139Z",
   "pipelines": [
     {
       "name": "MOZ Cyclone Monitoring",
@@ -17,7 +17,7 @@
         "duration_min": 9,
         "status": "failed"
       },
-      "next_run": "2026-09-29T19:00:00Z",
+      "next_run": "2026-09-30T02:00:00Z",
       "tags": [],
       "hazard": [],
       "kb": null,
@@ -61,12 +61,12 @@
       ],
       "schedule": "At 00:15 UTC",
       "last_run": {
-        "start": "2026-09-29T00:15:02.413000Z",
-        "end": "2026-09-29T00:26:21.936000Z",
-        "duration_min": 11,
+        "start": "2026-09-30T00:15:02.350000Z",
+        "end": "2026-09-30T00:24:41.141000Z",
+        "duration_min": 9,
         "status": "success"
       },
-      "next_run": "2026-09-30T00:15:00Z",
+      "next_run": "2026-10-01T00:15:00Z",
       "tags": [
         "publish"
       ],
@@ -82,8 +82,8 @@
           "container": "projects",
           "prefix": "hdx-floodscan/intermediate",
           "stage": "dev",
-          "blob_size_mb": 18.85,
-          "blob_count": 33
+          "blob_size_mb": 23.53,
+          "blob_count": 41
         }
       ]
     },
@@ -2496,6 +2496,221 @@
           "stage": "dev"
         },
         {
+          "table": "aa.cerf_contribution",
+          "columns": [
+            {
+              "name": "contribution_code",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "contribution_id",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32
+            },
+            {
+              "name": "donor",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "donor_iso3",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "region_name",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "donor_type",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "year",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32
+            },
+            {
+              "name": "status_code",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32
+            },
+            {
+              "name": "contribution_status",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "activity_date",
+              "type": "date",
+              "nullable": true
+            },
+            {
+              "name": "activity_date_type",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32
+            },
+            {
+              "name": "latest_date",
+              "type": "date",
+              "nullable": true
+            },
+            {
+              "name": "pledge_usd",
+              "type": "numeric",
+              "nullable": true
+            },
+            {
+              "name": "commitment_usd",
+              "type": "numeric",
+              "nullable": true
+            },
+            {
+              "name": "received_usd",
+              "type": "numeric",
+              "nullable": true
+            },
+            {
+              "name": "n_receipts",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32
+            },
+            {
+              "name": "last_received_date",
+              "type": "date",
+              "nullable": true
+            },
+            {
+              "name": "writeoff_usd",
+              "type": "numeric",
+              "nullable": true
+            },
+            {
+              "name": "commitment_type",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "agreement_from_year",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32
+            },
+            {
+              "name": "agreement_to_year",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32
+            },
+            {
+              "name": "updated_at",
+              "type": "timestamp with time zone",
+              "nullable": false
+            }
+          ],
+          "row_count": 1805,
+          "size_mb": 0.81,
+          "timestamp_ranges": {
+            "activity_date": {
+              "min": "2005-12-28",
+              "max": "2026-09-21"
+            },
+            "latest_date": {
+              "min": "2015-07-03",
+              "max": "2026-09-25"
+            },
+            "last_received_date": {
+              "min": "2005-12-28",
+              "max": "2026-09-04"
+            },
+            "updated_at": {
+              "min": "2026-09-29T05:47:31.530444Z",
+              "max": "2026-09-29T05:47:31.530444Z"
+            }
+          },
+          "stage": "dev"
+        },
+        {
+          "table": "aa.cbpf_contribution",
+          "columns": [
+            {
+              "name": "fiscal_year",
+              "type": "integer",
+              "nullable": false,
+              "precision": 32
+            },
+            {
+              "name": "pooled_fund_name",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "donor",
+              "type": "text",
+              "nullable": false
+            },
+            {
+              "name": "pooled_fund_id",
+              "type": "integer",
+              "nullable": true,
+              "precision": 32
+            },
+            {
+              "name": "pooled_fund_iso2",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "donor_iso2",
+              "type": "text",
+              "nullable": true
+            },
+            {
+              "name": "paid_usd",
+              "type": "numeric",
+              "nullable": true
+            },
+            {
+              "name": "pledged_usd",
+              "type": "numeric",
+              "nullable": true
+            },
+            {
+              "name": "n_feed_rows",
+              "type": "integer",
+              "nullable": false,
+              "precision": 32
+            },
+            {
+              "name": "has_transfer",
+              "type": "boolean",
+              "nullable": false
+            },
+            {
+              "name": "updated_at",
+              "type": "timestamp with time zone",
+              "nullable": false
+            }
+          ],
+          "row_count": 3103,
+          "size_mb": 0.86,
+          "timestamp_ranges": {
+            "updated_at": {
+              "min": "2026-09-29T05:47:31.530444Z",
+              "max": "2026-09-29T05:47:31.530444Z"
+            }
+          },
+          "stage": "dev"
+        },
+        {
           "table": "aa.cerf_allocation_storm",
           "columns": [
             {
@@ -2703,12 +2918,12 @@
       ],
       "schedule": "At 20:00 UTC",
       "last_run": {
-        "start": "2026-09-28T20:00:04.382000Z",
-        "end": "2026-09-28T20:19:42.029000Z",
-        "duration_min": 19,
+        "start": "2026-09-29T20:00:04.634000Z",
+        "end": "2026-09-29T20:21:01.882000Z",
+        "duration_min": 20,
         "status": "success"
       },
-      "next_run": "2026-09-29T20:00:00Z",
+      "next_run": "2026-09-30T20:00:00Z",
       "tags": [
         "monitoring"
       ],
@@ -2754,23 +2969,23 @@
             }
           ],
           "row_count": 5834,
-          "size_mb": 0.99,
+          "size_mb": 1.02,
           "timestamp_ranges": {
             "issued_time": {
               "min": "2024-09-10T23:38:34.150140Z",
-              "max": "2026-09-28T20:07:22.460328Z"
+              "max": "2026-09-29T19:50:18.402141Z"
             },
             "monitoring_date": {
               "min": "2024-09-10",
-              "max": "2026-09-28"
+              "max": "2026-09-29"
             },
             "issued_date": {
               "min": "2024-09-08",
-              "max": "2026-09-28"
+              "max": "2026-09-29"
             },
             "valid_date": {
               "min": "2024-09-08",
-              "max": "2026-10-09"
+              "max": "2026-10-10"
             }
           },
           "stage": "dev"
@@ -2781,8 +2996,8 @@
           "container": "projects",
           "prefix": "ds-aa-nga-flooding/monitoring",
           "stage": "dev",
-          "blob_size_mb": 58.77,
-          "blob_count": 260
+          "blob_size_mb": 58.99,
+          "blob_count": 261
         }
       ]
     },
@@ -2822,8 +3037,8 @@
           "container": "projects",
           "prefix": "ds-aa-nga-flooding/monitoring",
           "stage": "dev",
-          "blob_size_mb": 58.77,
-          "blob_count": 260
+          "blob_size_mb": 58.99,
+          "blob_count": 261
         }
       ]
     },
@@ -2846,12 +3061,12 @@
       ],
       "schedule": "At 23:15 UTC",
       "last_run": {
-        "start": "2026-09-28T23:15:02.758000Z",
-        "end": "2026-09-28T23:44:09.493000Z",
-        "duration_min": 29,
+        "start": "2026-09-29T23:15:01.746000Z",
+        "end": "2026-09-29T23:41:58.435000Z",
+        "duration_min": 26,
         "status": "success"
       },
-      "next_run": "2026-09-29T23:15:00Z",
+      "next_run": "2026-09-30T23:15:00Z",
       "tags": [
         "exposure"
       ],
@@ -2898,7 +3113,7 @@
           "timestamp_ranges": {
             "valid_date": {
               "min": "1998-01-12",
-              "max": "2026-09-27"
+              "max": "2026-09-28"
             }
           },
           "stage": "prod"
@@ -2934,12 +3149,12 @@
               "precision": 24
             }
           ],
-          "row_count": 31452,
+          "row_count": 31455,
           "size_mb": 6.53,
           "timestamp_ranges": {
             "valid_date": {
               "min": "1998-01-12",
-              "max": "2026-09-27"
+              "max": "2026-09-28"
             }
           },
           "stage": "prod"
@@ -2979,8 +3194,8 @@
           "size_mb": 0.19,
           "timestamp_ranges": {
             "valid_date": {
-              "min": "2026-09-27T00:00:00",
-              "max": "2026-09-27T00:00:00"
+              "min": "2026-09-28T00:00:00",
+              "max": "2026-09-28T00:00:00"
             }
           },
           "stage": "prod"
@@ -3019,8 +3234,8 @@
           "size_mb": 0.02,
           "timestamp_ranges": {
             "valid_date": {
-              "min": "2026-09-27T00:00:00",
-              "max": "2026-09-27T00:00:00"
+              "min": "2026-09-28T00:00:00",
+              "max": "2026-09-28T00:00:00"
             }
           },
           "stage": "prod"
@@ -3031,8 +3246,8 @@
           "container": "projects",
           "prefix": "ds-floodexposure-monitoring/processed/flood_exposure",
           "stage": "prod",
-          "blob_size_gb": 16.33,
-          "blob_count": 146795
+          "blob_size_gb": 16.34,
+          "blob_count": 146809
         }
       ]
     },
@@ -3055,12 +3270,12 @@
       ],
       "schedule": "At 20:00 UTC",
       "last_run": {
-        "start": "2026-09-28T20:00:03.607000Z",
-        "end": "2026-09-28T20:19:24.502000Z",
-        "duration_min": 19,
+        "start": "2026-09-29T20:00:03.668000Z",
+        "end": "2026-09-29T20:15:59.739000Z",
+        "duration_min": 15,
         "status": "success"
       },
-      "next_run": "2026-09-29T20:00:00Z",
+      "next_run": "2026-09-30T20:00:00Z",
       "tags": [
         "monitoring"
       ],
@@ -3110,15 +3325,15 @@
           "timestamp_ranges": {
             "monitoring_date": {
               "min": "2025-08-15",
-              "max": "2026-09-28"
+              "max": "2026-09-29"
             },
             "issued_date": {
               "min": "2025-08-15",
-              "max": "2026-09-28"
+              "max": "2026-09-29"
             },
             "valid_date": {
               "min": "2025-08-16",
-              "max": "2026-10-12"
+              "max": "2026-10-13"
             }
           },
           "stage": "dev"
@@ -3129,8 +3344,8 @@
           "container": "projects",
           "prefix": "pa-aa-tcd-flooding/monitoring",
           "stage": "dev",
-          "blob_size_mb": 20.29,
-          "blob_count": 133
+          "blob_size_mb": 20.39,
+          "blob_count": 134
         }
       ]
     },
@@ -3164,7 +3379,7 @@
           "container": "projects",
           "prefix": "ds-aa-tracking/snapshot",
           "stage": "dev",
-          "blob_size_mb": 52.87,
+          "blob_size_mb": 52.77,
           "blob_count": 389
         }
       ]
@@ -3408,12 +3623,12 @@
       ],
       "schedule": "At 22:00 UTC",
       "last_run": {
-        "start": "2026-09-28T22:00:47.724000Z",
-        "end": "2026-09-28T22:09:00.241000Z",
-        "duration_min": 8,
+        "start": "2026-09-29T22:00:47.619000Z",
+        "end": "2026-09-29T22:10:52.532000Z",
+        "duration_min": 10,
         "status": "success"
       },
-      "next_run": "2026-09-29T22:00:00Z",
+      "next_run": "2026-09-30T22:00:00Z",
       "tags": [
         "dataset-ingest"
       ],
@@ -3558,12 +3773,12 @@
       ],
       "schedule": "At 03:50, 09:50, 15:50 and 21:50 UTC",
       "last_run": {
-        "start": "2026-09-29T18:13:53.703000Z",
-        "end": "2026-09-29T18:22:50.048000Z",
-        "duration_min": 8,
+        "start": "2026-09-30T00:39:22.805000Z",
+        "end": "2026-09-30T00:43:18.826000Z",
+        "duration_min": 3,
         "status": "success"
       },
-      "next_run": "2026-09-29T21:50:00Z",
+      "next_run": "2026-09-30T03:50:00Z",
       "tags": [
         "monitoring"
       ],
@@ -3619,12 +3834,12 @@
       ],
       "schedule": "At 0 and 30 minutes past the hour, every 3 hours UTC",
       "last_run": {
-        "start": "2026-09-29T18:30:03.346000Z",
-        "end": null,
-        "duration_min": null,
-        "status": "running"
+        "start": "2026-09-30T00:30:03.171000Z",
+        "end": "2026-09-30T00:39:28.148000Z",
+        "duration_min": 9,
+        "status": "success"
       },
-      "next_run": "2026-09-29T21:00:00Z",
+      "next_run": "2026-09-30T03:00:00Z",
       "tags": [
         "dataset-ingest"
       ],
@@ -3818,15 +4033,15 @@
             }
           ],
           "row_count": 212800,
-          "size_mb": 96.34,
+          "size_mb": 96.37,
           "timestamp_ranges": {
             "issued_time": {
               "min": "1990-05-13T00:00:00",
-              "max": "2026-09-29T18:00:00"
+              "max": "2026-09-30T00:00:00"
             },
             "valid_time": {
               "min": "1990-05-13T12:00:00",
-              "max": "2026-10-04T12:00:00"
+              "max": "2026-10-04T18:00:00"
             }
           },
           "stage": "prod"
@@ -3887,7 +4102,7 @@
           "timestamp_ranges": {
             "issued_time": {
               "min": "2001-06-05T18:00:00",
-              "max": "2026-09-29T18:00:00"
+              "max": "2026-09-30T00:00:00"
             }
           },
           "stage": "prod"
@@ -3948,7 +4163,7 @@
           "timestamp_ranges": {
             "valid_time": {
               "min": "2003-05-21T06:00:00",
-              "max": "2026-09-29T18:00:00"
+              "max": "2026-09-30T00:00:00"
             }
           },
           "stage": "prod"
@@ -4012,11 +4227,11 @@
             }
           ],
           "row_count": 613819,
-          "size_mb": 106.26,
+          "size_mb": 106.27,
           "timestamp_ranges": {
             "issued_time": {
               "min": "2017-05-09T18:00:00",
-              "max": "2026-09-29T12:00:00"
+              "max": "2026-09-29T18:00:00"
             }
           },
           "stage": "prod"
@@ -4043,12 +4258,12 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": {
-        "start": "2026-09-29T18:00:05.664000Z",
-        "end": "2026-09-29T18:12:03.982000Z",
-        "duration_min": 11,
+        "start": "2026-09-30T00:00:05.331000Z",
+        "end": "2026-09-30T00:12:27.007000Z",
+        "duration_min": 12,
         "status": "success"
       },
-      "next_run": "2026-09-29T21:00:00Z",
+      "next_run": "2026-09-30T03:00:00Z",
       "tags": [
         "dataset-ingest"
       ],
@@ -4212,11 +4427,11 @@
             }
           ],
           "row_count": 84874,
-          "size_mb": 19.27,
+          "size_mb": 19.33,
           "timestamp_ranges": {
             "valid_time": {
               "min": "2023-08-21T09:00:00",
-              "max": "2026-09-29T15:00:00"
+              "max": "2026-09-29T21:00:00"
             }
           },
           "stage": "prod"
@@ -4262,7 +4477,7 @@
           "timestamp_ranges": {
             "last_updated": {
               "min": "2026-05-12T17:17:51.904216",
-              "max": "2026-09-29T18:11:33.985882"
+              "max": "2026-09-30T00:11:50.334003"
             }
           },
           "stage": "prod"
@@ -4281,9 +4496,9 @@
       ],
       "schedule": null,
       "last_run": {
-        "start": "2026-09-29T18:09:24.248000Z",
-        "end": "2026-09-29T18:18:43.381000Z",
-        "duration_min": 9,
+        "start": "2026-09-30T00:09:18.377000Z",
+        "end": "2026-09-30T00:21:43.109000Z",
+        "duration_min": 12,
         "status": "success"
       },
       "next_run": null,
@@ -4339,12 +4554,12 @@
       ],
       "schedule": "At 03:50, 09:50, 15:50 and 21:50 UTC",
       "last_run": {
-        "start": "2026-09-29T15:50:02.744000Z",
-        "end": "2026-09-29T16:01:44.354000Z",
-        "duration_min": 11,
+        "start": "2026-09-29T21:50:02.149000Z",
+        "end": "2026-09-29T22:03:15.075000Z",
+        "duration_min": 13,
         "status": "success"
       },
-      "next_run": "2026-09-29T21:50:00Z",
+      "next_run": "2026-09-30T03:50:00Z",
       "tags": [
         "alert"
       ],
@@ -4376,12 +4591,12 @@
       ],
       "schedule": "At 20:00 UTC",
       "last_run": {
-        "start": "2026-09-28T23:00:37.334000Z",
-        "end": "2026-09-28T23:33:41.771000Z",
-        "duration_min": 33,
+        "start": "2026-09-29T23:00:37.882000Z",
+        "end": "2026-09-29T23:19:12.381000Z",
+        "duration_min": 18,
         "status": "success"
       },
-      "next_run": "2026-09-29T20:00:00Z",
+      "next_run": "2026-09-30T20:00:00Z",
       "tags": [
         "dataset-ingest"
       ],
@@ -4470,7 +4685,7 @@
           "timestamp_ranges": {
             "valid_date": {
               "min": "1998-01-12",
-              "max": "2026-09-27"
+              "max": "2026-09-28"
             }
           },
           "stage": "prod"
@@ -4482,7 +4697,7 @@
           "prefix": "floodscan/daily/v5/processed",
           "stage": "prod",
           "blob_size_gb": 3.91,
-          "blob_count": 10487
+          "blob_count": 10488
         }
       ]
     },
