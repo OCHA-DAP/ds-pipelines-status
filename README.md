@@ -6,7 +6,7 @@ A minimal dashboard displaying the status of DSCI Databricks pipelines.
 
 1. A Databricks job (`databricks.yml`, every 6 h on the hour) runs `scripts/fetch_pipelines.py --to-blob`. It reads every tagged job from the Jobs API and the tables and blob paths they write on both data planes, then uploads `pipelines.json` to the dev blob at `projects/ds-pipelines-status/`. It runs on Databricks because both Postgres servers are private-endpoint only.
 2. The GitHub Action (`update.yml`, 15 minutes later) downloads that file into `data/` and commits it. It needs only the `DSCI_AZ_BLOB_DEV_SAS` secret.
-3. The commit triggers the Azure Static Web App deploy.
+3. GitHub Pages rebuilds on the commit and serves the dashboard at https://ocha-dap.github.io/ds-pipelines-status/.
 
 Code changes ship by pushing `main`. Redeploy the bundle only when the job config changes:
 
