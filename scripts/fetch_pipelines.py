@@ -28,20 +28,18 @@ import os
 from datetime import datetime, timezone
 from pathlib import Path
 
-from azure.storage.blob import BlobServiceClient
 from cron_descriptor import Options, get_description
 from croniter import croniter
 from databricks.sdk import WorkspaceClient
 from databricks.sdk.service.jobs import BaseJob, RunLifeCycleState, RunResultState
 from dotenv import load_dotenv
-from ocha_stratus import get_engine, upload_blob_data
+from ocha_stratus import get_container_client, get_engine, upload_blob_data
 from sqlalchemy import text
 
 load_dotenv()
 
 STAGES = ("prod", "dev")
 BLOB_OUTPUT = ("projects", "ds-pipelines-status/pipelines.json")
-BLOB_ACCOUNTS = {"prod": "imb0chd0prod", "dev": "imb0chd0dev"}
 _unavailable_engines: dict[str, object] = {}
 _missing_sas_warned: set[str] = set()
 
@@ -118,48 +116,23 @@ def get_blob_locations(job: BaseJob) -> list[dict]:
 
 def calculate_blob_storage_size(stage: str, container_name: str, prefix: str) -> dict | None:
     """Total size and count of blobs under a prefix in the given stage's storage account."""
-    sas_token = os.getenv(f"DSCI_AZ_BLOB_{stage.upper()}_SAS")
-    if not sas_token:
+    if not os.getenv(f"DSCI_AZ_BLOB_{stage.upper()}_SAS"):
         if stage not in _missing_sas_warned:
             print(f"  No DSCI_AZ_BLOB_{stage.upper()}_SAS set, skipping {stage} blob stats")
             _missing_sas_warned.add(stage)
         return None
     try:
-        account_url = f"https://{BLOB_ACCOUNTS[stage]}.blob.core.windows.net"
-
-        # Use SAS token for authentication
-        blob_service_client = BlobServiceClient(account_url=account_url, credential=sas_token)
-        container_client = blob_service_client.get_container_client(container_name)
-
-        total_size_bytes = 0
-        blob_count = 0
-
-        # List blobs with minimal properties for speed
-        blob_list = container_client.list_blobs(
-            name_starts_with=prefix if prefix else None
-        )
-
-        for blob in blob_list:
-            total_size_bytes += blob.size
-            blob_count += 1
-
-        if blob_count > 0:
-            # Convert to GB or MB depending on size
-            size_mb = total_size_bytes / (1024 * 1024)
-            if size_mb >= 1024:
-                return {
-                    "blob_size_gb": round(size_mb / 1024, 2),
-                    "blob_count": blob_count
-                }
-            else:
-                return {
-                    "blob_size_mb": round(size_mb, 2),
-                    "blob_count": blob_count
-                }
-        return None
+        blobs = get_container_client(container_name, stage=stage).list_blobs(name_starts_with=prefix or None)
+        sizes = [blob.size for blob in blobs]
     except Exception as e:
-        print(f"Error calculating blob storage size for {container_name}/{prefix}: {e}")
+        print(f"  Could not list {stage} blob {container_name}/{prefix}: {e}")
         return None
+    if not sizes:
+        return None
+    size_mb = sum(sizes) / (1024 * 1024)
+    if size_mb >= 1024:
+        return {"blob_size_gb": round(size_mb / 1024, 2), "blob_count": len(sizes)}
+    return {"blob_size_mb": round(size_mb, 2), "blob_count": len(sizes)}
 
 
 def fetch_table_stats(engine, schema_name: str, table_name: str, timestamp_columns: list[str]) -> dict:

@@ -9,6 +9,7 @@ dependencies = [
     "databricks-sdk>=0.20.0",
     "ocha-stratus>=0.1.7",
     "python-dotenv>=1.0.0",
+    "sqlalchemy>=2.0",
 ]
 
 [project.optional-dependencies]
