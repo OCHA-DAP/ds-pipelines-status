@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-30T06:43:34.524023Z",
+  "generated_at": "2026-09-30T12:42:58.258366Z",
   "pipelines": [
     {
       "name": "MOZ Cyclone Monitoring",
@@ -17,7 +17,7 @@
         "duration_min": 9,
         "status": "failed"
       },
-      "next_run": "2026-09-30T07:00:00Z",
+      "next_run": "2026-09-30T13:00:00Z",
       "tags": [],
       "hazard": [],
       "kb": null,
@@ -3773,12 +3773,12 @@
       ],
       "schedule": "At 03:50, 09:50, 15:50 and 21:50 UTC",
       "last_run": {
-        "start": "2026-09-30T06:42:30.271000Z",
+        "start": "2026-09-30T12:42:26.738000Z",
         "end": null,
         "duration_min": null,
         "status": "running"
       },
-      "next_run": "2026-09-30T09:50:00Z",
+      "next_run": "2026-09-30T15:50:00Z",
       "tags": [
         "monitoring"
       ],
@@ -3834,12 +3834,12 @@
       ],
       "schedule": "At 0 and 30 minutes past the hour, every 3 hours UTC",
       "last_run": {
-        "start": "2026-09-30T06:30:02.873000Z",
-        "end": "2026-09-30T06:42:36.462000Z",
+        "start": "2026-09-30T12:30:04.472000Z",
+        "end": "2026-09-30T12:42:41.076000Z",
         "duration_min": 12,
         "status": "success"
       },
-      "next_run": "2026-09-30T09:00:00Z",
+      "next_run": "2026-09-30T15:00:00Z",
       "tags": [
         "dataset-ingest"
       ],
@@ -4033,15 +4033,15 @@
             }
           ],
           "row_count": 212800,
-          "size_mb": 96.4,
+          "size_mb": 96.42,
           "timestamp_ranges": {
             "issued_time": {
               "min": "1990-05-13T00:00:00",
-              "max": "2026-09-30T06:00:00"
+              "max": "2026-09-30T12:00:00"
             },
             "valid_time": {
               "min": "1990-05-13T12:00:00",
-              "max": "2026-10-05T00:00:00"
+              "max": "2026-10-05T06:00:00"
             }
           },
           "stage": "prod"
@@ -4102,7 +4102,7 @@
           "timestamp_ranges": {
             "issued_time": {
               "min": "2001-06-05T18:00:00",
-              "max": "2026-09-30T06:00:00"
+              "max": "2026-09-30T12:00:00"
             }
           },
           "stage": "prod"
@@ -4163,7 +4163,7 @@
           "timestamp_ranges": {
             "valid_time": {
               "min": "2003-05-21T06:00:00",
-              "max": "2026-09-30T06:00:00"
+              "max": "2026-09-30T12:00:00"
             }
           },
           "stage": "prod"
@@ -4227,11 +4227,11 @@
             }
           ],
           "row_count": 613819,
-          "size_mb": 106.28,
+          "size_mb": 106.29,
           "timestamp_ranges": {
             "issued_time": {
               "min": "2017-05-09T18:00:00",
-              "max": "2026-09-30T00:00:00"
+              "max": "2026-09-30T06:00:00"
             }
           },
           "stage": "prod"
@@ -4258,12 +4258,12 @@
       ],
       "schedule": "Every 3 hours UTC",
       "last_run": {
-        "start": "2026-09-30T06:00:02.865000Z",
-        "end": "2026-09-30T06:14:35.273000Z",
-        "duration_min": 14,
+        "start": "2026-09-30T12:00:02.080000Z",
+        "end": "2026-09-30T12:09:23.007000Z",
+        "duration_min": 9,
         "status": "success"
       },
-      "next_run": "2026-09-30T09:00:00Z",
+      "next_run": "2026-09-30T15:00:00Z",
       "tags": [
         "dataset-ingest"
       ],
@@ -4431,7 +4431,7 @@
           "timestamp_ranges": {
             "valid_time": {
               "min": "2023-08-21T09:00:00",
-              "max": "2026-09-30T03:00:00"
+              "max": "2026-09-30T09:00:00"
             }
           },
           "stage": "prod"
@@ -4477,7 +4477,7 @@
           "timestamp_ranges": {
             "last_updated": {
               "min": "2026-05-12T17:17:51.904216",
-              "max": "2026-09-30T06:13:59.649376"
+              "max": "2026-09-30T12:08:44.150294"
             }
           },
           "stage": "prod"
@@ -4496,9 +4496,9 @@
       ],
       "schedule": null,
       "last_run": {
-        "start": "2026-09-30T06:10:06.786000Z",
-        "end": "2026-09-30T06:19:37.234000Z",
-        "duration_min": 9,
+        "start": "2026-09-30T12:10:09.432000Z",
+        "end": "2026-09-30T12:14:13.294000Z",
+        "duration_min": 4,
         "status": "success"
       },
       "next_run": null,
@@ -4554,12 +4554,12 @@
       ],
       "schedule": "At 03:50, 09:50, 15:50 and 21:50 UTC",
       "last_run": {
-        "start": "2026-09-30T03:50:01.170000Z",
-        "end": "2026-09-30T04:00:00.081000Z",
-        "duration_min": 9,
+        "start": "2026-09-30T09:50:02.612000Z",
+        "end": "2026-09-30T09:58:12.133000Z",
+        "duration_min": 8,
         "status": "success"
       },
-      "next_run": "2026-09-30T09:50:00Z",
+      "next_run": "2026-09-30T15:50:00Z",
       "tags": [
         "alert"
       ],
