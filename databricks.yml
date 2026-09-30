@@ -1,0 +1,112 @@
+# Databricks Asset Bundle — ds-pipelines-status
+#
+# One job, one task: scripts/fetch_pipelines.py --to-blob, every 6 h on the hour.
+# It reads the Databricks Jobs API plus the dev AND prod Postgres DBs and blob
+# accounts (both are private-endpoint only since 2026-09-30, so this cannot run
+# on a GitHub runner any more) and writes data/pipelines.json to the dev blob at
+# projects/ds-pipelines-status/pipelines.json. The GitHub Action (update.yml,
+# :15 past every 6 h) downloads that file and commits it, which deploys the site.
+#
+# Credentials are not in this file: the Job Compute policy injects DSCI_AZ_*
+# (dev + prod DB hosts/users/passwords and blob SAS tokens) from the `dsci`
+# secret scope. The Jobs API client authenticates as the job's run_as identity
+# via the cluster's own credentials; if that is unavailable it falls back to a
+# DSCI_DATABRICKS_TOKEN key in the dsci scope.
+#
+#   databricks bundle validate -t prod -p DEFAULT
+#   databricks bundle deploy   -t dev  -p DEFAULT --var git_branch=my-branch   # feature test (paused)
+#   databricks bundle run pipeline_status_refresh -t dev -p DEFAULT
+#   databricks bundle deploy   -t prod -p DEFAULT                              # the live job
+#
+# Code changes ship by pushing main (source: GIT); `bundle deploy` is only
+# needed when the job config (schedule, libraries, tags) changes.
+
+bundle:
+  name: ds-pipelines-status
+
+variables:
+  git_branch:
+    description: Repo branch the job pulls the script from
+    default: main
+
+.git_source: &git_source
+  git_url: https://github.com/OCHA-DAP/ds-pipelines-status.git
+  git_provider: gitHub
+  git_branch: ${var.git_branch}
+
+# Job Compute policy (000C79D951EAF0D6): ephemeral single-worker cluster that
+# injects DSCI_AZ_DB_*/DSCI_AZ_BLOB_* (dev + prod) from the dsci secret scope.
+.cluster_spec: &cluster_spec
+  policy_id: "000C79D951EAF0D6"
+  apply_policy_default_values: true
+  num_workers: 1
+
+# pyproject [project.dependencies] minus the apps-only Azure SDKs; databricks-sdk
+# ships with the runtime.
+.libs: &libs
+  - pypi: { package: "ocha-stratus>=0.1.7" }
+  - pypi: { package: "cron-descriptor>=2.0.0" }
+  - pypi: { package: "croniter>=2.0.0" }
+  - pypi: { package: "python-dotenv>=1.0.0" }
+  - pypi: { package: "psycopg2-binary" }
+  - pypi: { package: "sqlalchemy>=2.0" }
+
+resources:
+  jobs:
+
+    pipeline_status_refresh:
+      name: Pipeline Status Refresh
+      description: "Read every tagged Databricks job plus its output tables and blobs on both data planes and publish pipelines.json for the [status dashboard](https://ocha-dap.github.io/ds-pipelines-status/)"
+      git_source: *git_source
+      tags:
+        databricks: job
+        type: monitoring
+        kb: pipelines-status
+        output_blob: projects/ds-pipelines-status
+
+      permissions:
+        - group_name: dsci
+          level: CAN_MANAGE
+
+      schedule:
+        # On the hour every 6 h; update.yml downloads the result at :15. No
+        # explicit pause_status: the prod target runs it, the dev target
+        # (development mode) auto-pauses it.
+        quartz_cron_expression: "0 0 0/6 * * ?"
+        timezone_id: UTC
+
+      max_concurrent_runs: 1
+
+      email_notifications:
+        on_failure:
+          - hannah.ker@un.org
+        no_alert_for_skipped_runs: true
+
+      job_clusters:
+        - job_cluster_key: main
+          new_cluster: *cluster_spec
+
+      tasks:
+        - task_key: fetch
+          job_cluster_key: main
+          libraries: *libs
+          spark_python_task:
+            python_file: scripts/fetch_pipelines.py
+            source: GIT
+            parameters:
+              - "--to-blob"
+
+targets:
+  dev:
+    mode: development
+    default: true
+    workspace:
+      profile: DEFAULT
+
+  prod:
+    mode: production
+    workspace:
+      profile: DEFAULT
+      root_path: /Workspace/Users/adm.hker1@global.un.org/.bundle/${bundle.name}/${bundle.target}
+    run_as:
+      user_name: adm.hker1@global.un.org

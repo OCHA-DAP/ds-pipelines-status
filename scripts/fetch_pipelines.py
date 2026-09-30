@@ -15,13 +15,15 @@ Optional additional tags on jobs (vocabularies follow the team knowledge base):
 Tables and blob paths are looked up in the job's data plane first, then the other one.
 
 Usage:
-    uv run scripts/fetch_pipelines.py
+    uv run scripts/fetch_pipelines.py            # writes data/pipelines.json
+    scripts/fetch_pipelines.py --to-blob         # as the Databricks job: uploads to the dev blob
 
 Environment variables (via .env file or environment):
-    DATABRICKS_HOST: Your Databricks workspace URL
-    DATABRICKS_TOKEN: Personal access token or service principal token
+    DATABRICKS_HOST / DATABRICKS_TOKEN: workspace API (omitted on Databricks: the job's own identity)
+    DSCI_AZ_DB_{DEV,PROD}_{HOST,UID,PW}, DSCI_AZ_BLOB_{DEV,PROD}_SAS: data planes (injected by the Job Compute policy on Databricks)
 """
 
+import argparse
 import json
 import os
 from datetime import datetime, timezone
@@ -33,12 +35,13 @@ from croniter import croniter
 from databricks.sdk import WorkspaceClient
 from databricks.sdk.service.jobs import BaseJob, RunLifeCycleState, RunResultState
 from dotenv import load_dotenv
-from ocha_stratus import get_engine
+from ocha_stratus import get_engine, upload_blob_data
 from sqlalchemy import text
 
 load_dotenv()
 
 STAGES = ("prod", "dev")
+BLOB_OUTPUT = ("projects", "ds-pipelines-status/pipelines.json")
 BLOB_ACCOUNTS = {"prod": "imb0chd0prod", "dev": "imb0chd0dev"}
 _unavailable_engines: dict[str, object] = {}
 _missing_sas_warned: set[str] = set()
@@ -501,19 +504,39 @@ def fetch_pipeline_data(client: WorkspaceClient) -> dict:
     return output
 
 
+def make_workspace_client() -> WorkspaceClient:
+    """Workspace API client: env/config credentials locally, the running job's own context on Databricks."""
+    try:
+        return WorkspaceClient()
+    except Exception as e:
+        if "DATABRICKS_RUNTIME_VERSION" not in os.environ:
+            raise
+        print(f"Default Databricks auth unavailable on this cluster ({e}); using the job's API context")
+        from pyspark.dbutils import DBUtils  # type: ignore
+        from pyspark.sql import SparkSession  # type: ignore
+        context = DBUtils(SparkSession.builder.getOrCreate()).notebook.entry_point.getDbutils().notebook().getContext()
+        return WorkspaceClient(host=context.apiUrl().get(), token=context.apiToken().get())
+
+
 def main():
-    client = WorkspaceClient()
+    parser = argparse.ArgumentParser(description="Fetch Databricks pipeline status")
+    parser.add_argument("--to-blob", action="store_true", help="upload to the dev blob instead of writing data/pipelines.json")
+    args = parser.parse_args()
+    client = make_workspace_client()
     print(f"Fetching pipeline data from {client.config.host}...")
 
     output = fetch_pipeline_data(client)
+    payload = json.dumps(output, indent=2)
 
-    output_path = Path(__file__).parent.parent / "data" / "pipelines.json"
-    output_path.parent.mkdir(parents=True, exist_ok=True)
-
-    with open(output_path, "w") as f:
-        json.dump(output, f, indent=2)
-
-    print(f"Wrote {output_path}")
+    if args.to_blob:
+        container, blob_name = BLOB_OUTPUT
+        upload_blob_data(payload.encode(), blob_name, stage="dev", container_name=container, content_type="application/json")
+        print(f"Uploaded {container}/{blob_name} (dev)")
+    else:
+        output_path = Path(__file__).parent.parent / "data" / "pipelines.json"
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        output_path.write_text(payload)
+        print(f"Wrote {output_path}")
 
 
 if __name__ == "__main__":

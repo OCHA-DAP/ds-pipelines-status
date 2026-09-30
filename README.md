@@ -38,6 +38,19 @@ python -m http.server 8000
 
 Then open http://localhost:8000 in your browser.
 
+## Running on Databricks
+
+Both Postgres servers are reachable only over private endpoints, so the fetch runs as a Databricks job defined in `databricks.yml` (every 6 h on the hour, Job Compute policy, credentials from the `dsci` secret scope). It runs `scripts/fetch_pipelines.py --to-blob`, which uploads the result to the dev blob at `projects/ds-pipelines-status/pipelines.json`; the GitHub Action then downloads and commits it.
+
+```bash
+databricks bundle validate -t prod -p DEFAULT
+databricks bundle deploy   -t dev  -p DEFAULT --var git_branch=my-branch   # feature test (paused)
+databricks bundle run pipeline_status_refresh -t dev -p DEFAULT
+databricks bundle deploy   -t prod -p DEFAULT                              # the live job
+```
+
+Code changes ship by pushing `main`; redeploy only when the job config changes.
+
 ## Automated updates
 
 The GitHub Action in `.github/workflows/update.yml` runs every 4 hours to fetch the latest pipeline status and commit any changes. It requires the following repository secrets:
