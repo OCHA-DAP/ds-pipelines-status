@@ -26,13 +26,6 @@
       <span class="filter-count" id="filter-count"></span>
     </div>
 
-    <section class="timeline" aria-label="Scheduled runs over a typical day">
-      <div class="timeline-header">
-        <h2>Typical day <span class="muted">UTC · bar = median run, lighter tail = 75th percentile</span></h2>
-      </div>
-      <div id="timeline"></div>
-    </section>
-
     <table>
       <thead>
         <tr>
@@ -40,7 +33,7 @@
           <th>Description</th>
           <th>Tasks</th>
           <th>Schedule</th>
-          <th>Runtime</th>
+          <th class="sortable" id="sort-runtime" aria-sort="none"><button type="button">Runtime <span class="sort-arrow" aria-hidden="true">↕</span></button></th>
           <th>Status</th>
           <th>Tags</th>
         </tr>
@@ -60,8 +53,6 @@
       </div>
     </div>
   </div>
-
-  <div id="timeline-tooltip" class="timeline-tooltip" role="tooltip" hidden></div>
 
   <script src="script.js"></script>
 </body>
