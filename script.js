@@ -213,11 +213,6 @@ function renderTable(pipelines) {
   pipelines.forEach(pipeline => {
     const row = document.createElement('tr');
 
-    // Add development class if job has status: development tag
-    if (pipeline.job_status === 'development') {
-      row.classList.add('development');
-    }
-
     const lastRun = pipeline.last_run;
     const runTime = lastRun ? formatRelativeTime(lastRun.end || lastRun.start) : 'Never';
     const duration = lastRun?.duration_min ? `${lastRun.duration_min}m` : '';

@@ -36,22 +36,6 @@ body {
   color: #888888;
 }
 
-.legend {
-  margin-bottom: 12px;
-  font-size: 13px;
-}
-
-.legend-item {
-  display: inline-block;
-  padding: 2px 8px;
-  border-radius: 3px;
-}
-
-.legend-item.development {
-  background-color: rgba(0, 124, 224, 0.08);
-  color: #007CE0;
-}
-
 .filters {
   display: flex;
   flex-wrap: wrap;
@@ -139,14 +123,6 @@ td {
 
 tr:last-child td {
   border-bottom: none;
-}
-
-tr.development {
-  background-color: rgba(0, 124, 224, 0.08);
-}
-
-tr.development td {
-  color: #007CE0;
 }
 
 .pipeline-name {

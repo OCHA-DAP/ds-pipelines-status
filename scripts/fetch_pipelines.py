@@ -7,7 +7,6 @@ Optional additional tags on jobs (vocabularies follow the team knowledge base):
     type: dataset-ingest | monitoring | exposure | alert | publish | annotation | schema-owner
     hazard: Comma-separated, e.g. flood,tropical-cyclone
     kb: Knowledge-base pipeline page stem (e.g. storms-pipeline)
-    status: Job status (e.g., development)
     output_schema: Comma-separated schema.table list (e.g., storms.nhc_tracks)
     output_blob: Comma-separated container/prefix paths in blob storage
     data_mode: dev | prod — which data plane the job writes; inferred from job parameters when absent
@@ -364,13 +363,6 @@ def get_job_tasks(job: BaseJob, client: WorkspaceClient) -> list[dict]:
     return tasks
 
 
-def get_job_status(job: BaseJob) -> str | None:
-    """Extract status tag from a job (e.g., 'development')."""
-    if not job.settings or not job.settings.tags:
-        return None
-    return job.settings.tags.get("status")
-
-
 def get_job_schedule(job: BaseJob) -> str | None:
     """Extract schedule from job settings and convert to plain English."""
     if not job.settings:
@@ -495,7 +487,6 @@ def fetch_pipeline_data(client: WorkspaceClient) -> dict:
             "tags": get_tag_list(full_job, "type"),
             "hazard": get_tag_list(full_job, "hazard"),
             "kb": full_job.settings.tags.get("kb") if full_job.settings and full_job.settings.tags else None,
-            "job_status": get_job_status(full_job),
             "data_mode": data_mode,
             "output_schemas": schema_definitions,
             "blob_storage": blob_storage,
@@ -504,25 +495,11 @@ def fetch_pipeline_data(client: WorkspaceClient) -> dict:
     return output
 
 
-def make_workspace_client() -> WorkspaceClient:
-    """Workspace API client: env/config credentials locally, the running job's own context on Databricks."""
-    try:
-        return WorkspaceClient()
-    except Exception as e:
-        if "DATABRICKS_RUNTIME_VERSION" not in os.environ:
-            raise
-        print(f"Default Databricks auth unavailable on this cluster ({e}); using the job's API context")
-        from pyspark.dbutils import DBUtils  # type: ignore
-        from pyspark.sql import SparkSession  # type: ignore
-        context = DBUtils(SparkSession.builder.getOrCreate()).notebook.entry_point.getDbutils().notebook().getContext()
-        return WorkspaceClient(host=context.apiUrl().get(), token=context.apiToken().get())
-
-
 def main():
     parser = argparse.ArgumentParser(description="Fetch Databricks pipeline status")
     parser.add_argument("--to-blob", action="store_true", help="upload to the dev blob instead of writing data/pipelines.json")
     args = parser.parse_args()
-    client = make_workspace_client()
+    client = WorkspaceClient()
     print(f"Fetching pipeline data from {client.config.host}...")
 
     output = fetch_pipeline_data(client)

@@ -2,75 +2,37 @@
 
 A minimal dashboard displaying the status of DSCI Databricks pipelines.
 
-## Setup
+## How it updates
 
-This project uses [uv](https://docs.astral.sh/uv/) for dependency management.
+1. A Databricks job (`databricks.yml`, every 6 h on the hour) runs `scripts/fetch_pipelines.py --to-blob`. It reads every tagged job from the Jobs API and the tables and blob paths they write on both data planes, then uploads `pipelines.json` to the dev blob at `projects/ds-pipelines-status/`. It runs on Databricks because both Postgres servers are private-endpoint only.
+2. The GitHub Action (`update.yml`, 15 minutes later) downloads that file into `data/` and commits it. It needs only the `DSCI_AZ_BLOB_DEV_SAS` secret.
+3. The commit triggers the Azure Static Web App deploy.
 
-1. Install uv:
-   ```bash
-   curl -LsSf https://astral.sh/uv/install.sh | sh
-   ```
-
-2. Create a `.env` file with your Databricks credentials and Azure blob storage SAS token:
-   ```
-   DATABRICKS_HOST=https://your-workspace.cloud.databricks.com
-   DATABRICKS_TOKEN=your-token
-   DSCI_AZ_BLOB_PROD_SAS=your-azure-sas-token
-   ```
-
-## Usage
-
-### Fetch pipeline data
+Code changes ship by pushing `main`. Redeploy the bundle only when the job config changes:
 
 ```bash
-uv run scripts/fetch_pipelines.py
+databricks bundle deploy -t prod -p DEFAULT
+databricks bundle deploy -t dev -p DEFAULT --var git_branch=my-branch   # test a branch (paused)
+databricks bundle run pipeline_status_refresh -t dev -p DEFAULT
 ```
 
-This queries Databricks for all jobs tagged with `databricks=job` and writes the results to `data/pipelines.json`.
-
-### View the dashboard
-
-Serve the files locally:
+## View the dashboard locally
 
 ```bash
 python -m http.server 8000
 ```
 
-Then open http://localhost:8000 in your browser.
-
-## Running on Databricks
-
-Both Postgres servers are reachable only over private endpoints, so the fetch runs as a Databricks job defined in `databricks.yml` (every 6 h on the hour, Job Compute policy, credentials from the `dsci` secret scope). It runs `scripts/fetch_pipelines.py --to-blob`, which uploads the result to the dev blob at `projects/ds-pipelines-status/pipelines.json`; the GitHub Action then downloads and commits it.
-
-```bash
-databricks bundle validate -t prod -p DEFAULT
-databricks bundle deploy   -t dev  -p DEFAULT --var git_branch=my-branch   # feature test (paused)
-databricks bundle run pipeline_status_refresh -t dev -p DEFAULT
-databricks bundle deploy   -t prod -p DEFAULT                              # the live job
-```
-
-Code changes ship by pushing `main`; redeploy only when the job config changes.
-
-## Automated updates
-
-The GitHub Action in `.github/workflows/update.yml` runs every 4 hours to fetch the latest pipeline status and commit any changes. It requires the following repository secrets:
-
-- `DATABRICKS_HOST`
-- `DATABRICKS_TOKEN`
-- `DSCI_AZ_DB_PROD_HOST`, `DSCI_AZ_DB_PROD_UID`, `DSCI_AZ_DB_PROD_PW`
-- `DSCI_AZ_DB_DEV_HOST`, `DSCI_AZ_DB_DEV_UID`, `DSCI_AZ_DB_DEV_PW`
-- `DSCI_AZ_BLOB_PROD_SAS`, `DSCI_AZ_BLOB_DEV_SAS`
+Then open http://localhost:8000. The page reads the committed `data/pipelines.json`.
 
 ## Job configuration
 
-Jobs are discovered automatically by filtering for the `databricks=job` tag. Additional optional tags:
+Jobs are discovered automatically by filtering for the `databricks=job` tag. Additional tags, documented as the team convention in the knowledge base (`infrastructure/databricks.md` → Job tags):
 
 | Tag | Description |
 |-----|-------------|
 | `type` | One value from the knowledge-base pipeline vocabulary: `dataset-ingest`, `monitoring`, `exposure`, `alert`, `publish`, `annotation`, `schema-owner` |
 | `hazard` | Comma-separated, same words as knowledge-base framework pages: `drought`, `flood`, `tropical-cyclone`, `cholera`, `plague` |
 | `kb` | Stem of the job's knowledge-base pipeline page, e.g. `storms-pipeline` (rendered as a link) |
-| `status` | Set to `development` to highlight the row as in-progress |
 | `output_schema` | Comma-separated output tables, each as `schema.table` (e.g., `storms.nhc_tracks,storms.nhc_forecasts`). Bare schema names are ignored. |
 | `output_blob` | Comma-separated blob paths, each as `container/prefix` (e.g., `raster/imerg/daily/late/v7/processed`) |
 | `data_mode` | `dev` or `prod`: which data plane the job writes. Inferred from job parameters (`data_stage`, `stage`, `mode`) when absent. Tables and blob paths are looked up in that plane first, then the other, and the dashboard marks dev outputs with a badge. |

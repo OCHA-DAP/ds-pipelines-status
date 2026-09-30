@@ -1,8 +1,11 @@
 name: Update Pipeline Status
 
+# The fetch itself runs on Databricks (databricks.yml, on the hour every 6 h):
+# both Postgres servers are private-endpoint only. This job only copies the
+# result from the dev blob into the repo, which triggers the site deploy.
 on:
   schedule:
-    - cron: '15 */6 * * *'  # Every 6 hours
+    - cron: '15 */6 * * *'
   workflow_dispatch:
 
 permissions:
@@ -14,23 +17,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: astral-sh/setup-uv@v4
-        with:
-          version: "latest"
-
-      - name: Fetch pipeline status
+      - name: Download pipelines.json from blob
         env:
-          DATABRICKS_HOST: ${{ secrets.DSCI_DATABRICKS_HOST }}
-          DATABRICKS_TOKEN: ${{ secrets.DSCI_DATABRICKS_TOKEN }}
-          DSCI_AZ_DB_PROD_PW: ${{ secrets.DSCI_AZ_DB_PROD_PW }}
-          DSCI_AZ_DB_PROD_UID: ${{ secrets.DSCI_AZ_DB_PROD_UID }}
-          DSCI_AZ_DB_PROD_HOST: ${{ secrets.DSCI_AZ_DB_PROD_HOST }}
-          DSCI_AZ_BLOB_PROD_SAS: ${{ secrets.DSCI_AZ_BLOB_PROD_SAS }}
-          DSCI_AZ_DB_DEV_PW: ${{ secrets.DSCI_AZ_DB_DEV_PW }}
-          DSCI_AZ_DB_DEV_UID: ${{ secrets.DSCI_AZ_DB_DEV_UID }}
-          DSCI_AZ_DB_DEV_HOST: ${{ secrets.DSCI_AZ_DB_DEV_HOST }}
-          DSCI_AZ_BLOB_DEV_SAS: ${{ secrets.DSCI_AZ_BLOB_DEV_SAS }}
-        run: uv run scripts/fetch_pipelines.py
+          SAS: ${{ secrets.DSCI_AZ_BLOB_DEV_SAS }}
+        run: |
+          curl -fsS -o data/pipelines.json \
+            "https://imb0chd0dev.blob.core.windows.net/projects/ds-pipelines-status/pipelines.json?${SAS#\?}"
+          python3 -c "import json; d = json.load(open('data/pipelines.json')); print(d['generated_at'], len(d['pipelines']), 'jobs')"
 
       - name: Commit if changed
         run: |
