@@ -179,6 +179,109 @@ function setupModalListeners() {
   });
 }
 
+function formatDuration(sec) {
+  if (sec < 60) return `${sec}s`;
+  const min = Math.round(sec / 60);
+  return min < 60 ? `${min}m` : `${Math.floor(min / 60)}h ${String(min % 60).padStart(2, '0')}m`;
+}
+
+function formatClock(minuteOfDay) {
+  const m = ((minuteOfDay % 1440) + 1440) % 1440;
+  return `${String(Math.floor(m / 60)).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}`;
+}
+
+function renderRuntime(pipeline) {
+  const d = pipeline.duration;
+  const runs = pipeline.recent_runs || [];
+  if (!d) return '<span class="muted">-</span>';
+  const W = 84, H = 20, gap = 2;
+  const barW = Math.max(1, (W - gap * (runs.length - 1)) / runs.length);
+  const max = Math.max(...runs.map(r => r.duration_sec));
+  const bars = runs.map((r, i) => {
+    const h = Math.max(2, (r.duration_sec / max) * H);
+    const cls = i === runs.length - 1 ? 'spark-latest' : 'spark-bar';
+    const label = `${formatDateTime(r.start)}: ${formatDuration(r.duration_sec)}`;
+    return `<g><title>${label}</title><rect class="spark-hit" x="${i * (barW + gap)}" y="0" width="${barW + gap}" height="${H}"></rect>` +
+      `<rect class="${cls}" x="${i * (barW + gap)}" y="${H - h}" width="${barW}" height="${h}" rx="1"></rect></g>`;
+  }).join('');
+  return `
+    <div class="runtime">
+      <div class="runtime-typical">${formatDuration(d.median_sec)} <span class="muted">typical, ${formatDuration(d.p25_sec)}–${formatDuration(d.p75_sec)}</span></div>
+      <svg class="sparkline" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Last ${runs.length} successful runs, latest ${formatDuration(d.latest_sec)}">${bars}</svg>
+      <div class="runtime-latest">latest ${formatDuration(d.latest_sec)}</div>
+    </div>`;
+}
+
+function timelineSegments(startMin, lengthMin) {
+  const end = startMin + lengthMin;
+  return end <= 1440 ? [[startMin, lengthMin]] : [[startMin, 1440 - startMin], [0, end - 1440]];
+}
+
+function renderTimeline(pipelines) {
+  const container = document.getElementById('timeline');
+  const rows = pipelines
+    .filter(p => p.slots && p.slots.starts_min.length)
+    .sort((a, b) => Math.min(...a.slots.starts_min) - Math.min(...b.slots.starts_min));
+  if (!rows.length) {
+    container.innerHTML = '<p class="muted">No scheduled jobs match the filters.</p>';
+    return;
+  }
+  const pct = min => `${(min / 1440) * 100}%`;
+  const ticks = [0, 3, 6, 9, 12, 15, 18, 21, 24];
+  const now = new Date();
+  const nowMin = now.getUTCHours() * 60 + now.getUTCMinutes();
+
+  const rowHtml = rows.map(p => {
+    const d = p.duration;
+    const median = d ? d.median_sec / 60 : 0;
+    const tail = d ? Math.max(0, (d.p75_sec - d.median_sec) / 60) : 0;
+    const bars = p.slots.starts_min.map(start => {
+      const tip = [p.name, `starts ${formatClock(start)}`,
+        d ? `typical ${formatDuration(d.median_sec)} (${formatDuration(d.p25_sec)}–${formatDuration(d.p75_sec)})` : 'no successful runs yet',
+        p.slots.days, p.slots.paused ? 'paused' : ''].filter(Boolean).join('<br>');
+      const main = timelineSegments(start, Math.max(median, 4)).map(([s, w]) =>
+        `<span class="tl-bar${d ? '' : ' tl-unknown'}" style="left:${pct(s)};width:${pct(w)}"></span>`).join('');
+      const tailSegs = tail ? timelineSegments((start + median) % 1440, tail).map(([s, w]) =>
+        `<span class="tl-tail" style="left:${pct(s)};width:${pct(w)}"></span>`).join('') : '';
+      return `<span class="tl-slot" data-tip="${tip.replace(/"/g, '&quot;')}">${main}${tailSegs}</span>`;
+    }).join('');
+    const note = [p.slots.days, p.slots.paused ? 'paused' : ''].filter(Boolean).join(' · ');
+    return `
+      <div class="tl-row${p.slots.paused ? ' tl-paused' : ''}">
+        <div class="tl-label" title="${p.name}">${p.name}${note ? ` <span class="muted">${note}</span>` : ''}</div>
+        <div class="tl-track">${bars}</div>
+      </div>`;
+  }).join('');
+
+  container.innerHTML = `
+    <div class="tl-row tl-axis">
+      <div class="tl-label"></div>
+      <div class="tl-track">
+        ${ticks.map(h => `<span class="tl-tick" style="left:${pct(h * 60)}">${String(h).padStart(2, '0')}</span>`).join('')}
+      </div>
+    </div>
+    <div class="tl-body">
+      ${rowHtml}
+      <div class="tl-now-layer"><div class="tl-label"></div><div class="tl-track">
+        <span class="tl-now" style="left:${pct(nowMin)}"><span>now ${formatClock(nowMin)}</span></span>
+      </div></div>
+    </div>`;
+}
+
+function setupTimelineTooltip() {
+  const tooltip = document.getElementById('timeline-tooltip');
+  const container = document.getElementById('timeline');
+  container.addEventListener('mousemove', e => {
+    const slot = e.target.closest('.tl-slot');
+    if (!slot) { tooltip.hidden = true; return; }
+    tooltip.innerHTML = slot.dataset.tip;
+    tooltip.hidden = false;
+    tooltip.style.left = `${Math.min(e.clientX + 12, window.innerWidth - tooltip.offsetWidth - 8)}px`;
+    tooltip.style.top = `${e.clientY + 14}px`;
+  });
+  container.addEventListener('mouseleave', () => { tooltip.hidden = true; });
+}
+
 function renderTable(pipelines) {
   const tbody = document.getElementById('table-body');
   tbody.innerHTML = '';
@@ -208,6 +311,7 @@ function renderTable(pipelines) {
         </div>
       </td>
       <td class="schedule">${pipeline.schedule || '-'}</td>
+      <td>${renderRuntime(pipeline)}</td>
       <td>
         <span class="status ${lastRun?.status || 'unknown'}">
           <span class="status-dot"></span>
@@ -269,6 +373,7 @@ function applyFilters() {
   const f = readFilters();
   const shown = allPipelines.filter(p => matchesFilters(p, f));
   renderTable(shown);
+  renderTimeline(shown);
   const active = Object.values(f).some(Boolean);
   document.getElementById('filter-clear').hidden = !active;
   document.getElementById('filter-count').textContent =
@@ -295,6 +400,7 @@ async function init() {
     `Last updated: ${formatDateTime(data.generated_at)}`;
   allPipelines = data.pipelines;
   setupFilters();
+  setupTimelineTooltip();
   applyFilters();
   setupModalListeners();
 }

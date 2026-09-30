@@ -25,6 +25,8 @@ Environment variables (via .env file or environment):
 import argparse
 import json
 import os
+import statistics
+from itertools import islice
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -373,6 +375,79 @@ def map_status(run) -> str:
     return "failed"
 
 
+RECENT_RUNS = 20
+WEEKDAYS = {"1": "Sun", "2": "Mon", "3": "Tue", "4": "Wed", "5": "Thu", "6": "Fri", "7": "Sat",
+            "SUN": "Sun", "MON": "Mon", "TUE": "Tue", "WED": "Wed", "THU": "Thu", "FRI": "Fri", "SAT": "Sat"}
+
+
+def expand_cron_field(field: str, lo: int, hi: int) -> list[int]:
+    """Values a Quartz cron field (lists, ranges, steps, * or ?) selects within lo..hi."""
+    values = set()
+    for part in field.split(","):
+        base, _, step = part.partition("/")
+        if base in ("*", "?"):
+            start, end = lo, hi
+        elif "-" in base:
+            start, end = map(int, base.split("-"))
+        else:
+            start = int(base)
+            end = hi if step else start
+        values.update(range(start, end + 1, int(step) if step else 1))
+    return sorted(v for v in values if lo <= v <= hi)
+
+
+def get_schedule_slots(job: BaseJob) -> dict | None:
+    """Start times within a day (minutes after 00:00 UTC) plus which days, for the timeline."""
+    schedule = job.settings.schedule if job.settings else None
+    if not schedule or not schedule.quartz_cron_expression:
+        return None
+    try:
+        fields = schedule.quartz_cron_expression.split()
+        minutes, hours, dom, dow = expand_cron_field(fields[1], 0, 59), expand_cron_field(fields[2], 0, 23), fields[3], fields[5]
+    except (ValueError, IndexError):
+        return None
+    if dom not in ("*", "?"):
+        days = f"day {dom} monthly"
+    elif dow not in ("*", "?"):
+        days = ", ".join(WEEKDAYS.get(d.upper(), d) for d in dow.split(","))
+    else:
+        days = None
+    return {
+        "starts_min": [h * 60 + m for h in hours for m in minutes],
+        "days": days,
+        "paused": bool(schedule.pause_status and schedule.pause_status.value == "PAUSED"),
+    }
+
+
+def run_duration_sec(run) -> int | None:
+    """Wall-clock duration of a run, including cluster setup."""
+    if run.run_duration:
+        return round(run.run_duration / 1000)
+    if run.start_time and run.end_time:
+        return round((run.end_time - run.start_time) / 1000)
+    return None
+
+
+def summarize_durations(runs) -> tuple[list[dict], dict | None]:
+    """Recent successful runs (oldest first) and median / interquartile range of their durations."""
+    recent = [
+        {"start": epoch_to_iso(r.start_time), "duration_sec": d}
+        for r in runs
+        if map_status(r) == "success" and r.start_time and (d := run_duration_sec(r)) is not None
+    ][:RECENT_RUNS][::-1]
+    durations = [r["duration_sec"] for r in recent]
+    if not durations:
+        return recent, None
+    p25, _, p75 = statistics.quantiles(durations, n=4) if len(durations) >= 2 else (durations[0],) * 3
+    return recent, {
+        "latest_sec": durations[-1],
+        "median_sec": round(statistics.median(durations)),
+        "p25_sec": round(p25),
+        "p75_sec": round(p75),
+        "n": len(durations),
+    }
+
+
 def epoch_to_iso(epoch_ms: int) -> str:
     """Convert epoch milliseconds to ISO format."""
     return datetime.fromtimestamp(epoch_ms / 1000, tz=timezone.utc).isoformat().replace("+00:00", "Z")
@@ -401,14 +476,13 @@ def fetch_pipeline_data(client: WorkspaceClient) -> dict:
         schema_definitions = fetch_all_schemas(get_output_schemas(full_job), data_mode)
         blob_storage = fetch_all_blob_storage(get_blob_locations(full_job), data_mode)
 
-        # Get latest run
-        latest_run = None
+        # islice caps the read: the SDK iterator otherwise pages through the job's whole run history.
         try:
-            runs = list(client.jobs.list_runs(job_id=job.job_id, limit=1))
-            if runs:
-                latest_run = runs[0]
+            runs = list(islice(client.jobs.list_runs(job_id=job.job_id, limit=25), RECENT_RUNS + 5))
         except Exception:
-            pass
+            runs = []
+        latest_run = runs[0] if runs else None
+        recent_runs, duration_stats = summarize_durations(runs)
 
         # Build last run info
         last_run_data = None
@@ -436,6 +510,9 @@ def fetch_pipeline_data(client: WorkspaceClient) -> dict:
             "hazard": get_tag_list(full_job, "hazard"),
             "kb": full_job.settings.tags.get("kb") if full_job.settings and full_job.settings.tags else None,
             "data_mode": data_mode,
+            "slots": get_schedule_slots(full_job),
+            "recent_runs": recent_runs,
+            "duration": duration_stats,
             "output_schemas": schema_definitions,
             "blob_storage": blob_storage,
         })

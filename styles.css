@@ -350,3 +350,182 @@ tr:last-child td {
   color: #007CE0;
   margin-bottom: 8px;
 }
+
+.muted {
+  color: #888888;
+  font-weight: 400;
+}
+
+.runtime {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  white-space: nowrap;
+}
+
+.runtime-typical {
+  font-variant-numeric: tabular-nums;
+}
+
+.runtime-latest {
+  font-size: 12px;
+  color: #007CE0;
+}
+
+.sparkline .spark-bar {
+  fill: #949494;
+}
+
+.sparkline .spark-latest {
+  fill: #007CE0;
+}
+
+.sparkline .spark-hit {
+  fill: transparent;
+}
+
+.sparkline g:hover .spark-bar {
+  fill: #555555;
+}
+
+.timeline {
+  margin-bottom: 20px;
+}
+
+.timeline-header h2 {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.timeline-header .muted {
+  font-size: 13px;
+  margin-left: 6px;
+}
+
+.tl-row {
+  display: flex;
+  align-items: center;
+  height: 18px;
+}
+
+.tl-label {
+  flex: 0 0 240px;
+  padding-right: 10px;
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tl-track {
+  position: relative;
+  flex: 1;
+  height: 100%;
+  background-image: repeating-linear-gradient(to right, #EEEEEE 0 1px, transparent 1px 12.5%);
+}
+
+.tl-axis {
+  height: 16px;
+}
+
+.tl-axis .tl-track {
+  background-image: none;
+}
+
+.tl-tick {
+  position: absolute;
+  transform: translateX(-50%);
+  font-size: 11px;
+  color: #888888;
+  font-variant-numeric: tabular-nums;
+}
+
+.tl-body {
+  position: relative;
+}
+
+.tl-slot {
+  cursor: default;
+}
+
+.tl-bar,
+.tl-tail {
+  position: absolute;
+  top: 4px;
+  height: 10px;
+  min-width: 2px;
+  border-radius: 2px;
+}
+
+.tl-bar {
+  background: #007CE0;
+}
+
+.tl-tail {
+  background: rgba(0, 124, 224, 0.3);
+}
+
+.tl-unknown {
+  background: #949494;
+}
+
+.tl-paused .tl-bar {
+  background: #BBBBBB;
+}
+
+.tl-paused .tl-tail {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.tl-slot:hover .tl-bar {
+  background: #005BA6;
+}
+
+.tl-now-layer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  pointer-events: none;
+}
+
+.tl-now-layer .tl-track {
+  background-image: none;
+}
+
+.tl-now {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  border-left: 1px dashed #333333;
+}
+
+.tl-now span {
+  position: absolute;
+  top: -16px;
+  left: 4px;
+  font-size: 11px;
+  color: #333333;
+  white-space: nowrap;
+}
+
+.timeline-tooltip {
+  position: fixed;
+  z-index: 20;
+  max-width: 280px;
+  padding: 6px 8px;
+  font-size: 12px;
+  line-height: 1.4;
+  color: #333333;
+  background: white;
+  border: 1px solid #DDDDDD;
+  border-radius: 3px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  pointer-events: none;
+}
+
+@media (max-width: 700px) {
+  .tl-label {
+    flex-basis: 120px;
+  }
+}
