@@ -1,11 +1,11 @@
 name: Update Pipeline Status
 
-# The fetch itself runs on Databricks (databricks.yml, on the hour every 6 h):
+# The fetch itself runs on Databricks (databricks.yml, daily at 06:00 UTC):
 # both Postgres servers are private-endpoint only. This job only copies the
 # result from the dev blob into the repo, which triggers the site deploy.
 on:
   schedule:
-    - cron: '15 */6 * * *'
+    - cron: '15 6 * * *'
   workflow_dispatch:
 
 permissions:

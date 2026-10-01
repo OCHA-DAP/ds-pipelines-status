@@ -1,11 +1,11 @@
 # Databricks Asset Bundle — ds-pipelines-status
 #
-# One job, one task: scripts/fetch_pipelines.py --to-blob, every 6 h on the hour.
+# One job, one task: scripts/fetch_pipelines.py --to-blob, daily at 06:00 UTC.
 # It reads the Databricks Jobs API plus the dev AND prod Postgres DBs and blob
 # accounts (both are private-endpoint only since 2026-09-30, so this cannot run
 # on a GitHub runner any more) and writes data/pipelines.json to the dev blob at
 # projects/ds-pipelines-status/pipelines.json. The GitHub Action (update.yml,
-# :15 past every 6 h) downloads that file and commits it, which deploys the site.
+# 06:15 UTC daily) downloads that file and commits it, which deploys the site.
 #
 # Credentials are not in this file: the Job Compute policy injects DSCI_AZ_*
 # (dev + prod DB hosts/users/passwords and blob SAS tokens) from the `dsci`
@@ -68,10 +68,12 @@ resources:
           level: CAN_MANAGE
 
       schedule:
-        # On the hour every 6 h; update.yml downloads the result at :15. No
+        # 06:00 UTC daily, after the overnight jobs (mirrors, CERF, AA tracking,
+        # evening flood/storm runs) have finished; update.yml downloads the
+        # result at 06:15. No
         # explicit pause_status: the prod target runs it, the dev target
         # (development mode) auto-pauses it.
-        quartz_cron_expression: "0 0 0/6 * * ?"
+        quartz_cron_expression: "0 0 6 * * ?"
         timezone_id: UTC
 
       max_concurrent_runs: 1
