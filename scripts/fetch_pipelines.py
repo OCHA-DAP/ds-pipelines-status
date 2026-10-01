@@ -464,6 +464,8 @@ def fetch_pipeline_data(client: WorkspaceClient) -> dict:
             "tags": get_tag_list(full_job, "type"),
             "hazard": get_tag_list(full_job, "hazard"),
             "kb": full_job.settings.tags.get("kb") if full_job.settings and full_job.settings.tags else None,
+            "paused": bool(full_job.settings.schedule and full_job.settings.schedule.pause_status
+                           and full_job.settings.schedule.pause_status.value == "PAUSED"),
             "data_mode": data_mode,
             "duration": duration_stats,
             "output_schemas": schema_definitions,

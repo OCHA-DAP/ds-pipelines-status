@@ -181,6 +181,10 @@ tr:last-child td {
   color: #007CE0;
 }
 
+.status.paused {
+  color: #888888;
+}
+
 .tags {
   display: flex;
   flex-wrap: wrap;

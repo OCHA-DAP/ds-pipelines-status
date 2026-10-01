@@ -191,12 +191,16 @@ function renderRuntime(pipeline) {
   return `<span class="runtime">${formatDuration(d.median_sec)}</span> <span class="muted">${formatDuration(d.p25_sec)}–${formatDuration(d.p75_sec)}</span>`;
 }
 
-const STATUS_ORDER = { failed: 0, running: 1, unknown: 2, success: 3 };
+const STATUS_ORDER = { failed: 0, running: 1, paused: 2, unknown: 3, success: 4 };
+
+function jobStatus(pipeline) {
+  return pipeline.paused ? 'paused' : pipeline.last_run?.status || 'unknown';
+}
 
 // Each key's comparator puts the "first click" order first: longest runs, problems first.
 const SORT_KEYS = {
   runtime: p => (p.duration ? -p.duration.median_sec : null),
-  status: p => STATUS_ORDER[p.last_run?.status || 'unknown'],
+  status: p => STATUS_ORDER[jobStatus(p)],
 };
 
 let sortState = { key: null, reversed: false };
@@ -239,7 +243,6 @@ function renderTable(pipelines) {
   pipelines.forEach(pipeline => {
     const row = document.createElement('tr');
 
-    const lastRun = pipeline.last_run;
 
     const tasks = pipeline.tasks || [];
     const hasSchemas = pipeline.output_schemas?.length > 0 || pipeline.blob_storage?.length > 0;
@@ -263,9 +266,9 @@ function renderTable(pipelines) {
       <td class="schedule">${pipeline.schedule || '-'}</td>
       <td>${renderRuntime(pipeline)}</td>
       <td>
-        <span class="status ${lastRun?.status || 'unknown'}">
+        <span class="status ${jobStatus(pipeline)}">
           <span class="status-dot"></span>
-          ${lastRun?.status || 'Unknown'}
+          ${jobStatus(pipeline)}
         </span>
       </td>
       <td>
@@ -315,7 +318,7 @@ function matchesFilters(pipeline, f) {
   if (f.search && !pipeline.name.toLowerCase().includes(f.search)) return false;
   if (f.type && !pipeline.tags.includes(f.type)) return false;
   if (f.hazard && !(pipeline.hazard || []).includes(f.hazard)) return false;
-  if (f.status && (pipeline.last_run?.status || 'unknown') !== f.status) return false;
+  if (f.status && jobStatus(pipeline) !== f.status) return false;
   return true;
 }
 
@@ -332,7 +335,7 @@ function applyFilters() {
 function setupFilters() {
   fillSelect('filter-type', allPipelines.flatMap(p => p.tags));
   fillSelect('filter-hazard', allPipelines.flatMap(p => p.hazard || []));
-  fillSelect('filter-status', allPipelines.map(p => p.last_run?.status || 'unknown'));
+  fillSelect('filter-status', allPipelines.map(jobStatus));
   ['filter-search', 'filter-type', 'filter-hazard', 'filter-status'].forEach(id => {
     document.getElementById(id).addEventListener('input', applyFilters);
   });
