@@ -191,25 +191,44 @@ function renderRuntime(pipeline) {
   return `<span class="runtime">${formatDuration(d.median_sec)}</span> <span class="muted">${formatDuration(d.p25_sec)}–${formatDuration(d.p75_sec)}</span>`;
 }
 
-let runtimeSort = null;
+const STATUS_ORDER = { failed: 0, running: 1, unknown: 2, success: 3 };
 
-function sortByRuntime(pipelines) {
-  if (!runtimeSort) return pipelines;
-  const dir = runtimeSort === 'desc' ? -1 : 1;
+// Each key's comparator puts the "first click" order first: longest runs, problems first.
+const SORT_KEYS = {
+  runtime: p => (p.duration ? -p.duration.median_sec : null),
+  status: p => STATUS_ORDER[p.last_run?.status || 'unknown'],
+};
+
+let sortState = { key: null, reversed: false };
+
+function sortPipelines(pipelines) {
+  const value = SORT_KEYS[sortState.key];
+  if (!value) return pipelines;
+  const dir = sortState.reversed ? -1 : 1;
   return [...pipelines].sort((a, b) => {
-    if (!a.duration) return b.duration ? 1 : 0;
-    if (!b.duration) return -1;
-    return dir * (a.duration.median_sec - b.duration.median_sec);
+    const va = value(a), vb = value(b);
+    if (va === null) return vb === null ? 0 : 1;
+    if (vb === null) return -1;
+    return dir * (va - vb);
   });
 }
 
-function setupRuntimeSort() {
-  const header = document.getElementById('sort-runtime');
-  header.querySelector('button').addEventListener('click', () => {
-    runtimeSort = runtimeSort === 'desc' ? 'asc' : runtimeSort === 'asc' ? null : 'desc';
-    header.setAttribute('aria-sort', { desc: 'descending', asc: 'ascending' }[runtimeSort] || 'none');
-    header.querySelector('.sort-arrow').textContent = { desc: '↓', asc: '↑' }[runtimeSort] || '↕';
-    applyFilters();
+function setupSorting() {
+  const headers = document.querySelectorAll('th.sortable');
+  headers.forEach(header => {
+    header.querySelector('button').addEventListener('click', () => {
+      const key = header.dataset.sort;
+      if (sortState.key !== key) sortState = { key, reversed: false };
+      else if (!sortState.reversed) sortState.reversed = true;
+      else sortState = { key: null, reversed: false };
+      headers.forEach(h => {
+        const active = h.dataset.sort === sortState.key;
+        const arrow = !active ? '↕' : sortState.reversed ? '↑' : '↓';
+        h.querySelector('.sort-arrow').textContent = arrow;
+        h.setAttribute('aria-sort', !active ? 'none' : sortState.reversed ? 'ascending' : 'descending');
+      });
+      applyFilters();
+    });
   });
 }
 
@@ -303,7 +322,7 @@ function matchesFilters(pipeline, f) {
 function applyFilters() {
   const f = readFilters();
   const shown = allPipelines.filter(p => matchesFilters(p, f));
-  renderTable(sortByRuntime(shown));
+  renderTable(sortPipelines(shown));
   const active = Object.values(f).some(Boolean);
   document.getElementById('filter-clear').hidden = !active;
   document.getElementById('filter-count').textContent =
@@ -330,7 +349,7 @@ async function init() {
     `Last updated: ${formatDateTime(data.generated_at)}`;
   allPipelines = data.pipelines;
   setupFilters();
-  setupRuntimeSort();
+  setupSorting();
   applyFilters();
   setupModalListeners();
 }
