@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-09-30T22:30:36.854797Z",
+  "generated_at": "2026-10-01T06:07:49.719010Z",
   "pipelines": [
     {
-      "name": "[dev adm_hker1] Pipeline Status Refresh",
+      "name": "Pipeline Status Refresh",
       "description": "Read every tagged Databricks job plus its output tables and blobs on both data planes and publish pipelines.json for the [status dashboard](https://ocha-dap.github.io/ds-pipelines-status/)",
       "tasks": [
         {
@@ -10,27 +10,34 @@
           "git_url": "https://github.com/OCHA-DAP/ds-pipelines-status.git"
         }
       ],
-      "schedule": "Every 6 hours UTC",
+      "schedule": "At 06:00 UTC",
       "last_run": {
-        "start": "2026-09-30T22:22:58.942000Z",
+        "start": "2026-10-01T06:00:06.048000Z",
         "end": null,
         "duration_min": null,
         "status": "running"
       },
-      "next_run": "2026-10-01T00:00:00Z",
       "tags": [
         "monitoring"
       ],
       "hazard": [],
       "kb": "pipelines-status",
-      "job_status": null,
+      "paused": false,
       "data_mode": "prod",
+      "duration": {
+        "median_sec": 786,
+        "p25_sec": 381,
+        "p75_sec": 1192,
+        "n": 2
+      },
       "output_schemas": [],
       "blob_storage": [
         {
           "container": "projects",
           "prefix": "ds-pipelines-status",
-          "stage": "prod"
+          "stage": "dev",
+          "blob_size_mb": 0.14,
+          "blob_count": 2
         }
       ]
     },
@@ -50,12 +57,12 @@
         "duration_min": 9,
         "status": "failed"
       },
-      "next_run": "2026-09-30T23:00:00Z",
       "tags": [],
       "hazard": [],
       "kb": null,
-      "job_status": null,
+      "paused": true,
       "data_mode": "prod",
+      "duration": null,
       "output_schemas": [],
       "blob_storage": []
     },
@@ -70,7 +77,6 @@
       ],
       "schedule": "At 16:00 UTC",
       "last_run": null,
-      "next_run": "2026-10-01T16:00:00Z",
       "tags": [
         "monitoring"
       ],
@@ -78,8 +84,9 @@
         "tropical-cyclone"
       ],
       "kb": "mdg-monitoring",
-      "job_status": null,
+      "paused": true,
       "data_mode": "prod",
+      "duration": null,
       "output_schemas": [],
       "blob_storage": []
     },
@@ -94,12 +101,11 @@
       ],
       "schedule": "At 00:15 UTC",
       "last_run": {
-        "start": "2026-09-30T00:15:02.350000Z",
-        "end": "2026-09-30T00:24:41.141000Z",
-        "duration_min": 9,
+        "start": "2026-10-01T00:15:02.909000Z",
+        "end": "2026-10-01T00:26:17.056000Z",
+        "duration_min": 11,
         "status": "success"
       },
-      "next_run": "2026-10-01T00:15:00Z",
       "tags": [
         "publish"
       ],
@@ -107,16 +113,22 @@
         "flood"
       ],
       "kb": "hdx-floodscan",
-      "job_status": null,
+      "paused": false,
       "data_mode": "prod",
+      "duration": {
+        "median_sec": 626,
+        "p25_sec": 460,
+        "p75_sec": 678,
+        "n": 4
+      },
       "output_schemas": [],
       "blob_storage": [
         {
           "container": "projects",
           "prefix": "hdx-floodscan/intermediate",
           "stage": "dev",
-          "blob_size_mb": 23.53,
-          "blob_count": 41
+          "blob_size_mb": 28.22,
+          "blob_count": 49
         }
       ]
     },
@@ -136,14 +148,19 @@
         "duration_min": 9,
         "status": "success"
       },
-      "next_run": "2026-10-03T04:23:00Z",
       "tags": [
         "dataset-ingest"
       ],
       "hazard": [],
       "kb": "population-mirror",
-      "job_status": null,
+      "paused": false,
       "data_mode": "dev",
+      "duration": {
+        "median_sec": 597,
+        "p25_sec": 597,
+        "p75_sec": 597,
+        "n": 1
+      },
       "output_schemas": [
         {
           "table": "pop.population_admin",
@@ -261,19 +278,24 @@
       ],
       "schedule": "At 03:37 UTC",
       "last_run": {
-        "start": "2026-09-30T03:37:01.958000Z",
-        "end": "2026-09-30T03:54:40.613000Z",
-        "duration_min": 17,
+        "start": "2026-10-01T03:37:01.755000Z",
+        "end": "2026-10-01T03:56:52.843000Z",
+        "duration_min": 19,
         "status": "success"
       },
-      "next_run": "2026-10-01T03:37:00Z",
       "tags": [
         "dataset-ingest"
       ],
       "hazard": [],
       "kb": "ipc-mirror",
-      "job_status": null,
+      "paused": false,
       "data_mode": "dev",
+      "duration": {
+        "median_sec": 1125,
+        "p25_sec": 1056,
+        "p75_sec": 1202,
+        "n": 4
+      },
       "output_schemas": [
         {
           "table": "ipc.population",
@@ -353,7 +375,7 @@
             }
           ],
           "row_count": 497500,
-          "size_mb": 178.41,
+          "size_mb": 178.42,
           "timestamp_ranges": {
             "analysis_date": {
               "min": "2017-01-01",
@@ -368,8 +390,8 @@
               "max": "2027-03-31"
             },
             "refreshed_at": {
-              "min": "2026-09-30T03:47:27.208933Z",
-              "max": "2026-09-30T03:47:27.208933Z"
+              "min": "2026-10-01T03:48:14.796266Z",
+              "max": "2026-10-01T03:48:14.796266Z"
             }
           },
           "stage": "dev"
@@ -468,8 +490,8 @@
               "max": "2027-03-31"
             },
             "refreshed_at": {
-              "min": "2026-09-30T03:51:11.272501Z",
-              "max": "2026-09-30T03:51:11.272501Z"
+              "min": "2026-10-01T03:52:40.119433Z",
+              "max": "2026-10-01T03:52:40.119433Z"
             }
           },
           "stage": "dev"
@@ -536,8 +558,8 @@
               "max": "2026-09-17"
             },
             "refreshed_at": {
-              "min": "2026-09-30T03:53:27.577025Z",
-              "max": "2026-09-30T03:53:27.577025Z"
+              "min": "2026-10-01T03:55:25.986369Z",
+              "max": "2026-10-01T03:55:25.986369Z"
             }
           },
           "stage": "dev"
@@ -564,19 +586,24 @@
       ],
       "schedule": "At 04:52 UTC",
       "last_run": {
-        "start": "2026-09-30T04:52:01.875000Z",
-        "end": "2026-09-30T05:27:58.710000Z",
-        "duration_min": 35,
+        "start": "2026-10-01T04:52:01.473000Z",
+        "end": "2026-10-01T05:25:59.064000Z",
+        "duration_min": 33,
         "status": "success"
       },
-      "next_run": "2026-10-01T04:52:00Z",
       "tags": [
         "dataset-ingest"
       ],
       "hazard": [],
       "kb": "fewsnet-mirror",
-      "job_status": null,
+      "paused": false,
       "data_mode": "dev",
+      "duration": {
+        "median_sec": 2098,
+        "p25_sec": 1877,
+        "p75_sec": 2162,
+        "n": 4
+      },
       "output_schemas": [
         {
           "table": "fewsnet.classification",
@@ -740,7 +767,7 @@
               "nullable": true
             }
           ],
-          "row_count": 1314415,
+          "row_count": 1307095,
           "size_gb": 1.05,
           "timestamp_ranges": {
             "projection_start": {
@@ -753,19 +780,19 @@
             },
             "reporting_date": {
               "min": "2011-01-01",
-              "max": "2026-08-01"
+              "max": "2026-09-01"
             },
             "created": {
               "min": "2020-10-30T16:46:34Z",
-              "max": "2026-09-14T15:40:45Z"
+              "max": "2026-09-30T15:16:40Z"
             },
             "modified": {
               "min": "2020-10-30T16:46:34Z",
-              "max": "2026-09-14T15:40:45Z"
+              "max": "2026-09-30T15:16:56Z"
             },
             "refreshed_at": {
-              "min": "2026-09-30T05:04:23.235654Z",
-              "max": "2026-09-30T05:04:23.235654Z"
+              "min": "2026-10-01T05:02:53.068981Z",
+              "max": "2026-10-01T05:02:53.068981Z"
             }
           },
           "stage": "dev"
@@ -895,19 +922,24 @@
       ],
       "schedule": "At 04:17 UTC",
       "last_run": {
-        "start": "2026-09-30T04:17:02.262000Z",
-        "end": "2026-09-30T04:50:31.735000Z",
-        "duration_min": 33,
+        "start": "2026-10-01T04:17:02.408000Z",
+        "end": "2026-10-01T04:45:06.978000Z",
+        "duration_min": 28,
         "status": "success"
       },
-      "next_run": "2026-10-01T04:17:00Z",
       "tags": [
         "dataset-ingest"
       ],
       "hazard": [],
       "kb": "hnrp-mirror",
-      "job_status": null,
+      "paused": false,
       "data_mode": "dev",
+      "duration": {
+        "median_sec": 1978,
+        "p25_sec": 1754,
+        "p75_sec": 2006,
+        "n": 4
+      },
       "output_schemas": [
         {
           "table": "hpc.plans",
@@ -1055,7 +1087,7 @@
             },
             "refreshed_at": {
               "min": "2026-09-20T02:51:57.100731Z",
-              "max": "2026-09-30T04:30:11.254991Z"
+              "max": "2026-10-01T04:27:32.895343Z"
             }
           },
           "stage": "dev"
@@ -1133,7 +1165,7 @@
           "timestamp_ranges": {
             "refreshed_at": {
               "min": "2026-09-20T02:57:33.818161Z",
-              "max": "2026-09-30T04:30:11.362983Z"
+              "max": "2026-10-01T04:27:33.006493Z"
             }
           },
           "stage": "dev"
@@ -1234,7 +1266,7 @@
               "nullable": true
             }
           ],
-          "row_count": 1247069,
+          "row_count": 1258140,
           "size_mb": 528.16,
           "timestamp_ranges": {
             "reference_period_start": {
@@ -1246,8 +1278,8 @@
               "max": "2026-12-31"
             },
             "refreshed_at": {
-              "min": "2026-09-30T04:38:04.968079Z",
-              "max": "2026-09-30T04:38:04.968079Z"
+              "min": "2026-10-01T04:34:42.818631Z",
+              "max": "2026-10-01T04:34:42.818631Z"
             }
           },
           "stage": "dev"
@@ -1323,8 +1355,8 @@
           "size_mb": 1.9,
           "timestamp_ranges": {
             "refreshed_at": {
-              "min": "2026-09-30T04:31:56.679551Z",
-              "max": "2026-09-30T04:31:56.679551Z"
+              "min": "2026-10-01T04:29:16.509015Z",
+              "max": "2026-10-01T04:29:16.509015Z"
             }
           },
           "stage": "dev"
@@ -1418,8 +1450,8 @@
           "size_mb": 2.93,
           "timestamp_ranges": {
             "refreshed_at": {
-              "min": "2026-09-30T04:31:59.500242Z",
-              "max": "2026-09-30T04:31:59.500242Z"
+              "min": "2026-10-01T04:29:19.420415Z",
+              "max": "2026-10-01T04:29:19.420415Z"
             }
           },
           "stage": "dev"
@@ -1532,16 +1564,16 @@
               "nullable": true
             }
           ],
-          "row_count": 1565232,
-          "size_mb": 449.74,
+          "row_count": 1747074,
+          "size_mb": 459.16,
           "timestamp_ranges": {
             "snapshot_date": {
               "min": "2026-08-10",
-              "max": "2026-09-30"
+              "max": "2026-10-01"
             },
             "refreshed_at": {
               "min": "2026-08-10T20:02:07.363522Z",
-              "max": "2026-09-30T04:31:03.500744Z"
+              "max": "2026-10-01T04:28:30.838409Z"
             }
           },
           "stage": "dev"
@@ -1622,16 +1654,16 @@
               "nullable": true
             }
           ],
-          "row_count": 14492,
-          "size_mb": 3.55,
+          "row_count": 14899,
+          "size_mb": 3.64,
           "timestamp_ranges": {
             "snapshot_date": {
               "min": "2026-08-11",
-              "max": "2026-09-30"
+              "max": "2026-10-01"
             },
             "refreshed_at": {
               "min": "2026-08-11T19:16:10.236870Z",
-              "max": "2026-09-30T04:31:22.990307Z"
+              "max": "2026-10-01T04:28:48.809314Z"
             }
           },
           "stage": "dev"
@@ -1673,15 +1705,15 @@
             }
           ],
           "row_count": 1680,
-          "size_mb": 0.22,
+          "size_mb": 0.23,
           "timestamp_ranges": {
             "snapshot_date": {
               "min": "2026-08-10",
-              "max": "2026-09-30"
+              "max": "2026-10-01"
             },
             "refreshed_at": {
               "min": "2026-08-10T20:02:23.486976Z",
-              "max": "2026-09-30T04:31:23.407253Z"
+              "max": "2026-10-01T04:28:49.308002Z"
             }
           },
           "stage": "dev"
@@ -1700,14 +1732,14 @@
       ],
       "schedule": "At 02:47, only on Sunday UTC",
       "last_run": null,
-      "next_run": "2026-10-04T02:47:00Z",
       "tags": [
         "dataset-ingest"
       ],
       "hazard": [],
       "kb": "hnrp-mirror",
-      "job_status": null,
+      "paused": false,
       "data_mode": "dev",
+      "duration": null,
       "output_schemas": [
         {
           "table": "hpc.plans",
@@ -1855,7 +1887,7 @@
             },
             "refreshed_at": {
               "min": "2026-09-20T02:51:57.100731Z",
-              "max": "2026-09-30T04:30:11.254991Z"
+              "max": "2026-10-01T04:27:32.895343Z"
             }
           },
           "stage": "dev"
@@ -1933,7 +1965,7 @@
           "timestamp_ranges": {
             "refreshed_at": {
               "min": "2026-09-20T02:57:33.818161Z",
-              "max": "2026-09-30T04:30:11.362983Z"
+              "max": "2026-10-01T04:27:33.006493Z"
             }
           },
           "stage": "dev"
@@ -1964,19 +1996,24 @@
       ],
       "schedule": "At 05:30 UTC",
       "last_run": {
-        "start": "2026-09-30T05:30:03.398000Z",
-        "end": "2026-09-30T05:49:00.004000Z",
-        "duration_min": 18,
+        "start": "2026-10-01T05:30:03.185000Z",
+        "end": "2026-10-01T05:49:16.335000Z",
+        "duration_min": 19,
         "status": "success"
       },
-      "next_run": "2026-10-01T05:30:00Z",
       "tags": [
         "annotation"
       ],
       "hazard": [],
       "kb": "cerf-supplement",
-      "job_status": null,
+      "paused": false,
       "data_mode": "dev",
+      "duration": {
+        "median_sec": 1080,
+        "p25_sec": 921,
+        "p75_sec": 1149,
+        "n": 8
+      },
       "output_schemas": [
         {
           "table": "aa.cerf_allocation",
@@ -2112,16 +2149,16 @@
               "nullable": true
             }
           ],
-          "row_count": 1632,
+          "row_count": 1634,
           "size_mb": 4.79,
           "timestamp_ranges": {
             "erc_endorsement_date": {
               "min": "2006-03-15",
-              "max": "2026-09-21"
+              "max": "2026-09-22"
             },
             "first_project_approved_date": {
               "min": "2006-03-15",
-              "max": "2026-09-25"
+              "max": "2026-09-29"
             },
             "last_project_approved_date": {
               "min": "2006-03-22",
@@ -2390,7 +2427,7 @@
               "nullable": true
             }
           ],
-          "row_count": 8663,
+          "row_count": 8665,
           "size_mb": 11.55,
           "timestamp_ranges": {
             "start_date": {
@@ -2510,12 +2547,12 @@
               "nullable": false
             }
           ],
-          "row_count": 753,
-          "size_mb": 1.53,
+          "row_count": 756,
+          "size_mb": 1.54,
           "timestamp_ranges": {
             "planned_start_date": {
               "min": "2017-12-01",
-              "max": "2026-09-29"
+              "max": "2026-09-30"
             },
             "planned_end_date": {
               "min": "2017-12-31",
@@ -2523,7 +2560,7 @@
             },
             "updated_at": {
               "min": "2026-08-25T15:40:53.881074Z",
-              "max": "2026-09-30T05:38:48.235699Z"
+              "max": "2026-10-01T05:39:24.730877Z"
             }
           },
           "stage": "dev"
@@ -2654,19 +2691,19 @@
           "timestamp_ranges": {
             "activity_date": {
               "min": "2005-12-28",
-              "max": "2026-09-21"
+              "max": "2026-09-29"
             },
             "latest_date": {
               "min": "2015-07-03",
-              "max": "2026-09-25"
+              "max": "2026-09-30"
             },
             "last_received_date": {
               "min": "2005-12-28",
-              "max": "2026-09-04"
+              "max": "2026-09-29"
             },
             "updated_at": {
-              "min": "2026-09-30T05:43:37.946871Z",
-              "max": "2026-09-30T05:43:37.946871Z"
+              "min": "2026-10-01T05:44:58.784294Z",
+              "max": "2026-10-01T05:44:58.784294Z"
             }
           },
           "stage": "dev"
@@ -2733,12 +2770,12 @@
               "nullable": false
             }
           ],
-          "row_count": 3104,
-          "size_mb": 0.86,
+          "row_count": 3105,
+          "size_mb": 0.59,
           "timestamp_ranges": {
             "updated_at": {
-              "min": "2026-09-30T05:43:37.946871Z",
-              "max": "2026-09-30T05:43:37.946871Z"
+              "min": "2026-10-01T05:44:58.784294Z",
+              "max": "2026-10-01T05:44:58.784294Z"
             }
           },
           "stage": "dev"
@@ -2763,7 +2800,7 @@
             }
           ],
           "row_count": 99,
-          "size_mb": 0.06,
+          "size_mb": 0.07,
           "timestamp_ranges": {
             "updated_at": {
               "min": "2026-06-26T19:32:49.908493Z",
@@ -2831,12 +2868,12 @@
               "nullable": true
             }
           ],
-          "row_count": 270,
+          "row_count": 271,
           "size_mb": 0.21,
           "timestamp_ranges": {
             "updated_at": {
               "min": "2026-06-26T19:32:49.908493Z",
-              "max": "2026-09-30T05:48:14.506748Z"
+              "max": "2026-10-01T05:48:37.070432Z"
             }
           },
           "stage": "dev"
@@ -2900,7 +2937,6 @@
         "duration_min": 16,
         "status": "success"
       },
-      "next_run": "2026-10-06T13:15:00Z",
       "tags": [
         "dataset-ingest"
       ],
@@ -2908,8 +2944,14 @@
         "drought"
       ],
       "kb": null,
-      "job_status": null,
+      "paused": false,
       "data_mode": "prod",
+      "duration": {
+        "median_sec": 1004,
+        "p25_sec": 1004,
+        "p75_sec": 1004,
+        "n": 1
+      },
       "output_schemas": [],
       "blob_storage": [
         {
@@ -2956,7 +2998,6 @@
         "duration_min": 27,
         "status": "success"
       },
-      "next_run": "2026-10-01T20:00:00Z",
       "tags": [
         "monitoring"
       ],
@@ -2964,8 +3005,14 @@
         "flood"
       ],
       "kb": "nga-flooding-monitoring",
-      "job_status": null,
+      "paused": false,
       "data_mode": "dev",
+      "duration": {
+        "median_sec": 1257,
+        "p25_sec": 1067,
+        "p75_sec": 1369,
+        "n": 7
+      },
       "output_schemas": [
         {
           "table": "projects.ds_aa_nga_flooding_monitoring",
@@ -3029,8 +3076,8 @@
           "container": "projects",
           "prefix": "ds-aa-nga-flooding/monitoring",
           "stage": "dev",
-          "blob_size_mb": 59.32,
-          "blob_count": 263
+          "blob_size_mb": 59.47,
+          "blob_count": 264
         }
       ]
     },
@@ -3049,12 +3096,11 @@
       ],
       "schedule": "At 01:30 UTC",
       "last_run": {
-        "start": "2026-09-30T01:30:03.062000Z",
-        "end": "2026-09-30T01:40:56.500000Z",
-        "duration_min": 10,
+        "start": "2026-10-01T01:30:02.699000Z",
+        "end": "2026-10-01T01:39:21.200000Z",
+        "duration_min": 9,
         "status": "success"
       },
-      "next_run": "2026-10-01T01:30:00Z",
       "tags": [
         "monitoring"
       ],
@@ -3062,16 +3108,22 @@
         "flood"
       ],
       "kb": "nga-flooding-monitoring",
-      "job_status": null,
+      "paused": false,
       "data_mode": "dev",
+      "duration": {
+        "median_sec": 559,
+        "p25_sec": 529,
+        "p75_sec": 616,
+        "n": 7
+      },
       "output_schemas": [],
       "blob_storage": [
         {
           "container": "projects",
           "prefix": "ds-aa-nga-flooding/monitoring",
           "stage": "dev",
-          "blob_size_mb": 59.32,
-          "blob_count": 263
+          "blob_size_mb": 59.47,
+          "blob_count": 264
         }
       ]
     },
@@ -3094,12 +3146,11 @@
       ],
       "schedule": "At 23:15 UTC",
       "last_run": {
-        "start": "2026-09-29T23:15:01.746000Z",
-        "end": "2026-09-29T23:41:58.435000Z",
-        "duration_min": 26,
+        "start": "2026-09-30T23:15:02.475000Z",
+        "end": "2026-09-30T23:44:28.884000Z",
+        "duration_min": 29,
         "status": "success"
       },
-      "next_run": "2026-09-30T23:15:00Z",
       "tags": [
         "exposure"
       ],
@@ -3107,8 +3158,14 @@
         "flood"
       ],
       "kb": "floodexposure-monitoring",
-      "job_status": null,
+      "paused": false,
       "data_mode": "prod",
+      "duration": {
+        "median_sec": 1673,
+        "p25_sec": 1467,
+        "p75_sec": 1766,
+        "n": 7
+      },
       "output_schemas": [
         {
           "table": "app.floodscan_exposure",
@@ -3142,11 +3199,11 @@
             }
           ],
           "row_count": 22902510,
-          "size_gb": 2.23,
+          "size_gb": 2.24,
           "timestamp_ranges": {
             "valid_date": {
               "min": "1998-01-12",
-              "max": "2026-09-28"
+              "max": "2026-09-29"
             }
           },
           "stage": "prod"
@@ -3182,12 +3239,12 @@
               "precision": 24
             }
           ],
-          "row_count": 31455,
+          "row_count": 31458,
           "size_mb": 6.53,
           "timestamp_ranges": {
             "valid_date": {
               "min": "1998-01-12",
-              "max": "2026-09-28"
+              "max": "2026-09-29"
             }
           },
           "stage": "prod"
@@ -3227,8 +3284,8 @@
           "size_mb": 0.19,
           "timestamp_ranges": {
             "valid_date": {
-              "min": "2026-09-28T00:00:00",
-              "max": "2026-09-28T00:00:00"
+              "min": "2026-09-29T00:00:00",
+              "max": "2026-09-29T00:00:00"
             }
           },
           "stage": "prod"
@@ -3267,8 +3324,8 @@
           "size_mb": 0.02,
           "timestamp_ranges": {
             "valid_date": {
-              "min": "2026-09-28T00:00:00",
-              "max": "2026-09-28T00:00:00"
+              "min": "2026-09-29T00:00:00",
+              "max": "2026-09-29T00:00:00"
             }
           },
           "stage": "prod"
@@ -3280,7 +3337,7 @@
           "prefix": "ds-floodexposure-monitoring/processed/flood_exposure",
           "stage": "prod",
           "blob_size_gb": 16.34,
-          "blob_count": 146809
+          "blob_count": 146823
         }
       ]
     },
@@ -3308,7 +3365,6 @@
         "duration_min": 26,
         "status": "success"
       },
-      "next_run": "2026-10-01T20:00:00Z",
       "tags": [
         "monitoring"
       ],
@@ -3316,8 +3372,14 @@
         "flood"
       ],
       "kb": "tcd-flooding-monitoring",
-      "job_status": null,
+      "paused": false,
       "data_mode": "dev",
+      "duration": {
+        "median_sec": 1031,
+        "p25_sec": 889,
+        "p75_sec": 1365,
+        "n": 7
+      },
       "output_schemas": [
         {
           "table": "projects.pa_aa_tcd_flooding_monitoring",
@@ -3393,27 +3455,32 @@
       ],
       "schedule": "At 03:30 UTC",
       "last_run": {
-        "start": "2026-09-30T13:07:14.064000Z",
-        "end": "2026-09-30T13:16:34.062000Z",
-        "duration_min": 9,
+        "start": "2026-10-01T03:30:02.257000Z",
+        "end": "2026-10-01T03:41:16.178000Z",
+        "duration_min": 11,
         "status": "success"
       },
-      "next_run": "2026-10-01T03:30:00Z",
       "tags": [
         "schema-owner"
       ],
       "hazard": [],
       "kb": "aa-tracking",
-      "job_status": null,
+      "paused": false,
       "data_mode": "prod",
+      "duration": {
+        "median_sec": 570,
+        "p25_sec": 485,
+        "p75_sec": 655,
+        "n": 10
+      },
       "output_schemas": [],
       "blob_storage": [
         {
           "container": "projects",
           "prefix": "ds-aa-tracking/snapshot",
           "stage": "dev",
-          "blob_size_mb": 61.09,
-          "blob_count": 447
+          "blob_size_mb": 69.34,
+          "blob_count": 505
         }
       ]
     },
@@ -3433,7 +3500,6 @@
         "duration_min": 112,
         "status": "success"
       },
-      "next_run": "2026-10-01T16:00:00Z",
       "tags": [
         "dataset-ingest"
       ],
@@ -3441,8 +3507,14 @@
         "tropical-cyclone"
       ],
       "kb": "storms-pipeline",
-      "job_status": null,
+      "paused": false,
       "data_mode": "prod",
+      "duration": {
+        "median_sec": 5168,
+        "p25_sec": 4605,
+        "p75_sec": 6448,
+        "n": 14
+      },
       "output_schemas": [
         {
           "table": "storms.ibtracs_storms",
@@ -3661,7 +3733,6 @@
         "duration_min": 8,
         "status": "success"
       },
-      "next_run": "2026-10-01T22:00:00Z",
       "tags": [
         "dataset-ingest"
       ],
@@ -3669,8 +3740,14 @@
         "tropical-cyclone"
       ],
       "kb": "storms-pipeline",
-      "job_status": null,
+      "paused": false,
       "data_mode": "prod",
+      "duration": {
+        "median_sec": 572,
+        "p25_sec": 525,
+        "p75_sec": 620,
+        "n": 15
+      },
       "output_schemas": [
         {
           "table": "storms.ecmwf_storms",
@@ -3806,12 +3883,11 @@
       ],
       "schedule": "At 04:15, 10:15, 16:15 and 22:15 UTC",
       "last_run": {
-        "start": "2026-09-30T22:15:01.490000Z",
-        "end": "2026-09-30T22:24:04.591000Z",
-        "duration_min": 9,
+        "start": "2026-10-01T04:15:02.405000Z",
+        "end": "2026-10-01T04:25:35.105000Z",
+        "duration_min": 10,
         "status": "success"
       },
-      "next_run": "2026-10-01T04:15:00Z",
       "tags": [
         "monitoring"
       ],
@@ -3819,8 +3895,14 @@
         "tropical-cyclone"
       ],
       "kb": "hti-hurricanes-monitoring",
-      "job_status": null,
+      "paused": false,
       "data_mode": "prod",
+      "duration": {
+        "median_sec": 392,
+        "p25_sec": 266,
+        "p75_sec": 499,
+        "n": 20
+      },
       "output_schemas": [],
       "blob_storage": [
         {
@@ -3867,12 +3949,11 @@
       ],
       "schedule": "At 03:30, 09:30, 15:30 and 21:30 UTC",
       "last_run": {
-        "start": "2026-09-30T21:30:02.660000Z",
-        "end": "2026-09-30T21:48:29.725000Z",
-        "duration_min": 18,
+        "start": "2026-10-01T03:30:03.373000Z",
+        "end": "2026-10-01T03:51:31.865000Z",
+        "duration_min": 21,
         "status": "success"
       },
-      "next_run": "2026-10-01T03:30:00Z",
       "tags": [
         "dataset-ingest"
       ],
@@ -3880,8 +3961,14 @@
         "tropical-cyclone"
       ],
       "kb": "storms-pipeline",
-      "job_status": null,
+      "paused": false,
       "data_mode": "prod",
+      "duration": {
+        "median_sec": 952,
+        "p25_sec": 812,
+        "p75_sec": 1058,
+        "n": 20
+      },
       "output_schemas": [
         {
           "table": "storms.nhc_storms",
@@ -4070,11 +4157,11 @@
           "timestamp_ranges": {
             "issued_time": {
               "min": "1990-05-13T00:00:00",
-              "max": "2026-09-30T21:00:00"
+              "max": "2026-10-01T03:00:00"
             },
             "valid_time": {
               "min": "1990-05-13T12:00:00",
-              "max": "2026-10-05T18:00:00"
+              "max": "2026-10-06T00:00:00"
             }
           },
           "stage": "prod"
@@ -4135,7 +4222,7 @@
           "timestamp_ranges": {
             "issued_time": {
               "min": "2001-06-05T18:00:00",
-              "max": "2026-09-30T21:00:00"
+              "max": "2026-10-01T03:00:00"
             }
           },
           "stage": "prod"
@@ -4196,7 +4283,7 @@
           "timestamp_ranges": {
             "valid_time": {
               "min": "2003-05-21T06:00:00",
-              "max": "2026-09-30T21:00:00"
+              "max": "2026-10-01T03:00:00"
             }
           },
           "stage": "prod"
@@ -4264,7 +4351,7 @@
           "timestamp_ranges": {
             "issued_time": {
               "min": "2017-05-09T18:00:00",
-              "max": "2026-09-30T18:00:00"
+              "max": "2026-10-01T00:00:00"
             }
           },
           "stage": "prod"
@@ -4291,12 +4378,11 @@
       ],
       "schedule": "At 03:00, 09:00, 15:00 and 21:00 UTC",
       "last_run": {
-        "start": "2026-09-30T21:00:05.708000Z",
-        "end": "2026-09-30T21:12:29.776000Z",
+        "start": "2026-10-01T03:00:05.977000Z",
+        "end": "2026-10-01T03:12:36.554000Z",
         "duration_min": 12,
         "status": "success"
       },
-      "next_run": "2026-10-01T03:00:00Z",
       "tags": [
         "dataset-ingest"
       ],
@@ -4304,8 +4390,14 @@
         "tropical-cyclone"
       ],
       "kb": "storms-pipeline",
-      "job_status": null,
+      "paused": false,
       "data_mode": "prod",
+      "duration": {
+        "median_sec": 714,
+        "p25_sec": 632,
+        "p75_sec": 758,
+        "n": 20
+      },
       "output_schemas": [
         {
           "table": "storms.gdacs_exposure",
@@ -4464,7 +4556,7 @@
           "timestamp_ranges": {
             "valid_time": {
               "min": "2023-08-21T09:00:00",
-              "max": "2026-09-30T21:00:00"
+              "max": "2026-10-01T03:00:00"
             }
           },
           "stage": "prod"
@@ -4505,12 +4597,12 @@
               "comment": "Auto-set on insert; bump on update via the matching pipeline if you want to track linkage churn."
             }
           ],
-          "row_count": 354,
+          "row_count": 355,
           "size_mb": 0.14,
           "timestamp_ranges": {
             "last_updated": {
               "min": "2026-05-12T17:17:51.904216",
-              "max": "2026-09-30T21:12:01.122437"
+              "max": "2026-10-01T03:11:59.175209"
             }
           },
           "stage": "prod"
@@ -4529,12 +4621,11 @@
       ],
       "schedule": null,
       "last_run": {
-        "start": "2026-09-30T21:40:45.381000Z",
-        "end": "2026-09-30T21:50:43.291000Z",
-        "duration_min": 9,
+        "start": "2026-10-01T03:40:48.282000Z",
+        "end": "2026-10-01T03:51:01.213000Z",
+        "duration_min": 10,
         "status": "success"
       },
-      "next_run": null,
       "tags": [
         "monitoring"
       ],
@@ -4542,8 +4633,14 @@
         "tropical-cyclone"
       ],
       "kb": null,
-      "job_status": null,
+      "paused": false,
       "data_mode": "prod",
+      "duration": {
+        "median_sec": 548,
+        "p25_sec": 466,
+        "p75_sec": 593,
+        "n": 20
+      },
       "output_schemas": [],
       "blob_storage": []
     },
@@ -4563,7 +4660,6 @@
         "duration_min": 10,
         "status": "success"
       },
-      "next_run": "2026-10-01T17:15:00Z",
       "tags": [
         "monitoring"
       ],
@@ -4571,8 +4667,14 @@
         "tropical-cyclone"
       ],
       "kb": null,
-      "job_status": null,
+      "paused": false,
       "data_mode": "prod",
+      "duration": {
+        "median_sec": 546,
+        "p25_sec": 526,
+        "p75_sec": 595,
+        "n": 20
+      },
       "output_schemas": [],
       "blob_storage": []
     },
@@ -4587,12 +4689,11 @@
       ],
       "schedule": "At 04:15, 10:15, 16:15 and 22:15 UTC",
       "last_run": {
-        "start": "2026-09-30T22:15:01.434000Z",
-        "end": "2026-09-30T22:26:21.738000Z",
-        "duration_min": 11,
+        "start": "2026-10-01T04:15:02.217000Z",
+        "end": "2026-10-01T04:24:41.314000Z",
+        "duration_min": 9,
         "status": "success"
       },
-      "next_run": "2026-10-01T04:15:00Z",
       "tags": [
         "alert"
       ],
@@ -4600,8 +4701,14 @@
         "tropical-cyclone"
       ],
       "kb": "storms-alerts",
-      "job_status": null,
+      "paused": false,
       "data_mode": "prod",
+      "duration": {
+        "median_sec": 606,
+        "p25_sec": 506,
+        "p75_sec": 779,
+        "n": 20
+      },
       "output_schemas": [],
       "blob_storage": []
     },
@@ -4624,12 +4731,11 @@
       ],
       "schedule": "At 20:00 UTC",
       "last_run": {
-        "start": "2026-09-29T23:00:37.882000Z",
-        "end": "2026-09-29T23:19:12.381000Z",
-        "duration_min": 18,
+        "start": "2026-09-30T23:00:37.778000Z",
+        "end": "2026-09-30T23:21:13.972000Z",
+        "duration_min": 20,
         "status": "success"
       },
-      "next_run": "2026-10-01T20:00:00Z",
       "tags": [
         "dataset-ingest"
       ],
@@ -4637,8 +4743,14 @@
         "flood"
       ],
       "kb": "raster-pipelines",
-      "job_status": null,
+      "paused": false,
       "data_mode": "prod",
+      "duration": {
+        "median_sec": 1139,
+        "p25_sec": 1078,
+        "p75_sec": 1226,
+        "n": 20
+      },
       "output_schemas": [
         {
           "table": "public.floodscan",
@@ -4718,7 +4830,7 @@
           "timestamp_ranges": {
             "valid_date": {
               "min": "1998-01-12",
-              "max": "2026-09-28"
+              "max": "2026-09-29"
             }
           },
           "stage": "prod"
@@ -4730,7 +4842,7 @@
           "prefix": "floodscan/daily/v5/processed",
           "stage": "prod",
           "blob_size_gb": 3.91,
-          "blob_count": 10488
+          "blob_count": 10489
         }
       ]
     },
@@ -4754,14 +4866,19 @@
         "duration_min": 67,
         "status": "success"
       },
-      "next_run": "2026-10-06T12:00:00Z",
       "tags": [
         "dataset-ingest"
       ],
       "hazard": [],
       "kb": "raster-pipelines",
-      "job_status": null,
+      "paused": false,
       "data_mode": "prod",
+      "duration": {
+        "median_sec": 3134,
+        "p25_sec": 1753,
+        "p75_sec": 4514,
+        "n": 2
+      },
       "output_schemas": [
         {
           "table": "public.era5",
@@ -4872,14 +4989,19 @@
         "duration_min": 25,
         "status": "success"
       },
-      "next_run": "2026-10-01T14:40:00Z",
       "tags": [
         "dataset-ingest"
       ],
       "hazard": [],
       "kb": "raster-pipelines",
-      "job_status": null,
+      "paused": false,
       "data_mode": "prod",
+      "duration": {
+        "median_sec": 1562,
+        "p25_sec": 1488,
+        "p75_sec": 1698,
+        "n": 20
+      },
       "output_schemas": [
         {
           "table": "public.imerg",
@@ -4990,14 +5112,19 @@
         "duration_min": 25,
         "status": "success"
       },
-      "next_run": "2026-10-05T12:30:00Z",
       "tags": [
         "dataset-ingest"
       ],
       "hazard": [],
       "kb": "raster-pipelines",
-      "job_status": null,
+      "paused": false,
       "data_mode": "prod",
+      "duration": {
+        "median_sec": 1464,
+        "p25_sec": 1410,
+        "p75_sec": 1519,
+        "n": 2
+      },
       "output_schemas": [
         {
           "table": "public.seas5",
