@@ -130,6 +130,43 @@ function renderSchemaTable(schema) {
   `;
 }
 
+function showModal(titleText, html) {
+  document.getElementById('modal-title').textContent = titleText;
+  document.getElementById('modal-body').innerHTML = html;
+  document.getElementById('schema-modal').classList.add('active');
+}
+
+function renderWarningList(heading, help, jobs, detail) {
+  const items = jobs.map(j => `<li><strong>${j.name}</strong> <span class="muted">${detail(j)}</span></li>`).join('');
+  return `
+    <div class="warning-section">
+      <h3>${heading} <span class="warning-count">${jobs.length}</span></h3>
+      <p class="muted">${help}</p>
+      ${jobs.length ? `<ul>${items}</ul>` : '<p>None.</p>'}
+    </div>
+  `;
+}
+
+function setupWarnings(warnings, pipelines) {
+  if (!warnings) return;
+  const failing = pipelines.filter(p => jobStatus(p) === 'failed');
+  const untagged = warnings.untagged_scheduled || [];
+  const offPolicy = warnings.no_job_policy || [];
+  const total = failing.length + untagged.length + offPolicy.length;
+  const button = document.getElementById('warnings-button');
+  button.textContent = `⚠ ${total} warning${total === 1 ? '' : 's'}`;
+  button.classList.toggle('none', total === 0);
+  button.hidden = false;
+  button.addEventListener('click', () => showModal('Warnings', [
+    renderWarningList('Failing jobs', 'Jobs in this table whose latest run failed.',
+      failing, p => (p.last_run?.start ? formatDateTime(p.last_run.start) : '')),
+    renderWarningList('Scheduled jobs not in this table', 'Active schedule but no <code>databricks=job</code> tag.',
+      untagged, j => j.schedule || ''),
+    renderWarningList('Scheduled jobs without a job compute policy', 'Tagged and untagged jobs with a cluster that is not on Job Compute or Job Compute (single node).',
+      offPolicy, j => `${j.compute.join(', ')}${j.tagged ? '' : ' · untagged'}`),
+  ].join('')));
+}
+
 function showSchemaModal(pipeline) {
   const modal = document.getElementById('schema-modal');
   const title = document.getElementById('modal-title');
@@ -266,6 +303,11 @@ function renderTable(pipelines) {
       <td class="schedule">${pipeline.schedule || '-'}</td>
       <td>${renderRuntime(pipeline)}</td>
       <td>
+        <div class="compute-list">
+          ${(pipeline.compute || []).map(c => `<span class="compute-item" data-filter="compute" data-value="${c}">${c}</span>`).join('') || '<span class="muted">-</span>'}
+        </div>
+      </td>
+      <td>
         <span class="status ${jobStatus(pipeline)}">
           <span class="status-dot"></span>
           ${jobStatus(pipeline)}
@@ -311,6 +353,7 @@ function readFilters() {
     type: document.getElementById('filter-type').value,
     hazard: document.getElementById('filter-hazard').value,
     status: document.getElementById('filter-status').value,
+    compute: document.getElementById('filter-compute').value,
   };
 }
 
@@ -319,6 +362,7 @@ function matchesFilters(pipeline, f) {
   if (f.type && !pipeline.tags.includes(f.type)) return false;
   if (f.hazard && !(pipeline.hazard || []).includes(f.hazard)) return false;
   if (f.status && jobStatus(pipeline) !== f.status) return false;
+  if (f.compute && !(pipeline.compute || []).includes(f.compute)) return false;
   return true;
 }
 
@@ -336,12 +380,13 @@ function setupFilters() {
   fillSelect('filter-type', allPipelines.flatMap(p => p.tags));
   fillSelect('filter-hazard', allPipelines.flatMap(p => p.hazard || []));
   fillSelect('filter-status', allPipelines.map(jobStatus));
-  ['filter-search', 'filter-type', 'filter-hazard', 'filter-status'].forEach(id => {
+  fillSelect('filter-compute', allPipelines.flatMap(p => p.compute || []));
+  ['filter-search', 'filter-type', 'filter-hazard', 'filter-status', 'filter-compute'].forEach(id => {
     document.getElementById(id).addEventListener('input', applyFilters);
   });
   document.getElementById('filter-clear').addEventListener('click', () => {
     document.getElementById('filter-search').value = '';
-    ['filter-type', 'filter-hazard', 'filter-status'].forEach(id => { document.getElementById(id).value = ''; });
+    ['filter-type', 'filter-hazard', 'filter-status', 'filter-compute'].forEach(id => { document.getElementById(id).value = ''; });
     applyFilters();
   });
 }
@@ -351,6 +396,12 @@ async function init() {
   document.getElementById('last-updated').textContent =
     `Last updated: ${formatDateTime(data.generated_at)}`;
   allPipelines = data.pipelines;
+  setupWarnings(data.warnings, data.pipelines);
+  if (data.untagged_jobs !== undefined) {
+    document.getElementById('untagged-count').textContent =
+      `${data.untagged_jobs} untagged job${data.untagged_jobs === 1 ? '' : 's'} not shown`;
+    document.getElementById('table-footer').hidden = false;
+  }
   setupFilters();
   setupSorting();
   applyFilters();

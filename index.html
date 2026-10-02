@@ -14,7 +14,10 @@
   <div class="container">
     <div class="header">
       <h1>DSCI Databricks Pipeline Status</h1>
-      <span class="last-updated" id="last-updated"></span>
+      <div class="header-meta">
+        <button type="button" id="warnings-button" class="warnings-button" hidden></button>
+        <span class="last-updated" id="last-updated"></span>
+      </div>
     </div>
 
     <div class="filters">
@@ -22,6 +25,7 @@
       <select id="filter-type" aria-label="Type"><option value="">All types</option></select>
       <select id="filter-hazard" aria-label="Hazard"><option value="">All hazards</option></select>
       <select id="filter-status" aria-label="Status"><option value="">All statuses</option></select>
+      <select id="filter-compute" aria-label="Compute policy"><option value="">All compute</option></select>
       <button type="button" id="filter-clear" class="filter-clear" hidden>Clear</button>
       <span class="filter-count" id="filter-count"></span>
     </div>
@@ -34,12 +38,16 @@
           <th>Tasks</th>
           <th>Schedule</th>
           <th class="sortable" data-sort="runtime" aria-sort="none"><button type="button">Runtime <span class="sort-arrow" aria-hidden="true">↕</span></button></th>
+          <th>Compute</th>
           <th class="sortable" data-sort="status" aria-sort="none"><button type="button">Status <span class="sort-arrow" aria-hidden="true">↕</span></button></th>
           <th>Tags</th>
         </tr>
       </thead>
       <tbody id="table-body">
       </tbody>
+      <tfoot id="table-footer" hidden>
+        <tr><td colspan="8" class="untagged-count" id="untagged-count"></td></tr>
+      </tfoot>
     </table>
   </div>
 

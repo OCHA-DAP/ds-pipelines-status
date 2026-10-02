@@ -31,6 +31,43 @@ body {
   color: #333;
 }
 
+.header-meta {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+}
+
+.warnings-button {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: #B5651D;
+  background: none;
+  border: 1px solid #B5651D;
+  border-radius: 3px;
+  padding: 3px 10px;
+  cursor: pointer;
+}
+
+.warnings-button.none {
+  color: #888888;
+  border-color: #DDDDDD;
+  font-weight: 400;
+}
+
+.warning-section + .warning-section {
+  margin-top: 20px;
+}
+
+.warning-section ul {
+  margin: 8px 0 0 20px;
+}
+
+.warning-count {
+  font-weight: 400;
+  color: #888888;
+}
+
 .last-updated {
   font-size: 14px;
   color: #888888;
@@ -80,8 +117,25 @@ body {
   margin-left: auto;
 }
 
+.untagged-count {
+  font-size: 13px;
+  color: #888888;
+}
+
 .tag.type,
 .tag.hazard {
+  cursor: pointer;
+}
+
+.compute-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.compute-item {
+  font-size: 13px;
+  white-space: nowrap;
   cursor: pointer;
 }
 

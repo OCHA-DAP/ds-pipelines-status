@@ -32,6 +32,7 @@ from pathlib import Path
 
 from cron_descriptor import Options, get_description
 from databricks.sdk import WorkspaceClient
+from databricks.sdk.service.compute import Policy
 from databricks.sdk.service.jobs import BaseJob, RunLifeCycleState, RunResultState
 from dotenv import load_dotenv
 from ocha_stratus import get_container_client, get_engine, upload_blob_data
@@ -299,10 +300,10 @@ def fetch_all_blob_storage(locations: list[dict], expected_stage: str) -> list[d
     return results
 
 
-def get_jobs(client: WorkspaceClient) -> list[BaseJob]:
-    """Discover all jobs with databricks=job tag."""
+def get_jobs(all_jobs: list[BaseJob]) -> list[BaseJob]:
+    """Jobs with the databricks=job tag."""
     return [
-        job for job in client.jobs.list()
+        job for job in all_jobs
         if job.settings and job.settings.tags and job.settings.tags.get("databricks") == "job"
     ]
 
@@ -335,6 +336,64 @@ def get_job_tasks(job: BaseJob, client: WorkspaceClient) -> list[dict]:
         tasks.append({"name": task.task_key, "git_url": git_url})
 
     return tasks
+
+
+JOB_POLICY_FAMILY = "job-cluster"
+
+
+def get_policies(client: WorkspaceClient) -> dict[str, Policy]:
+    """Cluster policies by id, or an empty map if the identity can't list policies."""
+    try:
+        return {p.policy_id: p for p in client.cluster_policies.list()}
+    except Exception as e:
+        print(f"  Could not list cluster policies, showing ids instead: {e}")
+        return {}
+
+
+def get_job_compute(job: BaseJob, client: WorkspaceClient, policies: dict[str, Policy]) -> list[dict]:
+    """The compute each of a job's clusters runs on: policy name, and whether it is a job-cluster policy."""
+    settings = job.settings
+    if not settings:
+        return []
+    policy_ids = [jc.new_cluster.policy_id for jc in settings.job_clusters or [] if jc.new_cluster]
+    other = []
+    for task in settings.tasks or []:
+        if task.new_cluster:
+            policy_ids.append(task.new_cluster.policy_id)
+        elif task.existing_cluster_id:
+            try:
+                policy_ids.append(client.clusters.get(task.existing_cluster_id).policy_id)
+            except Exception:
+                other.append("existing cluster (not found)")
+        elif task.environment_key:
+            other.append("serverless")
+    compute = [{"name": label, "job_policy": False} for label in other]
+    for pid in policy_ids:
+        policy = policies.get(pid) if pid else None
+        name = policy.name if policy else (pid or "no policy")
+        compute.append({"name": name, "job_policy": bool(policy and policy.policy_family_id == JOB_POLICY_FAMILY)})
+    return [dict(t) for t in {tuple(c.items()) for c in compute}]
+
+
+def is_scheduled(job: BaseJob) -> bool:
+    """True if the job has a cron schedule or trigger that isn't paused."""
+    settings = job.settings
+    schedule = settings and (settings.schedule or settings.trigger)
+    return bool(schedule) and not (schedule.pause_status and schedule.pause_status.value == "PAUSED")
+
+
+def get_warnings(all_jobs: list[BaseJob], client: WorkspaceClient, policies: dict[str, Policy]) -> dict:
+    """Scheduled jobs the table misses (untagged) and scheduled jobs not on a job-cluster policy."""
+    untagged, no_job_policy = [], []
+    for job in filter(is_scheduled, all_jobs):
+        name = job.settings.name
+        tagged = (job.settings.tags or {}).get("databricks") == "job"
+        if not tagged:
+            untagged.append({"name": name, "job_id": job.job_id, "schedule": get_job_schedule(job)})
+        off_policy = sorted(c["name"] for c in get_job_compute(job, client, policies) if not c["job_policy"])
+        if off_policy:
+            no_job_policy.append({"name": name, "job_id": job.job_id, "tagged": tagged, "compute": off_policy})
+    return {"untagged_scheduled": untagged, "no_job_policy": no_job_policy}
 
 
 def get_job_schedule(job: BaseJob) -> str | None:
@@ -410,11 +469,15 @@ def epoch_to_iso(epoch_ms: int) -> str:
 
 def fetch_pipeline_data(client: WorkspaceClient) -> dict:
     """Fetch data for all discovered jobs."""
-    jobs = get_jobs(client)
+    all_jobs = list(client.jobs.list(expand_tasks=True))
+    jobs = get_jobs(all_jobs)
     print(f"Found {len(jobs)} jobs with databricks=job tag")
+    policies = get_policies(client)
 
     output = {
         "generated_at": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
+        "warnings": get_warnings(all_jobs, client, policies),
+        "untagged_jobs": len(all_jobs) - len(jobs),
         "pipelines": [],
     }
 
@@ -467,6 +530,7 @@ def fetch_pipeline_data(client: WorkspaceClient) -> dict:
             "paused": bool(full_job.settings.schedule and full_job.settings.schedule.pause_status
                            and full_job.settings.schedule.pause_status.value == "PAUSED"),
             "data_mode": data_mode,
+            "compute": sorted(c["name"] for c in get_job_compute(full_job, client, policies)),
             "duration": duration_stats,
             "output_schemas": schema_definitions,
             "blob_storage": blob_storage,
