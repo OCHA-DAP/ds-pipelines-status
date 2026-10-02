@@ -189,6 +189,16 @@ tr:last-child td {
   gap: 4px;
 }
 
+.more-tasks summary {
+  font-size: 14px;
+  color: #888888;
+  cursor: pointer;
+}
+
+.more-tasks[open] summary {
+  margin-bottom: 4px;
+}
+
 .task-item {
   display: block;
   font-size: 14px;

@@ -1,4 +1,5 @@
 const KB_BASE = 'https://github.com/OCHA-DAP/ds-knowledge-base/blob/main/pipelines/';
+const VISIBLE_TASKS = 5;
 
 async function loadData() {
   const response = await fetch('data/pipelines.json');
@@ -284,13 +285,15 @@ function renderTable(pipelines) {
     const tasks = pipeline.tasks || [];
     const hasSchemas = pipeline.output_schemas?.length > 0 || pipeline.blob_storage?.length > 0;
 
-    // Render tasks with links to their git repos
-    const tasksHtml = tasks.map(task => {
-      if (task.git_url) {
-        return `<a href="${task.git_url}" class="task-link" target="_blank">${task.name}</a>`;
-      }
-      return `<span class="task-item">${task.name}</span>`;
-    }).join('');
+    const renderTask = task => task.git_url
+      ? `<a href="${task.git_url}" class="task-link" target="_blank">${task.name}</a>`
+      : `<span class="task-item">${task.name}</span>`;
+    const hiddenTasks = tasks.slice(VISIBLE_TASKS);
+    const tasksHtml = tasks.slice(0, VISIBLE_TASKS).map(renderTask).join('') + (hiddenTasks.length ? `
+      <details class="more-tasks">
+        <summary>And ${hiddenTasks.length} more task${hiddenTasks.length > 1 ? 's' : ''}…</summary>
+        <div class="tasks-list">${hiddenTasks.map(renderTask).join('')}</div>
+      </details>` : '');
 
     row.innerHTML = `
       <td class="pipeline-name ${hasSchemas ? 'clickable' : ''}">${pipeline.name}</td>

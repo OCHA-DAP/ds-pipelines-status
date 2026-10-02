@@ -419,7 +419,45 @@ def get_job_schedule(job: BaseJob) -> str | None:
         if periodic.unit:
             return f"Every {periodic.interval} {periodic.unit.value.lower()}"
 
+    if job.settings.trigger and job.settings.trigger.file_arrival:
+        return "On file arrival"
+    if job.settings.trigger and job.settings.trigger.table_update:
+        return "On table update"
+
     return None
+
+
+def task_parameter_values(task) -> list[str]:
+    """String parameters passed to a task, whatever its task type."""
+    values = []
+    for sub in (task.spark_python_task, task.python_wheel_task):
+        values += getattr(sub, "parameters", None) or []
+    if task.notebook_task and task.notebook_task.base_parameters:
+        values += task.notebook_task.base_parameters.values()
+    return [str(v) for v in values]
+
+
+def get_upstream_jobs(all_jobs: list[BaseJob]) -> dict[int, list[str]]:
+    """Names of the jobs that start each job, via a run_job_task or by passing its job id to a task."""
+    job_ids = {job.job_id for job in all_jobs}
+    upstream: dict[int, set[str]] = {}
+    for job in all_jobs:
+        for task in (job.settings and job.settings.tasks) or []:
+            targets = {task.run_job_task.job_id} if task.run_job_task else set()
+            # Jobs that start another job from code (e.g. jobs.run_now) pass its id as a parameter.
+            targets |= {int(v) for v in task_parameter_values(task) if v.isdigit() and int(v) in job_ids}
+            for target in targets - {job.job_id}:
+                upstream.setdefault(target, set()).add(job.settings.name)
+    return {job_id: sorted(names) for job_id, names in upstream.items()}
+
+
+def describe_schedule(job: BaseJob, upstream: dict[int, list[str]]) -> str:
+    """Schedule in plain English, or what starts the job when it has none."""
+    if schedule := get_job_schedule(job):
+        return schedule
+    if job.job_id in upstream:
+        return f"Triggered by {', '.join(upstream[job.job_id])}"
+    return "Manual"
 
 
 def map_status(run) -> str:
@@ -473,6 +511,7 @@ def fetch_pipeline_data(client: WorkspaceClient) -> dict:
     jobs = get_jobs(all_jobs)
     print(f"Found {len(jobs)} jobs with databricks=job tag")
     policies = get_policies(client)
+    upstream = get_upstream_jobs(all_jobs)
 
     output = {
         "generated_at": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
@@ -522,7 +561,7 @@ def fetch_pipeline_data(client: WorkspaceClient) -> dict:
             "name": job_name,
             "description": full_job.settings.description if full_job.settings else None,
             "tasks": get_job_tasks(full_job, client),
-            "schedule": get_job_schedule(full_job),
+            "schedule": describe_schedule(full_job, upstream),
             "last_run": last_run_data,
             "tags": get_tag_list(full_job, "type"),
             "hazard": get_tag_list(full_job, "hazard"),
