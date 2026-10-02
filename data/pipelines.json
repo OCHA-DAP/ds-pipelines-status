@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-10-02T06:11:41.089810Z",
+  "generated_at": "2026-10-02T19:51:18.040125Z",
+  "warnings": {
+    "untagged_scheduled": [],
+    "no_job_policy": []
+  },
+  "untagged_jobs": 27,
   "pipelines": [
+    {
+      "name": "Precip Intercomparison Ingest",
+      "description": "One-off: download CHIRPS v2/v3, CHIRP v2/v3, IMERG Final/Late, ERA5, GPCC Full/Monitoring, CRU TS, CPC Unified, PREC/L, UDel; regrid to 0.5 deg monthly; write NetCDF to dev blob.\n",
+      "tasks": [
+        {
+          "name": "chirp_v2",
+          "git_url": "https://github.com/OCHA-DAP/ds-precip-intercomparison.git"
+        },
+        {
+          "name": "chirp_v3",
+          "git_url": "https://github.com/OCHA-DAP/ds-precip-intercomparison.git"
+        },
+        {
+          "name": "chirps_v2",
+          "git_url": "https://github.com/OCHA-DAP/ds-precip-intercomparison.git"
+        },
+        {
+          "name": "chirps_v3",
+          "git_url": "https://github.com/OCHA-DAP/ds-precip-intercomparison.git"
+        },
+        {
+          "name": "chirps_v3_diag",
+          "git_url": "https://github.com/OCHA-DAP/ds-precip-intercomparison.git"
+        },
+        {
+          "name": "cpc",
+          "git_url": "https://github.com/OCHA-DAP/ds-precip-intercomparison.git"
+        },
+        {
+          "name": "cru",
+          "git_url": "https://github.com/OCHA-DAP/ds-precip-intercomparison.git"
+        },
+        {
+          "name": "cru_tmp",
+          "git_url": "https://github.com/OCHA-DAP/ds-precip-intercomparison.git"
+        },
+        {
+          "name": "era5",
+          "git_url": "https://github.com/OCHA-DAP/ds-precip-intercomparison.git"
+        },
+        {
+          "name": "gpcc_full",
+          "git_url": "https://github.com/OCHA-DAP/ds-precip-intercomparison.git"
+        },
+        {
+          "name": "gpcc_monitoring",
+          "git_url": "https://github.com/OCHA-DAP/ds-precip-intercomparison.git"
+        },
+        {
+          "name": "imerg_final",
+          "git_url": "https://github.com/OCHA-DAP/ds-precip-intercomparison.git"
+        },
+        {
+          "name": "imerg_late",
+          "git_url": "https://github.com/OCHA-DAP/ds-precip-intercomparison.git"
+        },
+        {
+          "name": "precl",
+          "git_url": "https://github.com/OCHA-DAP/ds-precip-intercomparison.git"
+        },
+        {
+          "name": "static",
+          "git_url": "https://github.com/OCHA-DAP/ds-precip-intercomparison.git"
+        },
+        {
+          "name": "udel",
+          "git_url": "https://github.com/OCHA-DAP/ds-precip-intercomparison.git"
+        }
+      ],
+      "schedule": null,
+      "last_run": {
+        "start": "2026-10-02T17:13:08.110000Z",
+        "end": "2026-10-02T18:11:15.586000Z",
+        "duration_min": 58,
+        "status": "success"
+      },
+      "tags": [],
+      "hazard": [],
+      "kb": null,
+      "paused": false,
+      "data_mode": "dev",
+      "compute": [
+        "Job Compute"
+      ],
+      "duration": {
+        "median_sec": 1441,
+        "p25_sec": 574,
+        "p75_sec": 3487,
+        "n": 3
+      },
+      "output_schemas": [],
+      "blob_storage": []
+    },
     {
       "name": "Pipeline Status Refresh",
       "description": "Read every tagged Databricks job plus its output tables and blobs on both data planes and publish pipelines.json for the [status dashboard](https://ocha-dap.github.io/ds-pipelines-status/)",
@@ -12,7 +110,7 @@
       ],
       "schedule": "At 06:00 UTC",
       "last_run": {
-        "start": "2026-10-02T06:00:06.313000Z",
+        "start": "2026-10-02T19:42:46.346000Z",
         "end": null,
         "duration_min": null,
         "status": "running"
@@ -24,11 +122,14 @@
       "kb": "pipelines-status",
       "paused": false,
       "data_mode": "prod",
+      "compute": [
+        "Job Compute"
+      ],
       "duration": {
-        "median_sec": 661,
-        "p25_sec": 516,
-        "p75_sec": 1057,
-        "n": 3
+        "median_sec": 778,
+        "p25_sec": 552,
+        "p75_sec": 1016,
+        "n": 4
       },
       "output_schemas": [],
       "blob_storage": [
@@ -62,6 +163,9 @@
       "kb": null,
       "paused": true,
       "data_mode": "prod",
+      "compute": [
+        "Job Compute"
+      ],
       "duration": null,
       "output_schemas": [],
       "blob_storage": []
@@ -86,6 +190,9 @@
       "kb": "mdg-monitoring",
       "paused": true,
       "data_mode": "prod",
+      "compute": [
+        "Job Compute"
+      ],
       "duration": null,
       "output_schemas": [],
       "blob_storage": []
@@ -115,6 +222,9 @@
       "kb": "hdx-floodscan",
       "paused": false,
       "data_mode": "prod",
+      "compute": [
+        "Job Compute"
+      ],
       "duration": {
         "median_sec": 674,
         "p25_sec": 500,
@@ -155,6 +265,9 @@
       "kb": "population-mirror",
       "paused": false,
       "data_mode": "dev",
+      "compute": [
+        "Job Compute"
+      ],
       "duration": {
         "median_sec": 597,
         "p25_sec": 597,
@@ -290,6 +403,9 @@
       "kb": "ipc-mirror",
       "paused": false,
       "data_mode": "dev",
+      "compute": [
+        "Job Compute"
+      ],
       "duration": {
         "median_sec": 1164,
         "p25_sec": 1057,
@@ -598,6 +714,9 @@
       "kb": "fewsnet-mirror",
       "paused": false,
       "data_mode": "dev",
+      "compute": [
+        "Job Compute"
+      ],
       "duration": {
         "median_sec": 2098,
         "p25_sec": 1930,
@@ -934,6 +1053,9 @@
       "kb": "hnrp-mirror",
       "paused": false,
       "data_mode": "dev",
+      "compute": [
+        "Job Compute"
+      ],
       "duration": {
         "median_sec": 1960,
         "p25_sec": 1799,
@@ -1739,6 +1861,9 @@
       "kb": "hnrp-mirror",
       "paused": false,
       "data_mode": "dev",
+      "compute": [
+        "Job Compute"
+      ],
       "duration": null,
       "output_schemas": [
         {
@@ -2008,6 +2133,9 @@
       "kb": "cerf-supplement",
       "paused": false,
       "data_mode": "dev",
+      "compute": [
+        "Job Compute"
+      ],
       "duration": {
         "median_sec": 1097,
         "p25_sec": 965,
@@ -2946,6 +3074,9 @@
       "kb": null,
       "paused": false,
       "data_mode": "prod",
+      "compute": [
+        "Job Compute"
+      ],
       "duration": {
         "median_sec": 1004,
         "p25_sec": 1004,
@@ -3007,6 +3138,9 @@
       "kb": "nga-flooding-monitoring",
       "paused": false,
       "data_mode": "dev",
+      "compute": [
+        "Job Compute"
+      ],
       "duration": {
         "median_sec": 1298,
         "p25_sec": 1095,
@@ -3110,6 +3244,9 @@
       "kb": "nga-flooding-monitoring",
       "paused": false,
       "data_mode": "dev",
+      "compute": [
+        "Job Compute"
+      ],
       "duration": {
         "median_sec": 556,
         "p25_sec": 534,
@@ -3160,6 +3297,9 @@
       "kb": "floodexposure-monitoring",
       "paused": false,
       "data_mode": "prod",
+      "compute": [
+        "Job Compute"
+      ],
       "duration": {
         "median_sec": 1710,
         "p25_sec": 1504,
@@ -3374,6 +3514,9 @@
       "kb": "tcd-flooding-monitoring",
       "paused": false,
       "data_mode": "dev",
+      "compute": [
+        "Job Compute"
+      ],
       "duration": {
         "median_sec": 1096,
         "p25_sec": 906,
@@ -3455,9 +3598,9 @@
       ],
       "schedule": "At 03:30 UTC",
       "last_run": {
-        "start": "2026-10-02T03:30:03.285000Z",
-        "end": "2026-10-02T03:39:21.306000Z",
-        "duration_min": 9,
+        "start": "2026-10-02T19:28:48.120000Z",
+        "end": "2026-10-02T19:32:37.261000Z",
+        "duration_min": 3,
         "status": "success"
       },
       "tags": [
@@ -3467,11 +3610,14 @@
       "kb": "aa-tracking",
       "paused": false,
       "data_mode": "prod",
+      "compute": [
+        "Job Compute"
+      ],
       "duration": {
-        "median_sec": 561,
-        "p25_sec": 557,
-        "p75_sec": 649,
-        "n": 11
+        "median_sec": 560,
+        "p25_sec": 479,
+        "p75_sec": 614,
+        "n": 14
       },
       "output_schemas": [],
       "blob_storage": [
@@ -3479,8 +3625,8 @@
           "container": "projects",
           "prefix": "ds-aa-tracking/snapshot",
           "stage": "dev",
-          "blob_size_mb": 77.54,
-          "blob_count": 566
+          "blob_size_mb": 77.72,
+          "blob_count": 570
         }
       ]
     },
@@ -3495,10 +3641,10 @@
       ],
       "schedule": "At 16:00 UTC",
       "last_run": {
-        "start": "2026-10-01T16:00:28.443000Z",
-        "end": "2026-10-01T17:07:09.833000Z",
-        "duration_min": 66,
-        "status": "success"
+        "start": "2026-10-02T16:00:29.485000Z",
+        "end": "2026-10-02T17:48:35.149000Z",
+        "duration_min": 108,
+        "status": "failed"
       },
       "tags": [
         "dataset-ingest"
@@ -3509,6 +3655,9 @@
       "kb": "storms-pipeline",
       "paused": false,
       "data_mode": "prod",
+      "compute": [
+        "Job Compute"
+      ],
       "duration": {
         "median_sec": 5133,
         "p25_sec": 4436,
@@ -3570,7 +3719,7 @@
               "comment": "Standardized storm identifier linking to tracks"
             }
           ],
-          "row_count": 13715,
+          "row_count": 13772,
           "size_mb": 2.95,
           "stage": "prod"
         },
@@ -3742,6 +3891,9 @@
       "kb": "storms-pipeline",
       "paused": false,
       "data_mode": "prod",
+      "compute": [
+        "Job Compute"
+      ],
       "duration": {
         "median_sec": 574,
         "p25_sec": 527,
@@ -3883,9 +4035,9 @@
       ],
       "schedule": "At 04:15, 10:15, 16:15 and 22:15 UTC",
       "last_run": {
-        "start": "2026-10-02T04:15:01.937000Z",
-        "end": "2026-10-02T04:24:14.712000Z",
-        "duration_min": 9,
+        "start": "2026-10-02T16:15:01.784000Z",
+        "end": "2026-10-02T16:25:50.565000Z",
+        "duration_min": 10,
         "status": "success"
       },
       "tags": [
@@ -3897,10 +4049,13 @@
       "kb": "hti-hurricanes-monitoring",
       "paused": false,
       "data_mode": "prod",
+      "compute": [
+        "Job Compute"
+      ],
       "duration": {
-        "median_sec": 424,
-        "p25_sec": 290,
-        "p75_sec": 534,
+        "median_sec": 476,
+        "p25_sec": 298,
+        "p75_sec": 566,
         "n": 20
       },
       "output_schemas": [],
@@ -3949,9 +4104,9 @@
       ],
       "schedule": "At 03:30, 09:30, 15:30 and 21:30 UTC",
       "last_run": {
-        "start": "2026-10-02T03:30:01.992000Z",
-        "end": "2026-10-02T03:45:51.681000Z",
-        "duration_min": 15,
+        "start": "2026-10-02T15:30:02.207000Z",
+        "end": "2026-10-02T15:49:55.342000Z",
+        "duration_min": 19,
         "status": "success"
       },
       "tags": [
@@ -3963,10 +4118,13 @@
       "kb": "storms-pipeline",
       "paused": false,
       "data_mode": "prod",
+      "compute": [
+        "Job Compute"
+      ],
       "duration": {
-        "median_sec": 966,
-        "p25_sec": 881,
-        "p75_sec": 1097,
+        "median_sec": 978,
+        "p25_sec": 884,
+        "p75_sec": 1191,
         "n": 20
       },
       "output_schemas": [
@@ -4153,15 +4311,15 @@
             }
           ],
           "row_count": 212800,
-          "size_mb": 96.48,
+          "size_mb": 96.5,
           "timestamp_ranges": {
             "issued_time": {
               "min": "1990-05-13T00:00:00",
-              "max": "2026-10-02T03:00:00"
+              "max": "2026-10-02T15:00:00"
             },
             "valid_time": {
               "min": "1990-05-13T12:00:00",
-              "max": "2026-10-07T00:00:00"
+              "max": "2026-10-07T12:00:00"
             }
           },
           "stage": "prod"
@@ -4222,7 +4380,7 @@
           "timestamp_ranges": {
             "issued_time": {
               "min": "2001-06-05T18:00:00",
-              "max": "2026-10-02T03:00:00"
+              "max": "2026-10-02T15:00:00"
             }
           },
           "stage": "prod"
@@ -4283,7 +4441,7 @@
           "timestamp_ranges": {
             "valid_time": {
               "min": "2003-05-21T06:00:00",
-              "max": "2026-10-02T03:00:00"
+              "max": "2026-10-02T15:00:00"
             }
           },
           "stage": "prod"
@@ -4347,11 +4505,11 @@
             }
           ],
           "row_count": 613819,
-          "size_mb": 106.34,
+          "size_mb": 106.35,
           "timestamp_ranges": {
             "issued_time": {
               "min": "2017-05-09T18:00:00",
-              "max": "2026-10-02T00:00:00"
+              "max": "2026-10-02T12:00:00"
             }
           },
           "stage": "prod"
@@ -4378,9 +4536,9 @@
       ],
       "schedule": "At 03:00, 09:00, 15:00 and 21:00 UTC",
       "last_run": {
-        "start": "2026-10-02T03:00:03.396000Z",
-        "end": "2026-10-02T03:09:44.956000Z",
-        "duration_min": 9,
+        "start": "2026-10-02T15:00:02.842000Z",
+        "end": "2026-10-02T15:10:40.573000Z",
+        "duration_min": 10,
         "status": "success"
       },
       "tags": [
@@ -4392,6 +4550,9 @@
       "kb": "storms-pipeline",
       "paused": false,
       "data_mode": "prod",
+      "compute": [
+        "Job Compute"
+      ],
       "duration": {
         "median_sec": 714,
         "p25_sec": 617,
@@ -4552,11 +4713,11 @@
             }
           ],
           "row_count": 84874,
-          "size_mb": 19.34,
+          "size_mb": 19.35,
           "timestamp_ranges": {
             "valid_time": {
               "min": "2023-08-21T09:00:00",
-              "max": "2026-10-02T03:00:00"
+              "max": "2026-10-02T15:00:00"
             }
           },
           "stage": "prod"
@@ -4602,7 +4763,7 @@
           "timestamp_ranges": {
             "last_updated": {
               "min": "2026-05-12T17:17:51.904216",
-              "max": "2026-10-02T03:09:16.246141"
+              "max": "2026-10-02T15:10:08.326676"
             }
           },
           "stage": "prod"
@@ -4621,8 +4782,8 @@
       ],
       "schedule": null,
       "last_run": {
-        "start": "2026-10-02T03:37:55.140000Z",
-        "end": "2026-10-02T03:46:29.084000Z",
+        "start": "2026-10-02T15:40:31.417000Z",
+        "end": "2026-10-02T15:49:11.370000Z",
         "duration_min": 8,
         "status": "success"
       },
@@ -4635,10 +4796,13 @@
       "kb": null,
       "paused": false,
       "data_mode": "prod",
+      "compute": [
+        "Job Compute"
+      ],
       "duration": {
         "median_sec": 555,
-        "p25_sec": 501,
-        "p75_sec": 594,
+        "p25_sec": 516,
+        "p75_sec": 609,
         "n": 20
       },
       "output_schemas": [],
@@ -4655,9 +4819,9 @@
       ],
       "schedule": "At 17:15 UTC",
       "last_run": {
-        "start": "2026-10-01T17:15:01.994000Z",
-        "end": "2026-10-01T17:25:35.744000Z",
-        "duration_min": 10,
+        "start": "2026-10-02T17:15:01.903000Z",
+        "end": "2026-10-02T17:26:17.176000Z",
+        "duration_min": 11,
         "status": "success"
       },
       "tags": [
@@ -4669,10 +4833,13 @@
       "kb": null,
       "paused": false,
       "data_mode": "prod",
+      "compute": [
+        "Job Compute"
+      ],
       "duration": {
         "median_sec": 555,
         "p25_sec": 535,
-        "p75_sec": 601,
+        "p75_sec": 607,
         "n": 20
       },
       "output_schemas": [],
@@ -4689,9 +4856,9 @@
       ],
       "schedule": "At 04:15, 10:15, 16:15 and 22:15 UTC",
       "last_run": {
-        "start": "2026-10-02T04:15:02.296000Z",
-        "end": "2026-10-02T04:25:37.083000Z",
-        "duration_min": 10,
+        "start": "2026-10-02T16:15:02.188000Z",
+        "end": "2026-10-02T16:22:38.147000Z",
+        "duration_min": 7,
         "status": "success"
       },
       "tags": [
@@ -4703,10 +4870,13 @@
       "kb": "storms-alerts",
       "paused": false,
       "data_mode": "prod",
+      "compute": [
+        "Job Compute"
+      ],
       "duration": {
-        "median_sec": 606,
-        "p25_sec": 491,
-        "p75_sec": 770,
+        "median_sec": 564,
+        "p25_sec": 487,
+        "p75_sec": 675,
         "n": 20
       },
       "output_schemas": [],
@@ -4745,6 +4915,9 @@
       "kb": "raster-pipelines",
       "paused": false,
       "data_mode": "prod",
+      "compute": [
+        "Job Compute"
+      ],
       "duration": {
         "median_sec": 1145,
         "p25_sec": 1115,
@@ -4873,6 +5046,9 @@
       "kb": "raster-pipelines",
       "paused": false,
       "data_mode": "prod",
+      "compute": [
+        "Job Compute"
+      ],
       "duration": {
         "median_sec": 3134,
         "p25_sec": 1753,
@@ -4984,9 +5160,9 @@
       ],
       "schedule": "At 14:40 UTC",
       "last_run": {
-        "start": "2026-10-01T14:40:58.041000Z",
-        "end": "2026-10-01T15:07:57.910000Z",
-        "duration_min": 26,
+        "start": "2026-10-02T14:40:57.826000Z",
+        "end": "2026-10-02T15:10:36.560000Z",
+        "duration_min": 29,
         "status": "success"
       },
       "tags": [
@@ -4996,10 +5172,13 @@
       "kb": "raster-pipelines",
       "paused": false,
       "data_mode": "prod",
+      "compute": [
+        "Job Compute"
+      ],
       "duration": {
-        "median_sec": 1606,
-        "p25_sec": 1501,
-        "p75_sec": 1698,
+        "median_sec": 1630,
+        "p25_sec": 1506,
+        "p75_sec": 1738,
         "n": 20
       },
       "output_schemas": [
@@ -5076,7 +5255,7 @@
           "timestamp_ranges": {
             "valid_date": {
               "min": "1998-01-01",
-              "max": "2026-09-30"
+              "max": "2026-10-01"
             }
           },
           "stage": "prod"
@@ -5087,8 +5266,8 @@
           "container": "raster",
           "prefix": "imerg/daily/late/v7/processed",
           "stage": "prod",
-          "blob_size_gb": 155.75,
-          "blob_count": 10501
+          "blob_size_gb": 155.76,
+          "blob_count": 10502
         }
       ]
     },
@@ -5119,6 +5298,9 @@
       "kb": "raster-pipelines",
       "paused": false,
       "data_mode": "prod",
+      "compute": [
+        "Job Compute"
+      ],
       "duration": {
         "median_sec": 1464,
         "p25_sec": 1410,
