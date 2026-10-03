@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T19:51:18.040125Z",
+  "generated_at": "2026-10-02T21:58:18.020861Z",
   "warnings": {
     "untagged_scheduled": [],
     "no_job_policy": []
@@ -75,7 +75,7 @@
           "git_url": "https://github.com/OCHA-DAP/ds-precip-intercomparison.git"
         }
       ],
-      "schedule": null,
+      "schedule": "Manual",
       "last_run": {
         "start": "2026-10-02T17:13:08.110000Z",
         "end": "2026-10-02T18:11:15.586000Z",
@@ -110,7 +110,7 @@
       ],
       "schedule": "At 06:00 UTC",
       "last_run": {
-        "start": "2026-10-02T19:42:46.346000Z",
+        "start": "2026-10-02T21:48:00.596000Z",
         "end": null,
         "duration_min": null,
         "status": "running"
@@ -126,10 +126,10 @@
         "Job Compute"
       ],
       "duration": {
-        "median_sec": 778,
-        "p25_sec": 552,
-        "p75_sec": 1016,
-        "n": 4
+        "median_sec": 746,
+        "p25_sec": 588,
+        "p75_sec": 976,
+        "n": 5
       },
       "output_schemas": [],
       "blob_storage": [
@@ -137,7 +137,7 @@
           "container": "projects",
           "prefix": "ds-pipelines-status",
           "stage": "dev",
-          "blob_size_mb": 0.14,
+          "blob_size_mb": 0.15,
           "blob_count": 2
         }
       ]
@@ -3124,10 +3124,10 @@
       ],
       "schedule": "At 20:00 UTC",
       "last_run": {
-        "start": "2026-10-01T20:00:04.204000Z",
-        "end": "2026-10-01T20:24:03.771000Z",
-        "duration_min": 23,
-        "status": "success"
+        "start": "2026-10-02T20:00:02.855000Z",
+        "end": "2026-10-02T20:09:23.742000Z",
+        "duration_min": 9,
+        "status": "failed"
       },
       "tags": [
         "monitoring"
@@ -3500,10 +3500,10 @@
       ],
       "schedule": "At 20:00 UTC",
       "last_run": {
-        "start": "2026-10-01T20:00:03.934000Z",
-        "end": "2026-10-01T20:24:10.487000Z",
-        "duration_min": 24,
-        "status": "success"
+        "start": "2026-10-02T20:00:04.057000Z",
+        "end": "2026-10-02T20:12:42.668000Z",
+        "duration_min": 12,
+        "status": "failed"
       },
       "tags": [
         "monitoring"
@@ -3625,7 +3625,7 @@
           "container": "projects",
           "prefix": "ds-aa-tracking/snapshot",
           "stage": "dev",
-          "blob_size_mb": 77.72,
+          "blob_size_mb": 77.58,
           "blob_count": 570
         }
       ]
@@ -3639,7 +3639,7 @@
           "git_url": "https://github.com/OCHA-DAP/ds-storms-pipeline.git"
         }
       ],
-      "schedule": "At 16:00 UTC",
+      "schedule": "At 16:00, only on Monday UTC",
       "last_run": {
         "start": "2026-10-02T16:00:29.485000Z",
         "end": "2026-10-02T17:48:35.149000Z",
@@ -3656,7 +3656,7 @@
       "paused": false,
       "data_mode": "prod",
       "compute": [
-        "Job Compute"
+        "Job Compute (single node)"
       ],
       "duration": {
         "median_sec": 5133,
@@ -3877,10 +3877,10 @@
       ],
       "schedule": "At 22:00 UTC",
       "last_run": {
-        "start": "2026-10-01T22:00:47.268000Z",
-        "end": "2026-10-01T22:11:03.268000Z",
-        "duration_min": 10,
-        "status": "success"
+        "start": "2026-10-02T22:00:48.108000Z",
+        "end": null,
+        "duration_min": null,
+        "status": "running"
       },
       "tags": [
         "dataset-ingest"
@@ -4035,9 +4035,9 @@
       ],
       "schedule": "At 04:15, 10:15, 16:15 and 22:15 UTC",
       "last_run": {
-        "start": "2026-10-02T16:15:01.784000Z",
-        "end": "2026-10-02T16:25:50.565000Z",
-        "duration_min": 10,
+        "start": "2026-10-02T21:49:28.799000Z",
+        "end": "2026-10-02T21:54:42.380000Z",
+        "duration_min": 5,
         "status": "success"
       },
       "tags": [
@@ -4053,7 +4053,7 @@
         "Job Compute"
       ],
       "duration": {
-        "median_sec": 476,
+        "median_sec": 426,
         "p25_sec": 298,
         "p75_sec": 566,
         "n": 20
@@ -4104,8 +4104,8 @@
       ],
       "schedule": "At 03:30, 09:30, 15:30 and 21:30 UTC",
       "last_run": {
-        "start": "2026-10-02T15:30:02.207000Z",
-        "end": "2026-10-02T15:49:55.342000Z",
+        "start": "2026-10-02T21:30:03.121000Z",
+        "end": "2026-10-02T21:49:39.779000Z",
         "duration_min": 19,
         "status": "success"
       },
@@ -4122,8 +4122,8 @@
         "Job Compute"
       ],
       "duration": {
-        "median_sec": 978,
-        "p25_sec": 884,
+        "median_sec": 1010,
+        "p25_sec": 894,
         "p75_sec": 1191,
         "n": 20
       },
@@ -4311,15 +4311,15 @@
             }
           ],
           "row_count": 212800,
-          "size_mb": 96.5,
+          "size_mb": 96.52,
           "timestamp_ranges": {
             "issued_time": {
               "min": "1990-05-13T00:00:00",
-              "max": "2026-10-02T15:00:00"
+              "max": "2026-10-02T21:00:00"
             },
             "valid_time": {
               "min": "1990-05-13T12:00:00",
-              "max": "2026-10-07T12:00:00"
+              "max": "2026-10-07T18:00:00"
             }
           },
           "stage": "prod"
@@ -4380,7 +4380,7 @@
           "timestamp_ranges": {
             "issued_time": {
               "min": "2001-06-05T18:00:00",
-              "max": "2026-10-02T15:00:00"
+              "max": "2026-10-02T21:00:00"
             }
           },
           "stage": "prod"
@@ -4441,7 +4441,7 @@
           "timestamp_ranges": {
             "valid_time": {
               "min": "2003-05-21T06:00:00",
-              "max": "2026-10-02T15:00:00"
+              "max": "2026-10-02T21:00:00"
             }
           },
           "stage": "prod"
@@ -4509,7 +4509,7 @@
           "timestamp_ranges": {
             "issued_time": {
               "min": "2017-05-09T18:00:00",
-              "max": "2026-10-02T12:00:00"
+              "max": "2026-10-02T18:00:00"
             }
           },
           "stage": "prod"
@@ -4536,9 +4536,9 @@
       ],
       "schedule": "At 03:00, 09:00, 15:00 and 21:00 UTC",
       "last_run": {
-        "start": "2026-10-02T15:00:02.842000Z",
-        "end": "2026-10-02T15:10:40.573000Z",
-        "duration_min": 10,
+        "start": "2026-10-02T21:00:03.412000Z",
+        "end": "2026-10-02T21:13:49.493000Z",
+        "duration_min": 13,
         "status": "success"
       },
       "tags": [
@@ -4556,7 +4556,7 @@
       "duration": {
         "median_sec": 714,
         "p25_sec": 617,
-        "p75_sec": 827,
+        "p75_sec": 810,
         "n": 20
       },
       "output_schemas": [
@@ -4717,7 +4717,7 @@
           "timestamp_ranges": {
             "valid_time": {
               "min": "2023-08-21T09:00:00",
-              "max": "2026-10-02T15:00:00"
+              "max": "2026-10-02T21:00:00"
             }
           },
           "stage": "prod"
@@ -4763,7 +4763,7 @@
           "timestamp_ranges": {
             "last_updated": {
               "min": "2026-05-12T17:17:51.904216",
-              "max": "2026-10-02T15:10:08.326676"
+              "max": "2026-10-02T21:13:05.402462"
             }
           },
           "stage": "prod"
@@ -4780,11 +4780,11 @@
           "git_url": "https://github.com/OCHA-DAP/ds-aa-cub-hurricanes.git"
         }
       ],
-      "schedule": null,
+      "schedule": "Triggered by NHC Pipeline, [dev adm_tdowning] NHC Pipeline",
       "last_run": {
-        "start": "2026-10-02T15:40:31.417000Z",
-        "end": "2026-10-02T15:49:11.370000Z",
-        "duration_min": 8,
+        "start": "2026-10-02T21:41:00.127000Z",
+        "end": "2026-10-02T21:55:05.944000Z",
+        "duration_min": 14,
         "status": "success"
       },
       "tags": [
@@ -4800,9 +4800,9 @@
         "Job Compute"
       ],
       "duration": {
-        "median_sec": 555,
-        "p25_sec": 516,
-        "p75_sec": 609,
+        "median_sec": 564,
+        "p25_sec": 520,
+        "p75_sec": 630,
         "n": 20
       },
       "output_schemas": [],
