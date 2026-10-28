@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T06:07:14.453196Z",
+  "generated_at": "2026-10-28T06:07:21.124095Z",
   "warnings": {
     "untagged_scheduled": [],
     "no_job_policy": [
@@ -34,8 +34,8 @@
       ],
       "schedule": "At 06:15 UTC",
       "last_run": {
-        "start": "2026-10-26T06:15:03.262000Z",
-        "end": "2026-10-26T06:23:20.201000Z",
+        "start": "2026-10-27T06:15:02.702000Z",
+        "end": "2026-10-27T06:23:19.542000Z",
         "duration_min": 8,
         "status": "success"
       },
@@ -52,10 +52,10 @@
         "Job Compute (single node)"
       ],
       "duration": {
-        "median_sec": 490,
-        "p25_sec": 444,
-        "p75_sec": 493,
-        "n": 8
+        "median_sec": 491,
+        "p25_sec": 456,
+        "p75_sec": 495,
+        "n": 9
       },
       "output_schemas": [],
       "blob_storage": [
@@ -446,9 +446,9 @@
       ],
       "schedule": "At 07:00 and 19:00 UTC",
       "last_run": {
-        "start": "2026-10-26T19:00:06.550000Z",
-        "end": "2026-10-26T19:09:17.606000Z",
-        "duration_min": 9,
+        "start": "2026-10-27T19:00:03.683000Z",
+        "end": "2026-10-27T19:08:56.337000Z",
+        "duration_min": 8,
         "status": "success"
       },
       "tags": [
@@ -465,9 +465,9 @@
         "Personal Compute"
       ],
       "duration": {
-        "median_sec": 478,
+        "median_sec": 474,
         "p25_sec": 434,
-        "p75_sec": 505,
+        "p75_sec": 520,
         "n": 20
       },
       "output_schemas": [],
@@ -476,8 +476,8 @@
           "container": "projects",
           "prefix": "ds-ait-reporting/drift",
           "stage": "dev",
-          "blob_size_mb": 1.05,
-          "blob_count": 76
+          "blob_size_mb": 1.13,
+          "blob_count": 81
         }
       ]
     },
@@ -492,7 +492,7 @@
       ],
       "schedule": "At 06:00 and 18:00 UTC",
       "last_run": {
-        "start": "2026-10-27T06:00:04.297000Z",
+        "start": "2026-10-28T06:00:07.121000Z",
         "end": null,
         "duration_min": null,
         "status": "running"
@@ -511,9 +511,9 @@
         "Personal Compute"
       ],
       "duration": {
-        "median_sec": 662,
-        "p25_sec": 618,
-        "p75_sec": 736,
+        "median_sec": 642,
+        "p25_sec": 608,
+        "p75_sec": 701,
         "n": 20
       },
       "output_schemas": [],
@@ -522,8 +522,8 @@
           "container": "projects",
           "prefix": "ds-ait-reporting/dedup",
           "stage": "dev",
-          "blob_size_gb": 1.96,
-          "blob_count": 7978
+          "blob_size_gb": 2.07,
+          "blob_count": 8453
         }
       ]
     },
@@ -668,9 +668,9 @@
       ],
       "schedule": "At 05:00 and 17:00 UTC",
       "last_run": {
-        "start": "2026-10-27T05:00:02.979000Z",
-        "end": "2026-10-27T05:10:00.320000Z",
-        "duration_min": 9,
+        "start": "2026-10-28T05:00:03.331000Z",
+        "end": "2026-10-28T05:08:51.403000Z",
+        "duration_min": 8,
         "status": "success"
       },
       "tags": [
@@ -686,9 +686,9 @@
         "Job Compute (single node)"
       ],
       "duration": {
-        "median_sec": 605,
-        "p25_sec": 535,
-        "p75_sec": 666,
+        "median_sec": 584,
+        "p25_sec": 530,
+        "p75_sec": 646,
         "n": 20
       },
       "output_schemas": [],
@@ -852,7 +852,7 @@
       ],
       "schedule": "At 06:00 UTC",
       "last_run": {
-        "start": "2026-10-27T06:00:05.200000Z",
+        "start": "2026-10-28T06:00:03.859000Z",
         "end": null,
         "duration_min": null,
         "status": "running"
@@ -868,8 +868,8 @@
         "Job Compute (single node)"
       ],
       "duration": {
-        "median_sec": 752,
-        "p25_sec": 694,
+        "median_sec": 738,
+        "p25_sec": 663,
         "p75_sec": 888,
         "n": 20
       },
@@ -895,8 +895,8 @@
       ],
       "schedule": "At 02:00, 08:00, 14:00 and 20:00 UTC",
       "last_run": {
-        "start": "2026-10-27T02:00:05.644000Z",
-        "end": "2026-10-27T02:07:42.727000Z",
+        "start": "2026-10-28T02:00:02.828000Z",
+        "end": "2026-10-28T02:07:13.689000Z",
         "duration_min": 7,
         "status": "success"
       },
@@ -909,9 +909,9 @@
         "Job Compute (single node)"
       ],
       "duration": {
-        "median_sec": 503,
-        "p25_sec": 474,
-        "p75_sec": 554,
+        "median_sec": 501,
+        "p25_sec": 434,
+        "p75_sec": 538,
         "n": 20
       },
       "output_schemas": [],
@@ -928,8 +928,8 @@
       ],
       "schedule": "At 16:00 UTC",
       "last_run": {
-        "start": "2026-10-26T16:00:07.861000Z",
-        "end": "2026-10-26T16:07:43.076000Z",
+        "start": "2026-10-27T16:00:02.279000Z",
+        "end": "2026-10-27T16:07:37.358000Z",
         "duration_min": 7,
         "status": "success"
       },
@@ -946,10 +946,10 @@
         "Job Compute (single node)"
       ],
       "duration": {
-        "median_sec": 499,
-        "p25_sec": 461,
-        "p75_sec": 520,
-        "n": 7
+        "median_sec": 483,
+        "p25_sec": 456,
+        "p75_sec": 518,
+        "n": 8
       },
       "output_schemas": [],
       "blob_storage": []
@@ -965,9 +965,9 @@
       ],
       "schedule": "At 00:15 UTC",
       "last_run": {
-        "start": "2026-10-27T00:15:03.373000Z",
-        "end": "2026-10-27T00:25:06.432000Z",
-        "duration_min": 10,
+        "start": "2026-10-28T00:15:01.806000Z",
+        "end": "2026-10-28T00:23:33.636000Z",
+        "duration_min": 8,
         "status": "success"
       },
       "tags": [
@@ -984,7 +984,7 @@
       ],
       "duration": {
         "median_sec": 652,
-        "p25_sec": 608,
+        "p25_sec": 589,
         "p75_sec": 720,
         "n": 20
       },
@@ -994,8 +994,8 @@
           "container": "projects",
           "prefix": "hdx-floodscan/intermediate",
           "stage": "dev",
-          "blob_size_mb": 75.23,
-          "blob_count": 145
+          "blob_size_mb": 75.22,
+          "blob_count": 146
         }
       ]
     },
@@ -1148,9 +1148,9 @@
       ],
       "schedule": "At 03:37 UTC",
       "last_run": {
-        "start": "2026-10-27T03:37:01.789000Z",
-        "end": "2026-10-27T03:55:43.631000Z",
-        "duration_min": 18,
+        "start": "2026-10-28T03:37:01.563000Z",
+        "end": "2026-10-28T03:52:20.270000Z",
+        "duration_min": 15,
         "status": "success"
       },
       "tags": [
@@ -1164,8 +1164,8 @@
         "Job Compute (single node)"
       ],
       "duration": {
-        "median_sec": 1122,
-        "p25_sec": 1036,
+        "median_sec": 1117,
+        "p25_sec": 1032,
         "p75_sec": 1221,
         "n": 20
       },
@@ -1247,7 +1247,7 @@
               "nullable": true
             }
           ],
-          "row_count": 558639,
+          "row_count": 559367,
           "size_mb": 154.88,
           "timestamp_ranges": {
             "analysis_date": {
@@ -1263,8 +1263,8 @@
               "max": "2027-09-30"
             },
             "refreshed_at": {
-              "min": "2026-10-27T03:45:48.031150Z",
-              "max": "2026-10-27T03:45:48.031150Z"
+              "min": "2026-10-28T03:44:19.316159Z",
+              "max": "2026-10-28T03:44:19.316159Z"
             }
           },
           "stage": "dev"
@@ -1363,8 +1363,8 @@
               "max": "2027-09-30"
             },
             "refreshed_at": {
-              "min": "2026-10-27T03:51:01.277516Z",
-              "max": "2026-10-27T03:51:01.277516Z"
+              "min": "2026-10-28T03:48:31.909162Z",
+              "max": "2026-10-28T03:48:31.909162Z"
             }
           },
           "stage": "dev"
@@ -1432,7 +1432,7 @@
             },
             "refreshed_at": {
               "min": "2026-10-08T03:56:00.527015Z",
-              "max": "2026-10-27T03:54:09.876470Z"
+              "max": "2026-10-28T03:50:58.591912Z"
             }
           },
           "stage": "dev"
@@ -1459,9 +1459,9 @@
       ],
       "schedule": "At 04:52 UTC",
       "last_run": {
-        "start": "2026-10-27T04:52:02.621000Z",
-        "end": "2026-10-27T05:20:09.070000Z",
-        "duration_min": 28,
+        "start": "2026-10-28T04:52:01.401000Z",
+        "end": "2026-10-28T05:29:46.126000Z",
+        "duration_min": 37,
         "status": "success"
       },
       "tags": [
@@ -1475,9 +1475,9 @@
         "Job Compute (single node)"
       ],
       "duration": {
-        "median_sec": 2056,
-        "p25_sec": 1815,
-        "p75_sec": 2197,
+        "median_sec": 2104,
+        "p25_sec": 1837,
+        "p75_sec": 2218,
         "n": 20
       },
       "output_schemas": [
@@ -1643,7 +1643,7 @@
               "nullable": true
             }
           ],
-          "row_count": 1327520,
+          "row_count": 1327281,
           "size_gb": 1.06,
           "timestamp_ranges": {
             "projection_start": {
@@ -1667,8 +1667,8 @@
               "max": "2026-10-09T15:07:21Z"
             },
             "refreshed_at": {
-              "min": "2026-10-27T05:01:11.651328Z",
-              "max": "2026-10-27T05:01:11.651328Z"
+              "min": "2026-10-28T05:06:27.729651Z",
+              "max": "2026-10-28T05:06:27.729651Z"
             }
           },
           "stage": "dev"
@@ -1798,8 +1798,8 @@
       ],
       "schedule": "At 04:17 UTC",
       "last_run": {
-        "start": "2026-10-27T04:17:02.876000Z",
-        "end": "2026-10-27T04:45:17.556000Z",
+        "start": "2026-10-28T04:17:01.505000Z",
+        "end": "2026-10-28T04:45:18.635000Z",
         "duration_min": 28,
         "status": "success"
       },
@@ -1814,8 +1814,8 @@
         "Job Compute (single node)"
       ],
       "duration": {
-        "median_sec": 1920,
-        "p25_sec": 1779,
+        "median_sec": 1896,
+        "p25_sec": 1714,
         "p75_sec": 2042,
         "n": 20
       },
@@ -1966,7 +1966,7 @@
             },
             "refreshed_at": {
               "min": "2026-10-25T02:54:59.878728Z",
-              "max": "2026-10-27T04:27:28.864755Z"
+              "max": "2026-10-28T04:27:04.313679Z"
             }
           },
           "stage": "dev"
@@ -2044,7 +2044,7 @@
           "timestamp_ranges": {
             "refreshed_at": {
               "min": "2026-10-25T03:00:05.095613Z",
-              "max": "2026-10-27T04:27:29.007465Z"
+              "max": "2026-10-28T04:27:04.429137Z"
             }
           },
           "stage": "dev"
@@ -2145,7 +2145,7 @@
               "nullable": true
             }
           ],
-          "row_count": 1247568,
+          "row_count": 1246002,
           "size_mb": 527.21,
           "timestamp_ranges": {
             "reference_period_start": {
@@ -2157,8 +2157,8 @@
               "max": "2026-12-31"
             },
             "refreshed_at": {
-              "min": "2026-10-27T04:34:26.775298Z",
-              "max": "2026-10-27T04:34:26.775298Z"
+              "min": "2026-10-28T04:34:17.042421Z",
+              "max": "2026-10-28T04:34:17.042421Z"
             }
           },
           "stage": "dev"
@@ -2234,8 +2234,8 @@
           "size_mb": 1.9,
           "timestamp_ranges": {
             "refreshed_at": {
-              "min": "2026-10-27T04:28:51.557023Z",
-              "max": "2026-10-27T04:28:51.557023Z"
+              "min": "2026-10-28T04:28:35.927504Z",
+              "max": "2026-10-28T04:28:35.927504Z"
             }
           },
           "stage": "dev"
@@ -2329,8 +2329,8 @@
           "size_mb": 2.93,
           "timestamp_ranges": {
             "refreshed_at": {
-              "min": "2026-10-27T04:28:53.778698Z",
-              "max": "2026-10-27T04:28:53.778698Z"
+              "min": "2026-10-28T04:28:38.263338Z",
+              "max": "2026-10-28T04:28:38.263338Z"
             }
           },
           "stage": "dev"
@@ -2444,15 +2444,15 @@
             }
           ],
           "row_count": 2691106,
-          "size_mb": 702.95,
+          "size_mb": 712.21,
           "timestamp_ranges": {
             "snapshot_date": {
               "min": "2026-08-10",
-              "max": "2026-10-27"
+              "max": "2026-10-28"
             },
             "refreshed_at": {
               "min": "2026-08-10T20:02:07.363522Z",
-              "max": "2026-10-27T04:28:20.468864Z"
+              "max": "2026-10-28T04:27:55.411547Z"
             }
           },
           "stage": "dev"
@@ -2534,15 +2534,15 @@
             }
           ],
           "row_count": 22777,
-          "size_mb": 5.48,
+          "size_mb": 5.55,
           "timestamp_ranges": {
             "snapshot_date": {
               "min": "2026-08-11",
-              "max": "2026-10-27"
+              "max": "2026-10-28"
             },
             "refreshed_at": {
               "min": "2026-08-11T19:16:10.236870Z",
-              "max": "2026-10-27T04:28:36.733092Z"
+              "max": "2026-10-28T04:28:11.988551Z"
             }
           },
           "stage": "dev"
@@ -2588,11 +2588,11 @@
           "timestamp_ranges": {
             "snapshot_date": {
               "min": "2026-08-10",
-              "max": "2026-10-27"
+              "max": "2026-10-28"
             },
             "refreshed_at": {
               "min": "2026-08-10T20:02:23.486976Z",
-              "max": "2026-10-27T04:28:37.283019Z"
+              "max": "2026-10-28T04:28:12.268909Z"
             }
           },
           "stage": "dev"
@@ -2779,7 +2779,7 @@
             },
             "refreshed_at": {
               "min": "2026-10-25T02:54:59.878728Z",
-              "max": "2026-10-27T04:27:28.864755Z"
+              "max": "2026-10-28T04:27:04.313679Z"
             }
           },
           "stage": "dev"
@@ -2857,7 +2857,7 @@
           "timestamp_ranges": {
             "refreshed_at": {
               "min": "2026-10-25T03:00:05.095613Z",
-              "max": "2026-10-27T04:27:29.007465Z"
+              "max": "2026-10-28T04:27:04.429137Z"
             }
           },
           "stage": "dev"
@@ -2892,9 +2892,9 @@
       ],
       "schedule": "At 05:30 UTC",
       "last_run": {
-        "start": "2026-10-27T05:30:04.062000Z",
-        "end": "2026-10-27T05:55:05.625000Z",
-        "duration_min": 25,
+        "start": "2026-10-28T05:30:03.583000Z",
+        "end": "2026-10-28T05:54:29.861000Z",
+        "duration_min": 24,
         "status": "failed"
       },
       "tags": [
@@ -3049,7 +3049,7 @@
             }
           ],
           "row_count": 1648,
-          "size_mb": 4.8,
+          "size_mb": 4.81,
           "timestamp_ranges": {
             "erc_endorsement_date": {
               "min": "2006-03-15",
@@ -3447,7 +3447,7 @@
             }
           ],
           "row_count": 761,
-          "size_mb": 1.53,
+          "size_mb": 1.54,
           "timestamp_ranges": {
             "planned_start_date": {
               "min": "2017-12-01",
@@ -3585,7 +3585,7 @@
               "nullable": false
             }
           ],
-          "row_count": 1809,
+          "row_count": 1810,
           "size_mb": 0.81,
           "timestamp_ranges": {
             "activity_date": {
@@ -3594,15 +3594,15 @@
             },
             "latest_date": {
               "min": "2015-07-03",
-              "max": "2026-10-26"
+              "max": "2026-10-27"
             },
             "last_received_date": {
               "min": "2005-12-28",
               "max": "2026-10-23"
             },
             "updated_at": {
-              "min": "2026-10-27T05:45:48.263259Z",
-              "max": "2026-10-27T05:45:48.263259Z"
+              "min": "2026-10-28T05:43:48.640424Z",
+              "max": "2026-10-28T05:43:48.640424Z"
             }
           },
           "stage": "dev"
@@ -3669,12 +3669,12 @@
               "nullable": false
             }
           ],
-          "row_count": 3128,
+          "row_count": 3132,
           "size_mb": 0.87,
           "timestamp_ranges": {
             "updated_at": {
-              "min": "2026-10-27T05:45:48.263259Z",
-              "max": "2026-10-27T05:45:48.263259Z"
+              "min": "2026-10-28T05:43:48.640424Z",
+              "max": "2026-10-28T05:43:48.640424Z"
             }
           },
           "stage": "dev"
@@ -3895,9 +3895,9 @@
       ],
       "schedule": "At 20:00 UTC",
       "last_run": {
-        "start": "2026-10-26T20:00:03.338000Z",
-        "end": "2026-10-26T20:24:12.289000Z",
-        "duration_min": 24,
+        "start": "2026-10-27T20:00:05.410000Z",
+        "end": "2026-10-27T23:23:06.809000Z",
+        "duration_min": 203,
         "status": "success"
       },
       "tags": [
@@ -3954,23 +3954,23 @@
             }
           ],
           "row_count": 8134,
-          "size_mb": 1.38,
+          "size_mb": 1.4,
           "timestamp_ranges": {
             "issued_time": {
               "min": "2024-09-10T23:38:34.150140Z",
-              "max": "2026-10-26T20:15:43.577328Z"
+              "max": "2026-10-27T23:07:00.647362Z"
             },
             "monitoring_date": {
               "min": "2024-09-10",
-              "max": "2026-10-26"
+              "max": "2026-10-27"
             },
             "issued_date": {
               "min": "2024-09-08",
-              "max": "2026-10-26"
+              "max": "2026-10-27"
             },
             "valid_date": {
               "min": "2024-09-08",
-              "max": "2026-11-06"
+              "max": "2026-11-07"
             }
           },
           "stage": "dev"
@@ -3981,8 +3981,8 @@
           "container": "projects",
           "prefix": "ds-aa-nga-flooding/monitoring",
           "stage": "dev",
-          "blob_size_mb": 67.11,
-          "blob_count": 308
+          "blob_size_mb": 67.31,
+          "blob_count": 309
         }
       ]
     },
@@ -4001,10 +4001,10 @@
       ],
       "schedule": "At 01:30 UTC",
       "last_run": {
-        "start": "2026-10-27T01:30:03.455000Z",
-        "end": "2026-10-27T01:38:30.501000Z",
+        "start": "2026-10-28T01:30:04.277000Z",
+        "end": "2026-10-28T01:38:45.891000Z",
         "duration_min": 8,
-        "status": "success"
+        "status": "failed"
       },
       "tags": [
         "monitoring"
@@ -4019,10 +4019,10 @@
         "Job Compute (single node)"
       ],
       "duration": {
-        "median_sec": 618,
-        "p25_sec": 552,
-        "p75_sec": 656,
-        "n": 19
+        "median_sec": 610,
+        "p25_sec": 550,
+        "p75_sec": 654,
+        "n": 18
       },
       "output_schemas": [],
       "blob_storage": [
@@ -4030,8 +4030,8 @@
           "container": "projects",
           "prefix": "ds-aa-nga-flooding/monitoring",
           "stage": "dev",
-          "blob_size_mb": 67.11,
-          "blob_count": 308
+          "blob_size_mb": 67.31,
+          "blob_count": 309
         }
       ]
     },
@@ -4054,9 +4054,9 @@
       ],
       "schedule": "At 23:15 UTC",
       "last_run": {
-        "start": "2026-10-26T23:15:02.183000Z",
-        "end": "2026-10-26T23:44:38.816000Z",
-        "duration_min": 29,
+        "start": "2026-10-27T23:15:03.063000Z",
+        "end": "2026-10-27T23:42:32.003000Z",
+        "duration_min": 27,
         "status": "success"
       },
       "tags": [
@@ -4072,7 +4072,7 @@
         "Job Compute (single node)"
       ],
       "duration": {
-        "median_sec": 1663,
+        "median_sec": 1686,
         "p25_sec": 1525,
         "p75_sec": 1825,
         "n": 20
@@ -4271,9 +4271,9 @@
       ],
       "schedule": "At 20:00 UTC",
       "last_run": {
-        "start": "2026-10-26T20:00:05.986000Z",
-        "end": "2026-10-26T20:10:09.630000Z",
-        "duration_min": 10,
+        "start": "2026-10-27T20:00:07.817000Z",
+        "end": "2026-10-27T20:15:43.627000Z",
+        "duration_min": 15,
         "status": "success"
       },
       "tags": [
@@ -4289,9 +4289,9 @@
         "Job Compute (single node)"
       ],
       "duration": {
-        "median_sec": 1060,
+        "median_sec": 1041,
         "p25_sec": 864,
-        "p75_sec": 1607,
+        "p75_sec": 1415,
         "n": 20
       },
       "output_schemas": [
@@ -4330,19 +4330,19 @@
             }
           ],
           "row_count": 2170,
-          "size_mb": 0.34,
+          "size_mb": 0.35,
           "timestamp_ranges": {
             "monitoring_date": {
               "min": "2025-08-15",
-              "max": "2026-10-26"
+              "max": "2026-10-27"
             },
             "issued_date": {
               "min": "2025-08-15",
-              "max": "2026-10-26"
+              "max": "2026-10-27"
             },
             "valid_date": {
               "min": "2025-08-16",
-              "max": "2026-11-09"
+              "max": "2026-11-10"
             }
           },
           "stage": "dev"
@@ -4353,8 +4353,8 @@
           "container": "projects",
           "prefix": "pa-aa-tcd-flooding/monitoring",
           "stage": "dev",
-          "blob_size_mb": 22.84,
-          "blob_count": 159
+          "blob_size_mb": 22.94,
+          "blob_count": 160
         }
       ]
     },
@@ -4369,9 +4369,9 @@
       ],
       "schedule": "At 03:30 UTC",
       "last_run": {
-        "start": "2026-10-27T03:30:03.517000Z",
-        "end": "2026-10-27T03:37:53.884000Z",
-        "duration_min": 7,
+        "start": "2026-10-28T03:30:01.785000Z",
+        "end": "2026-10-28T03:38:43.525000Z",
+        "duration_min": 8,
         "status": "success"
       },
       "tags": [
@@ -4385,8 +4385,8 @@
         "Job Compute (single node)"
       ],
       "duration": {
-        "median_sec": 554,
-        "p25_sec": 497,
+        "median_sec": 524,
+        "p25_sec": 475,
         "p75_sec": 631,
         "n": 20
       },
@@ -4396,8 +4396,8 @@
           "container": "projects",
           "prefix": "ds-aa-tracking/snapshot",
           "stage": "dev",
-          "blob_size_mb": 294.35,
-          "blob_count": 1943
+          "blob_size_mb": 297.07,
+          "blob_count": 1953
         }
       ]
     },
@@ -4648,9 +4648,9 @@
       ],
       "schedule": "At 22:00 UTC",
       "last_run": {
-        "start": "2026-10-26T22:00:49.208000Z",
-        "end": "2026-10-26T22:08:41.814000Z",
-        "duration_min": 7,
+        "start": "2026-10-27T22:00:47.671000Z",
+        "end": "2026-10-27T22:07:39.270000Z",
+        "duration_min": 6,
         "status": "success"
       },
       "tags": [
@@ -4667,7 +4667,7 @@
       ],
       "duration": {
         "median_sec": 542,
-        "p25_sec": 475,
+        "p25_sec": 460,
         "p75_sec": 708,
         "n": 20
       },
@@ -4810,9 +4810,9 @@
       ],
       "schedule": "At 04:15, 10:15, 16:15 and 22:15 UTC",
       "last_run": {
-        "start": "2026-10-27T04:15:02.121000Z",
-        "end": "2026-10-27T04:24:58.320000Z",
-        "duration_min": 9,
+        "start": "2026-10-28T04:15:02.895000Z",
+        "end": "2026-10-28T04:25:03.034000Z",
+        "duration_min": 10,
         "status": "success"
       },
       "tags": [
@@ -4828,9 +4828,9 @@
         "Job Compute (single node)"
       ],
       "duration": {
-        "median_sec": 430,
-        "p25_sec": 289,
-        "p75_sec": 484,
+        "median_sec": 464,
+        "p25_sec": 341,
+        "p75_sec": 581,
         "n": 20
       },
       "output_schemas": [],
@@ -4839,8 +4839,8 @@
           "container": "projects",
           "prefix": "ds-aa-hti-hurricanes/monitoring",
           "stage": "dev",
-          "blob_size_mb": 1.18,
-          "blob_count": 176
+          "blob_size_mb": 2.74,
+          "blob_count": 183
         }
       ]
     },
@@ -4879,9 +4879,9 @@
       ],
       "schedule": "At 03:30, 09:30, 15:30 and 21:30 UTC",
       "last_run": {
-        "start": "2026-10-27T03:30:02.549000Z",
-        "end": "2026-10-27T03:43:45.974000Z",
-        "duration_min": 13,
+        "start": "2026-10-28T03:30:03.030000Z",
+        "end": "2026-10-28T03:41:20.174000Z",
+        "duration_min": 11,
         "status": "success"
       },
       "tags": [
@@ -4897,9 +4897,9 @@
         "Job Compute (single node)"
       ],
       "duration": {
-        "median_sec": 818,
-        "p25_sec": 748,
-        "p75_sec": 866,
+        "median_sec": 801,
+        "p25_sec": 733,
+        "p75_sec": 823,
         "n": 20
       },
       "output_schemas": [
@@ -5086,11 +5086,11 @@
             }
           ],
           "row_count": 212800,
-          "size_mb": 97.11,
+          "size_mb": 97.12,
           "timestamp_ranges": {
             "issued_time": {
               "min": "1990-05-13T00:00:00",
-              "max": "2026-10-27T03:00:00"
+              "max": "2026-10-28T03:00:00"
             },
             "valid_time": {
               "min": "1990-05-13T12:00:00",
@@ -5284,7 +5284,7 @@
           "timestamp_ranges": {
             "issued_time": {
               "min": "2017-05-09T18:00:00",
-              "max": "2026-10-27T00:00:00"
+              "max": "2026-10-28T00:00:00"
             }
           },
           "stage": "prod"
@@ -5311,9 +5311,9 @@
       ],
       "schedule": "At 03:00, 09:00, 15:00 and 21:00 UTC",
       "last_run": {
-        "start": "2026-10-27T03:00:03.540000Z",
-        "end": "2026-10-27T03:10:09.835000Z",
-        "duration_min": 10,
+        "start": "2026-10-28T03:00:03.825000Z",
+        "end": "2026-10-28T03:09:30.267000Z",
+        "duration_min": 9,
         "status": "success"
       },
       "tags": [
@@ -5329,9 +5329,9 @@
         "Job Compute (single node)"
       ],
       "duration": {
-        "median_sec": 589,
-        "p25_sec": 576,
-        "p75_sec": 611,
+        "median_sec": 606,
+        "p25_sec": 578,
+        "p75_sec": 640,
         "n": 17
       },
       "output_schemas": [
@@ -5538,7 +5538,7 @@
           "timestamp_ranges": {
             "last_updated": {
               "min": "2026-05-12T17:17:51.904216",
-              "max": "2026-10-27T03:09:36.765183"
+              "max": "2026-10-28T03:08:58.413839"
             }
           },
           "stage": "prod"
@@ -5557,9 +5557,9 @@
       ],
       "schedule": "Triggered by NHC Pipeline, [dev adm_tdowning] NHC Pipeline",
       "last_run": {
-        "start": "2026-10-27T03:38:47.431000Z",
-        "end": "2026-10-27T03:45:08.167000Z",
-        "duration_min": 6,
+        "start": "2026-10-28T03:37:13.230000Z",
+        "end": "2026-10-28T03:45:39.283000Z",
+        "duration_min": 8,
         "status": "success"
       },
       "tags": [
@@ -5575,8 +5575,8 @@
         "Job Compute (single node)"
       ],
       "duration": {
-        "median_sec": 535,
-        "p25_sec": 459,
+        "median_sec": 536,
+        "p25_sec": 466,
         "p75_sec": 573,
         "n": 20
       },
@@ -5594,9 +5594,9 @@
       ],
       "schedule": "At 17:15 UTC",
       "last_run": {
-        "start": "2026-10-26T17:15:03.378000Z",
-        "end": "2026-10-26T17:24:16.653000Z",
-        "duration_min": 9,
+        "start": "2026-10-27T17:15:03.313000Z",
+        "end": "2026-10-27T17:25:13.532000Z",
+        "duration_min": 10,
         "status": "success"
       },
       "tags": [
@@ -5635,8 +5635,8 @@
       ],
       "schedule": "At 04:15, 10:15, 16:15 and 22:15 UTC",
       "last_run": {
-        "start": "2026-10-27T04:15:02.489000Z",
-        "end": "2026-10-27T04:22:58.040000Z",
+        "start": "2026-10-28T04:15:02.737000Z",
+        "end": "2026-10-28T04:22:33.045000Z",
         "duration_min": 7,
         "status": "success"
       },
@@ -5653,9 +5653,9 @@
         "Job Compute (single node)"
       ],
       "duration": {
-        "median_sec": 475,
-        "p25_sec": 462,
-        "p75_sec": 510,
+        "median_sec": 465,
+        "p25_sec": 446,
+        "p75_sec": 476,
         "n": 20
       },
       "output_schemas": [],
@@ -5680,10 +5680,10 @@
       ],
       "schedule": "At 20:00 UTC",
       "last_run": {
-        "start": "2026-10-26T23:00:38.654000Z",
-        "end": "2026-10-26T23:24:27.578000Z",
-        "duration_min": 23,
-        "status": "success"
+        "start": "2026-10-27T23:00:38.488000Z",
+        "end": "2026-10-27T23:08:35.891000Z",
+        "duration_min": 7,
+        "status": "failed"
       },
       "tags": [
         "dataset-ingest"
@@ -5698,10 +5698,10 @@
         "Job Compute"
       ],
       "duration": {
-        "median_sec": 1273,
-        "p25_sec": 1176,
-        "p75_sec": 1414,
-        "n": 20
+        "median_sec": 1283,
+        "p25_sec": 1173,
+        "p75_sec": 1429,
+        "n": 19
       },
       "output_schemas": [
         {
@@ -5939,9 +5939,9 @@
       ],
       "schedule": "At 14:40 UTC",
       "last_run": {
-        "start": "2026-10-26T14:40:58.194000Z",
-        "end": "2026-10-26T15:11:31.358000Z",
-        "duration_min": 30,
+        "start": "2026-10-27T14:40:57.614000Z",
+        "end": "2026-10-27T15:04:50.832000Z",
+        "duration_min": 23,
         "status": "success"
       },
       "tags": [
@@ -5955,8 +5955,8 @@
         "Job Compute"
       ],
       "duration": {
-        "median_sec": 1680,
-        "p25_sec": 1633,
+        "median_sec": 1674,
+        "p25_sec": 1594,
         "p75_sec": 1790,
         "n": 20
       },
@@ -6034,7 +6034,7 @@
           "timestamp_ranges": {
             "valid_date": {
               "min": "1998-01-01",
-              "max": "2026-10-25"
+              "max": "2026-10-26"
             }
           },
           "stage": "prod"
@@ -6045,8 +6045,8 @@
           "container": "raster",
           "prefix": "imerg/daily/late/v7/processed",
           "stage": "prod",
-          "blob_size_gb": 156.1,
-          "blob_count": 10526
+          "blob_size_gb": 156.11,
+          "blob_count": 10527
         }
       ]
     },
